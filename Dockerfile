@@ -12,6 +12,7 @@ RUN ionic config set -g yarn true
 
 # copy src
 COPY package.json ./package.json
+COPY myhomeappconfig.ts .
 
 # restore
 RUN yarn install
