@@ -5,13 +5,64 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <!-- Real floating action button, fixed. It will not scroll with the content -->
+  <ion-fab top right edge>
+    <button ion-fab mini (click)=addItem()>
+      <ion-icon name="add"></ion-icon>
+    </button>
+    <ion-fab-list>
+      <button ion-fab>
+        <ion-icon name="logo-facebook"></ion-icon>
+      </button>
+      <button ion-fab>
+        <ion-icon name="logo-twitter"></ion-icon>
+      </button>
+      <button ion-fab>
+        <ion-icon name="logo-vimeo"></ion-icon>
+      </button>
+      <button ion-fab>
+        <ion-icon name="logo-googleplus"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <h1>Hello {{displayName}}</h1>
+
+  <button ion-button outline (click)="signInWithFacebook()">Login</button>
+  <button ion-button outline (click)="signOut()">Logout</button>
+
+  <ion-list>
+    <ion-list-header>
+      Einkausfliste
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let item of items">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="img/slimer.png">
+        </ion-avatar>
+        <h2>{{item.Name}}</h2>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button color="primary">
+          <ion-icon name="done"></ion-icon>
+          Erledigt
+        </button>
+        <button ion-button color="secondary">
+          <ion-icon name="alert"></ion-icon>
+          Wichtig
+        </button>
+      </ion-item-options>
+      <ion-item-options side="right">
+        <button ion-button color="alert">
+          <ion-icon name="trash"></ion-icon>
+          Löschen
+        </button>
+        <button ion-button color="primary">
+          <ion-icon name="create"></ion-icon>
+          Ändern
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
 </ion-content>
