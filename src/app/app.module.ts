@@ -19,7 +19,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 
-import { AppConfig } from '../../../../myhomeappconfig';
+import { AppConfig } from '../../myhomeappconfig';
 
 /*
 export class AppConfig {
