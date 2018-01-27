@@ -1,5 +1,5 @@
 # Build stage
-FROM node:6-alpine
+FROM node:6-alpine AS build-env
 
 WORKDIR /baan
 # RUN pwd
@@ -26,5 +26,5 @@ COPY . .
 RUN ionic build
 
 # Runtime stage
-CMD []
-#ENTRYPOINT ["/nodejs/bin/npm", "start"]
+FROM nginx:alpine
+COPY --from=build-env /baan/www /usr/share/nginx/html
