@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
 import { AngularFireModule } from 'angularfire2';
@@ -14,12 +15,15 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { ProductService } from '../services/product.service';
+import { AuthService } from '../services/auth.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 
 
 import { AppConfig } from '../../myhomeappconfig';
+import { LogoutPage } from '../pages/logout/logout';
+import { SplashPage } from '../pages/splash/splash';
+import { LoginPage } from '../pages/login/login';
 
 /*
 export class AppConfig {
@@ -40,10 +44,14 @@ export class AppConfig {
     AboutPage,
     ContactPage,
     HomePage,
+    LoginPage,
+    LogoutPage,
+    SplashPage,
     TabsPage
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(AppConfig.firebaseConfig),
     AngularFireDatabaseModule,
@@ -55,13 +63,16 @@ export class AppConfig {
     AboutPage,
     ContactPage,
     HomePage,
+    LoginPage,
+    LogoutPage,
+    SplashPage,
     TabsPage
   ],
   providers: [
     StatusBar,
-    SplashScreen,
     AngularFireDatabase,
     ProductService,
+    AuthService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
