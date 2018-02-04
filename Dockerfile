@@ -7,7 +7,6 @@ WORKDIR /baan
 # setup ionic
 RUN npm install -g node-gyp@3.6.2
 RUN npm install -g ionic
-RUN ionic help
 RUN ionic config set -g yarn true
 
 # copy src
