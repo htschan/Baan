@@ -1,42 +1,36 @@
-import { ModalController, AlertController } from "ionic-angular";
+import { AlertController, NavController } from "ionic-angular";
 import { LoginPage } from "../login/login";
 import { AuthService } from "../../services/auth.service";
+import { App, ViewController } from 'ionic-angular';
 
 export class NavGuard {
     _guardCandidate = true;
 
     constructor(
         public auth: AuthService,
-        public modalCtrl: ModalController,
+        public viewCtrl: ViewController,
+        public appCtrl: App,
+        public navCtrl: NavController,
         public alertCtrl: AlertController) {
     }
 
     async ionViewCanEnter() {
         return this.auth.isAuthenticated().then(authenicated => {
             if (authenicated)
+            {
+                console.log("ionViewCanEntger authenticated");
                 return true;
+            }
             else
                 return this.login();
         })
-        // if (this._user === null) {
-        //     return new Promise<boolean>((resolve, reject) => this.auth.authState.subscribe(user => {
-        //         if (user === null)
-        //             resolve(this.login());
-        //         else
-        //             resolve(true);
-        //     }));
-        // }
-        // return true;
     }
 
     async login() {
-        return new Promise<boolean>((resolve, reject) => {
-            let modal = this.modalCtrl.create(LoginPage);
-            modal.present();
-            modal.onDidDismiss(data => {
-                resolve(data);
-            });
-        });
+        console.log("nav.guard login");
+        this.navCtrl.popToRoot();
+        this.appCtrl.getRootNav().push(LoginPage);
+        return Promise.resolve(false);
     }
 
     // ionViewWillEnter() {

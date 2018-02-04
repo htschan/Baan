@@ -17,7 +17,8 @@ export class LogoutPage {
 
   logout() {
     this.auth.signOut();
-    this.viewCtrl.dismiss();
+    this.navCtrl.popToRoot();
+    // this.viewCtrl.dismiss();
   }
 
   cancel() {

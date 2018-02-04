@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { User } from '@firebase/auth-types';
@@ -11,20 +12,27 @@ export class AuthService {
     _user: User = null;
 
     constructor(private afAuth: AngularFireAuth,
-        private db: AngularFireDatabase) {
+        private db: AngularFireDatabase,
+        public events: Events) {
 
         afAuth.authState.subscribe((auth) => {
             this._user = auth;
+            if (this._user){
+                this.updateUserData();
+                this.events.publish('user:signin', this._user);
+            }
+            else
+                this.events.publish('user:signout', this._user);
         });
     }
 
     // Returns true if user is logged in
     get authenticated(): boolean {
-        return this.afAuth.authState !== null;
+        return this._user !== null;
     }
 
     // Returns current user
-    get currentUser(): any {
+    get currentUser(): User | null {
         return this.authenticated ? this._user : null;
     }
 
@@ -40,9 +48,10 @@ export class AuthService {
 
     async isAuthenticated(): Promise<boolean> {
         if (this._user === null) {
-            return new Promise<boolean>((resolve, reject) => this.afAuth.authState.subscribe(user => {
-                resolve(user !== null);
-            }));
+            return new Promise<boolean>((resolve, reject) =>
+                this.afAuth.authState.subscribe(user => {
+                    resolve(user !== null);
+                }));
         }
         return true;
     }
@@ -53,7 +62,7 @@ export class AuthService {
     }
 
     googleLogin(): Promise<any> {
-        return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+        return this.socialSignIn(new firebase.auth.GoogleAuthProvider());
     }
 
     facebookLogin(): Promise<any> {
@@ -95,8 +104,9 @@ export class AuthService {
 
     //// Sign Out ////
 
-    signOut(): void {
-        this.afAuth.auth.signOut();
+    signOut(): Promise<any> {
+        this.events.publish('user:signout', this._user);
+        return this.afAuth.auth.signOut();
     }
 
 
@@ -105,6 +115,9 @@ export class AuthService {
     private updateUserData(): void {
         // Writes user name and email to realtime db
         // useful if your app displays information about users or for admin features
+
+        if (this._user === null)
+            return;
 
         let path = `MyHome/Profiles/${this.currentUserId}`; // Endpoint on firebase
         let data = {

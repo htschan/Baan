@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, ViewController, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
+import { TabsPage } from '../tabs/tabs';
 
 
 @Component({
@@ -30,7 +31,11 @@ export class LoginPage {
   }
 
   signInWithFacebook() {
-    this.auth.facebookLogin();
+    this.auth.facebookLogin().then(() => {
+      console.log("login facebook logged in");
+      this.navCtrl.setRoot(TabsPage);
+      // this.navCtrl.push(HomePage);
+    })
   }
 
   signInWithTwitter() {
