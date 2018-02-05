@@ -1,23 +1,18 @@
-import { AlertController, NavController } from "ionic-angular";
 import { LoginPage } from "../login/login";
 import { AuthService } from "../../services/auth.service";
-import { App, ViewController } from 'ionic-angular';
+import { App } from 'ionic-angular';
 
 export class NavGuard {
     _guardCandidate = true;
 
     constructor(
         public auth: AuthService,
-        public viewCtrl: ViewController,
-        public appCtrl: App,
-        public navCtrl: NavController,
-        public alertCtrl: AlertController) {
+        public appCtrl: App) {
     }
 
     async ionViewCanEnter() {
         return this.auth.isAuthenticated().then(authenicated => {
-            if (authenicated)
-            {
+            if (authenicated) {
                 console.log("ionViewCanEntger authenticated");
                 return true;
             }
@@ -28,7 +23,6 @@ export class NavGuard {
 
     async login() {
         console.log("nav.guard login");
-        this.navCtrl.popToRoot();
         this.appCtrl.getRootNav().push(LoginPage);
         return Promise.resolve(false);
     }

@@ -47,7 +47,6 @@ export class LoginPage {
   }
 
   login() {
-    //this.showLoading();
     this.auth.facebookLogin();
   }
 

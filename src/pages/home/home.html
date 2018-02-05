@@ -1,6 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Home</ion-title>
+    <ion-title>Hello {{displayName}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -25,10 +26,6 @@
       </button>
     </ion-fab-list>
   </ion-fab>
-
-  <h1>Hello {{displayName}}</h1>
-
-  <button ion-button outline (click)="signOut()">Logout</button>
 
   <ion-list>
     <ion-list-header>
