@@ -34,20 +34,28 @@ export class LoginPage {
     this.auth.facebookLogin().then(() => {
       console.log("login facebook logged in");
       this.navCtrl.setRoot(TabsPage);
-      // this.navCtrl.push(HomePage);
-    })
+    });
   }
 
   signInWithTwitter() {
-    this.auth.twitterLogin();
+    this.auth.twitterLogin().then(() => {
+      console.log("login twitter logged in");
+      this.navCtrl.setRoot(TabsPage);
+    });
   }
 
   signInWithGoogle() {
-    this.auth.googleLogin();
+    this.auth.googleLogin().then(() => {
+      console.log("login google logged in");
+      this.navCtrl.setRoot(TabsPage);
+    });
   }
 
   login() {
-    this.auth.facebookLogin();
+    this.auth.emailLogin(this.registerCredentials.email, this.registerCredentials.password).then(() => {
+      console.log("login email/password logged in");
+      this.navCtrl.setRoot(TabsPage);
+    });
   }
 
   cancel() {
