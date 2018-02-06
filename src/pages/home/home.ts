@@ -6,6 +6,7 @@ import { NavGuard } from '../support/nav.guard';
 import { AuthService } from '../../services/auth.service';
 import { ShoppingItemVm } from '../../viewmodels/shoppingitemvm';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-home',
@@ -15,6 +16,7 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
 
   items: ShoppingItemVm[] = [];
   displayName;
+  shoppingListSubscription: Subscription;
 
   constructor(
     public auth: AuthService,
@@ -23,22 +25,28 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
     public events: Events) {
     super(auth, appCtrl);
     events.subscribe('user:signout', (user) => {
-      console.log("home.component user logged out")
+      console.log("home.component user logged out");
+      if (this.shoppingListSubscription && !this.shoppingListSubscription.closed)
+        this.shoppingListSubscription.unsubscribe();
     });
     events.subscribe('user:signin', (user) => {
       console.log("home.component user signed in");
       this.displayName = user.displayName;
+      if (!this.shoppingListSubscription)
+        this.shoppingListSubscription = this.prodService.getShoppinglist().subscribe(data => this.items = Object.assign(data));
     });
   }
 
   ngOnInit(): void {
     console.log("Home on init");
-    this.prodService.getShoppinglist().subscribe(data => this.items = Object.assign(data));
+    this.shoppingListSubscription = this.prodService.getShoppinglist().subscribe(data => this.items = Object.assign(data));
   }
 
   ngOnDestroy(): void {
     this.events.unsubscribe('user:signout');
     this.events.unsubscribe('user:signin');
+    if (this.shoppingListSubscription && !this.shoppingListSubscription.closed)
+      this.shoppingListSubscription.unsubscribe();
   }
 
   addItem() {

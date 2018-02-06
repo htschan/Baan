@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
+import { App } from 'ionic-angular';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-logout',
@@ -8,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LogoutPage {
 
-  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams,public auth: AuthService) {
+  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public auth: AuthService, public appCtrl: App) {
   }
 
   ionViewDidLoad() {
@@ -16,9 +18,11 @@ export class LogoutPage {
   }
 
   logout() {
-    this.auth.signOut();
-    this.navCtrl.popToRoot();
-    // this.viewCtrl.dismiss();
+    this.auth.signOut().then(() => {
+      this.viewCtrl.dismiss();
+      this.navCtrl.popToRoot();
+      this.appCtrl.getRootNav().push(LoginPage);
+    });
   }
 
   cancel() {

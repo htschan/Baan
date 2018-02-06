@@ -11,7 +11,7 @@ import { TabsPage } from '../tabs/tabs';
 export class LoginPage {
   title: String = ' ';
   loading: Loading;
-  registerCredentials = { "email": "demo@xxxx.ch", "password": "" };
+  registerCredentials = { "email": "a@sorawit.ch", "password": "" };
 
   constructor(public viewCtrl: ViewController,
     public navCtrl: NavController,
