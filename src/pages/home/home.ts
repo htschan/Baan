@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Events } from 'ionic-angular';
+import { Events, ModalController } from 'ionic-angular';
 import { App } from 'ionic-angular';
 import { ProductService } from '../../services/product.service';
 import { NavGuard } from '../support/nav.guard';
@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { ShoppingItemVm } from '../../viewmodels/shoppingitemvm';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subscription } from 'rxjs/Subscription';
+import { ShoppingItemPage } from '../shoppingitem/shoppingitem';
 
 @Component({
   selector: 'page-home',
@@ -22,6 +23,7 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
     public auth: AuthService,
     public appCtrl: App,
     public prodService: ProductService,
+    public modalCtrl: ModalController,
     public events: Events) {
     super(auth, appCtrl);
     events.subscribe('user:signout', (user) => {
@@ -50,6 +52,11 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
   }
 
   addItem() {
-    this.items.push(Object.assign({ Name: "sdfsdf" }));
+    let modal = this.modalCtrl.create(ShoppingItemPage);
+    modal.onDidDismiss(data => {
+      console.log(data);
+    });
+    modal.present();
+    //    this.items.push(Object.assign({ Name: "sdfsdf" }));
   }
 }

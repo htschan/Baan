@@ -24,6 +24,7 @@ import { AppConfig } from '../../myhomeappconfig';
 import { LogoutPage } from '../pages/logout/logout';
 import { SplashPage } from '../pages/splash/splash';
 import { LoginPage } from '../pages/login/login';
+import { ShoppingItemPage } from '../pages/shoppingitem/shoppingitem';
 
 /*
 export class AppConfig {
@@ -47,6 +48,7 @@ export class AppConfig {
     LoginPage,
     LogoutPage,
     SplashPage,
+    ShoppingItemPage,
     TabsPage
   ],
   imports: [
@@ -66,6 +68,7 @@ export class AppConfig {
     LoginPage,
     LogoutPage,
     SplashPage,
+    ShoppingItemPage,
     TabsPage
   ],
   providers: [
