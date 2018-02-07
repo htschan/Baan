@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
 import { AngularFireModule } from 'angularfire2';
@@ -25,6 +26,8 @@ import { LogoutPage } from '../pages/logout/logout';
 import { SplashPage } from '../pages/splash/splash';
 import { LoginPage } from '../pages/login/login';
 import { ShoppingItemPage } from '../pages/shoppingitem/shoppingitem';
+import { Validators } from '@angular/forms/src/validators';
+import { FormBuilder } from '@angular/forms';
 
 /*
 export class AppConfig {
@@ -53,6 +56,7 @@ export class AppConfig {
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(AppConfig.firebaseConfig),
