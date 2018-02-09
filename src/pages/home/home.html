@@ -16,7 +16,7 @@
         <ion-icon name="logo-facebook" (click)=addItem()></ion-icon>
       </button>
       <button ion-fab>
-        <ion-icon name="logo-twitter"></ion-icon>
+        <ion-icon name="logo-twitter" (click)=selectProduct()></ion-icon>
       </button>
       <button ion-fab>
         <ion-icon name="logo-vimeo"></ion-icon>
@@ -31,7 +31,7 @@
     <ion-list-header>
       Einkausfliste
     </ion-list-header>
-    <ion-item-sliding *ngFor="let item of items">
+    <ion-item-sliding *ngFor="let item of prodService.shoppingitems | async">
       <ion-item>
         <ion-avatar item-start>
           <!-- <img src="img/slimer.png"> -->
@@ -49,12 +49,12 @@
         </button>
       </ion-item-options>
       <ion-item-options side="right">
-        <button ion-button color="alert">
+        <button ion-button color="alert" (click)="deleteItem(item.key)">
           <ion-icon name="trash"></ion-icon>
           Löschen
         </button>
-        <button ion-button color="primary">
-          <ion-icon name="create"></ion-icon>
+        <button ion-button color="primary" (click)="editItem(item)">
+          <ion-icon name="edit"></ion-icon>
           Ändern
         </button>
       </ion-item-options>

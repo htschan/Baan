@@ -7,21 +7,21 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   templateUrl: 'shoppingitem.html',
 })
 export class ShoppingItemPage {
-  myParam: string;
+  param: any;
 
   itemForm: FormGroup;
 
   constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder) {
-    this.myParam = navParams.get('myParam');
+    this.param = navParams.get('data');
     this.createForm();
   }
 
   createForm() {
     this.itemForm = this.fb.group({
-      name: '',
-      description: '',
-      important: false,
-      favorite: false
+      name: this.param ? this.param.Name : '',
+      description: this.param ? this.param.Description : '',
+      important: this.param ? this.param.Important : false,
+      favorite: this.param ? this.param.Favorite : false
     });
   }
   ionViewDidLoad() {

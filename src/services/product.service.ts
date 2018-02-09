@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ProductVm } from '../viewmodels/productvm';
 import { ShoppingItemVm } from '../viewmodels/shoppingitemvm';
@@ -9,14 +9,25 @@ const FbBase = "/MyHome";
 @Injectable()
 export class ProductService {
     categories: Observable<any[]>;
-    products: Observable<ProductVm[]>;
+    productsRef: AngularFireList<any>;
+    products: Observable<any[]>;
     favorites: Observable<any[]>;
-    shoppingitems: Observable<ShoppingItemVm[]>;
+    shoppingitemsRef: AngularFireList<any>;
+    shoppingitems: Observable<any[]>;
 
     constructor(af: AngularFireDatabase) {
         this.categories = af.list(`${FbBase}/ProductCategories`).valueChanges();
-        this.products = af.list<ProductVm>(`${FbBase}/Products/Coop3/NoCategory`).valueChanges();
-        this.shoppingitems = af.list<ShoppingItemVm>(`${FbBase}/Shoppinglist`).valueChanges();
+
+        this.productsRef = af.list<ProductVm>(`${FbBase}/Products/Coop3/NoCategory`);
+        this.products = this.productsRef.snapshotChanges().map(changes => {
+            return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+        });
+
+        this.shoppingitemsRef = af.list(`${FbBase}/Shoppinglist`);
+        // Use snapshotChanges().map() to store the key
+        this.shoppingitems = this.shoppingitemsRef.snapshotChanges().map(changes => {
+            return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+        });
     }
 
     getCategories(): Observable<any[]> {
@@ -42,12 +53,12 @@ export class ProductService {
     // buyShoppinglistItem(item: any) {
     //     this.shoppingitems.remove(item);
     // }
-    // deleteShoppinglistItem(item: any) {
-    //     this.shoppingitems.remove(item);
-    // }
-    // addShoppinglistItem(item: ShoppingItem) {
-    //     this.shoppingitems.push([item]);
-    // }
+    deleteShoppinglistItem(key: string) {
+        this.shoppingitemsRef.remove(key);
+    }
+    addShoppinglistItem(item: ShoppingItemVm) {
+        this.shoppingitemsRef.push(item);
+    }
     // updateShoppinglistItem(key: string, item: any) {
     //     this.shoppingitems.update(key, item);
     // }

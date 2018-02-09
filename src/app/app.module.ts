@@ -26,8 +26,7 @@ import { LogoutPage } from '../pages/logout/logout';
 import { SplashPage } from '../pages/splash/splash';
 import { LoginPage } from '../pages/login/login';
 import { ShoppingItemPage } from '../pages/shoppingitem/shoppingitem';
-import { Validators } from '@angular/forms/src/validators';
-import { FormBuilder } from '@angular/forms';
+import { SelectProductPage } from '../pages/selectproduct/selectproduct';
 
 /*
 export class AppConfig {
@@ -52,6 +51,7 @@ export class AppConfig {
     LogoutPage,
     SplashPage,
     ShoppingItemPage,
+    SelectProductPage,
     TabsPage
   ],
   imports: [
@@ -73,6 +73,7 @@ export class AppConfig {
     LogoutPage,
     SplashPage,
     ShoppingItemPage,
+    SelectProductPage,
     TabsPage
   ],
   providers: [

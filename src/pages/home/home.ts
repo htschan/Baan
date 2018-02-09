@@ -8,6 +8,7 @@ import { ShoppingItemVm } from '../../viewmodels/shoppingitemvm';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subscription } from 'rxjs/Subscription';
 import { ShoppingItemPage } from '../shoppingitem/shoppingitem';
+import { SelectProductPage } from '../selectproduct/selectproduct';
 
 @Component({
   selector: 'page-home',
@@ -51,12 +52,39 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
       this.shoppingListSubscription.unsubscribe();
   }
 
+  deleteItem(key: any) {
+    this.prodService.deleteShoppinglistItem(key);
+
+  }
+
+  editItem(item: any) {
+    let modal = this.modalCtrl.create(ShoppingItemPage, { data: item });
+    modal.onDidDismiss(data => {
+      if (data) {
+        let vm = new ShoppingItemVm(data);
+        this.prodService.addShoppinglistItem(vm);
+      }
+    });
+    modal.present();
+  }
+
   addItem() {
     let modal = this.modalCtrl.create(ShoppingItemPage);
     modal.onDidDismiss(data => {
       if (data) {
-        console.log(data);
-        this.items.push(Object.assign(data));
+        let vm = new ShoppingItemVm(data);
+        this.prodService.addShoppinglistItem(vm);
+      }
+    });
+    modal.present();
+  }
+
+  selectProduct(){
+    let modal = this.modalCtrl.create(SelectProductPage);
+    modal.onDidDismiss(data => {
+      if (data) {
+        let vm = new ShoppingItemVm(data);
+        this.prodService.addShoppinglistItem(vm);
       }
     });
     modal.present();
