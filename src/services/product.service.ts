@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ProductVm } from '../viewmodels/productvm';
 import { ShoppingItemVm } from '../viewmodels/shoppingitemvm';
 
+export const BUILD_INFO = new InjectionToken<string>('BUILD_INFO');
 const FbBase = "/MyHome";
 
 @Injectable()

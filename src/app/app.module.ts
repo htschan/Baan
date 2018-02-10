@@ -15,7 +15,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { ProductService } from '../services/product.service';
+import { ProductService, BUILD_INFO } from '../services/product.service';
 import { AuthService } from '../services/auth.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -81,6 +81,7 @@ export class AppConfig {
     AngularFireDatabase,
     ProductService,
     AuthService,
+    { provide: BUILD_INFO, useValue: AppConfig.appConfig.bts },
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
