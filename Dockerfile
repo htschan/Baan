@@ -22,7 +22,7 @@ COPY . .
 # test
 
 # publish
-RUN ionic build --sourcemaps
+RUN ionic build --prod
 
 # Runtime stage
 FROM nginx:alpine
