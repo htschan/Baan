@@ -11,9 +11,9 @@
     typescript "~2.6.1"
     webpack-sources "^1.0.1"
 
-"@angular/animations@^5.2.4":
-  version "5.2.4"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-5.2.4.tgz#c5ec749d84a0434733a28a82c6cb6a4e15246201"
+"@angular/animations@5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-5.0.3.tgz#f08b07007b149fa12679c346fa55820f544b19e0"
   dependencies:
     tslib "^1.7.1"
 

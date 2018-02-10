@@ -1,6 +1,5 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
@@ -57,7 +56,6 @@ export class AppConfig {
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(AppConfig.firebaseConfig),
     AngularFireDatabaseModule,
