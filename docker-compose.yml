@@ -1,0 +1,7 @@
+version: '2'
+services:
+  baan:
+    build: .
+    ports:
+    - 8088:80
+
