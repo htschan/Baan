@@ -44,7 +44,7 @@ export class ProductService {
         this.items$ = Observable.combineLatest(
             this.catFilter$
         ).switchMap(([category]) =>
-            afs.collection('/MyHome/Products/Coop2', ref => {
+            afs.collection(`${FbBase}/Products/Coop2`, ref => {
                 let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
                 if (category) { query = query.where('Cat', '==', category) };
                 return query;
