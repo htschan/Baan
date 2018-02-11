@@ -34,7 +34,7 @@
     <ion-item-sliding *ngFor="let item of prodService.shoppingitems | async">
       <ion-item>
         <ion-avatar item-start>
-          <!-- <img src="img/slimer.png"> -->
+          <img [src]="item.Url">
         </ion-avatar>
         <h2>{{item.Name}}</h2>
       </ion-item>
