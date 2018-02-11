@@ -22,7 +22,7 @@ COPY . .
 # test
 
 # publish
-RUN ionic build --minifyjs --minifycss --aot
+RUN ionic build
 
 # Runtime stage
 FROM nginx:alpine
