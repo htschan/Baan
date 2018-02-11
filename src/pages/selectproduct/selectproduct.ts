@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'page-selectproduct',
@@ -7,11 +8,20 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class SelectProductPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  cat;
+  constructor(
+    public viewCtrl: ViewController,
+    public navCtrl: NavController, 
+    public prodService: ProductService,
+    public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SelectproductPage');
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 
 }

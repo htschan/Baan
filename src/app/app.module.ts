@@ -6,6 +6,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { MyApp } from './app.component';
 
@@ -34,6 +35,7 @@ export class AppConfig {
     apiKey: "AUlj8AHNöiet12UXBjaZUTsalDBHD67D-HqaHgl",
     authDomain: "aaaaaa-r7364.firebaseapp.com",
     databaseURL: "https://aaaaaa-r7364.firebaseio.com",
+    projectId: "myproj-f3489",
     storageBucket: "aaaaaa-r7364.appspot.com",
     messagingSenderId: "234972364927"
   };  
@@ -59,7 +61,8 @@ export class AppConfig {
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(AppConfig.firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

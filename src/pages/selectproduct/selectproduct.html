@@ -2,6 +2,9 @@
 
   <ion-navbar>
     <ion-title>Select Product</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Abbrechen</button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -9,4 +12,28 @@
 
 <ion-content padding>
 
+  <ion-list>
+    <ion-item>
+      <ion-label>Kategorie</ion-label>
+      <ion-select [(ngModel)]="cat" (ionChange)="prodService.filterByCategory(cat)">
+        <ion-option value="nes" *ngFor="let cat of prodService.categories | async">{{cat.Name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngFor="let item of prodService.items$ | async">
+      <ion-item>
+        <ion-avatar item-start>
+          <img [src]="item.Url">
+        </ion-avatar>
+        <h2>{{item.Name}}</h2>
+      </ion-item>
+    </ion-item>
+    <ion-item *ngFor="let item of prodService.products | async">
+      <ion-item>
+        <ion-avatar item-start>
+          <img [src]="item.Url">
+        </ion-avatar>
+        <h2>{{item.Name}}</h2>
+      </ion-item>
+    </ion-item>
+  </ion-list>
 </ion-content>
