@@ -1,12 +1,11 @@
 import { Injectable, InjectionToken } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList, AngularFireAction } from 'angularfire2/database';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ProductVm } from '../viewmodels/productvm';
 import { ShoppingItemVm } from '../viewmodels/shoppingitemvm';
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/combineLatest';
 import { firebase } from 'firebase/firestore';
 
 export const BUILD_INFO = new InjectionToken<string>('BUILD_INFO');
@@ -22,7 +21,7 @@ export class ProductService {
     shoppingitemsRef: AngularFireList<any>;
     shoppingitems: Observable<any[]>;
     catFilter$: BehaviorSubject<string | null>;
-    items$: Observable<any[]>;
+    items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
 
     constructor(af: AngularFireDatabase, afs: AngularFirestore) {
         this.catFilter$ = new BehaviorSubject(null);
@@ -41,19 +40,15 @@ export class ProductService {
             return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
         });
 
-        this.items$ = Observable.combineLatest(
-            this.catFilter$
-        ).switchMap(([category]) =>
-            afs.collection(`${FbBase}/Products/Coop2`, ref => {
-                let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
-                if (category) { query = query.where('Cat', '==', category) };
-                return query;
-            }).valueChanges()
+        this.items$ = this.catFilter$.switchMap(cat =>
+            af.list(`${FbBase}/Products/Coop2`, ref =>
+                cat ? ref.orderByChild('Cat').equalTo(cat) : ref
+            ).snapshotChanges()
         );
     }
 
-    filterByCategory(category: string | null) {
-        this.catFilter$.next(category);
+    filterByCategory($event: any | null) {
+        this.catFilter$.next($event);
     }
 
     getCategories(): Observable<any[]> {

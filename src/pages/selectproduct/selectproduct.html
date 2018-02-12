@@ -9,31 +9,25 @@
 
 </ion-header>
 
-
 <ion-content padding>
-
   <ion-list>
     <ion-item>
       <ion-label>Kategorie</ion-label>
-      <ion-select [(ngModel)]="cat" (ionChange)="prodService.filterByCategory(cat)">
-        <ion-option value="nes" *ngFor="let cat of prodService.categories | async">{{cat.Name}}</ion-option>
+      <ion-select [(ngModel)]="cat" (ngModelChange)="prodService.filterByCategory($event)">
+        <ion-option *ngFor="let cat of prodService.categories | async">{{cat.Name}}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item *ngFor="let item of prodService.items$ | async">
-      <ion-item>
-        <ion-avatar item-start>
-          <img [src]="item.Url">
-        </ion-avatar>
-        <h2>{{item.Name}}</h2>
+    <div *ngIf="prodService.items$ | async; let items;">
+      <ion-item *ngFor="let item of items">
+        <ion-item>
+          <ion-avatar item-start>
+            <img [src]="item.payload.val().Url">
+          </ion-avatar>
+          <h2>{{item.payload.val().Name}}</h2>
+          <code>{{ item.payload.key }}</code>
+        </ion-item>
       </ion-item>
-    </ion-item>
-    <ion-item *ngFor="let item of prodService.products | async">
-      <ion-item>
-        <ion-avatar item-start>
-          <img [src]="item.Url">
-        </ion-avatar>
-        <h2>{{item.Name}}</h2>
-      </ion-item>
-    </ion-item>
+      <div *ngIf="items.length === 0">No results, try clearing filters</div>
+    </div>
   </ion-list>
 </ion-content>
