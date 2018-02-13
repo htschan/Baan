@@ -1,10 +1,21 @@
+import { ProductVm } from "./productvm";
+
 export class ShoppingItemVm {
 
-    constructor(data: any){
-        this.Name = data.name;
-        this.Description = data.description;
-        this.Important = data.important;
-        this.Favorite = data.favorite;
+    constructor(data: any | null) {
+        if (data) {
+            this.Name = data.name;
+            this.Description = data.description;
+            this.Important = data.important;
+            this.Favorite = data.favorite;
+        }
+    }
+    static fromProductItem(data: ProductVm): ShoppingItemVm {
+        let item = new this({ name: data.Name, description: "", important: false, favorite: false });
+        item.Price = data.Price;
+        item.Quantity = data.Quantity;
+        item.Url = data.Url;
+        return item;
     }
     Name: string;
     Description: string;

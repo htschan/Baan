@@ -20,6 +20,10 @@ export class SelectProductPage {
     console.log('ionViewDidLoad SelectproductPage');
   }
 
+  selectProduct(item: any){
+    this.viewCtrl.dismiss(item);
+  }
+
   dismiss() {
     this.viewCtrl.dismiss();
   }

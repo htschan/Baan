@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Select Product</ion-title>
+    <ion-title>Selektiere Produkt</ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">Abbrechen</button>
     </ion-buttons>
@@ -18,7 +18,7 @@
       </ion-select>
     </ion-item>
     <div *ngIf="prodService.items$ | async; let items;">
-      <ion-item *ngFor="let item of items">
+      <ion-item *ngFor="let item of items" (click)="selectProduct(item.payload.val())">
         <ion-item>
           <ion-avatar item-start>
             <img [src]="item.payload.val().Url">
@@ -27,7 +27,7 @@
           <code>{{ item.payload.key }}</code>
         </ion-item>
       </ion-item>
-      <div *ngIf="items.length === 0">No results, try clearing filters</div>
+      <div *ngIf="items.length === 0">Kein Suchresultat</div>
     </div>
   </ion-list>
 </ion-content>
