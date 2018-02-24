@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Events, ModalController } from 'ionic-angular';
+import { Events, ModalController, FabContainer } from 'ionic-angular';
 import { App } from 'ionic-angular';
 import { ProductService } from '../../services/product.service';
 import { NavGuard } from '../support/nav.guard';
@@ -8,6 +8,7 @@ import { ShoppingItemVm } from '../../viewmodels/shoppingitemvm';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ShoppingItemPage } from '../shoppingitem/shoppingitem';
 import { SelectProductPage } from '../selectproduct/selectproduct';
+import { ShoppingItemViewPage } from '../shoppingitemview/shoppingitemview';
 
 @Component({
   selector: 'page-home',
@@ -32,6 +33,7 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
       console.log("home.component user signed in");
       this.displayName = user.displayName;
     });
+    console.dir(AuthService);
   }
 
   ngOnInit(): void {
@@ -48,6 +50,11 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
 
   }
 
+  viewItem(item: any) {
+    let modal = this.modalCtrl.create(ShoppingItemViewPage, { data: item });
+    modal.present();
+  }
+
   editItem(item: any) {
     let modal = this.modalCtrl.create(ShoppingItemPage, { data: item });
     modal.onDidDismiss(data => {
@@ -59,7 +66,8 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
     modal.present();
   }
 
-  addItem() {
+  addItem(fab: FabContainer) {
+    fab.close();
     let modal = this.modalCtrl.create(ShoppingItemPage);
     modal.onDidDismiss(data => {
       if (data) {
@@ -70,7 +78,8 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
     modal.present();
   }
 
-  selectProduct() {
+  selectProduct(fab: FabContainer) {
+    fab.close();
     let modal = this.modalCtrl.create(SelectProductPage);
     modal.onDidDismiss(data => {
       if (data) {

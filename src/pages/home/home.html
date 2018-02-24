@@ -7,22 +7,16 @@
 
 <ion-content padding>
   <!-- Real floating action button, fixed. It will not scroll with the content -->
-  <ion-fab top right edge>
+  <ion-fab top right edge #fab1>
     <button ion-fab mini>
       <ion-icon name="add"></ion-icon>
     </button>
     <ion-fab-list>
-      <button ion-fab>
-        <ion-icon name="logo-facebook" (click)=addItem()></ion-icon>
+      <button ion-fab (click)=addItem(fab1)>
+        <ion-icon name="logo-facebook"></ion-icon>
       </button>
-      <button ion-fab>
-        <ion-icon name="logo-twitter" (click)=selectProduct()></ion-icon>
-      </button>
-      <button ion-fab>
-        <ion-icon name="logo-vimeo"></ion-icon>
-      </button>
-      <button ion-fab>
-        <ion-icon name="logo-googleplus"></ion-icon>
+      <button ion-fab (click)=selectProduct(fab1)>
+        <ion-icon name="logo-twitter"></ion-icon>
       </button>
     </ion-fab-list>
   </ion-fab>
@@ -32,7 +26,7 @@
       Einkausfliste
     </ion-list-header>
     <ion-item-sliding *ngFor="let item of prodService.shoppingitems | async">
-      <ion-item>
+      <ion-item (click)="viewItem(item)">
         <ion-avatar item-start>
           <img [src]="item.Url">
         </ion-avatar>
@@ -46,6 +40,10 @@
         <button ion-button color="secondary">
           <ion-icon name="alert"></ion-icon>
           Wichtig
+        </button>
+        <button ion-button color="secondary">
+          <ion-icon name="alert"></ion-icon>
+          Favorite
         </button>
       </ion-item-options>
       <ion-item-options side="right">

@@ -26,6 +26,7 @@ import { LogoutPage } from '../pages/logout/logout';
 import { SplashPage } from '../pages/splash/splash';
 import { LoginPage } from '../pages/login/login';
 import { ShoppingItemPage } from '../pages/shoppingitem/shoppingitem';
+import { ShoppingItemViewPage } from '../pages/shoppingitemview/shoppingitemview';
 import { SelectProductPage } from '../pages/selectproduct/selectproduct';
 
 /*
@@ -52,6 +53,7 @@ export class AppConfig {
     LogoutPage,
     SplashPage,
     ShoppingItemPage,
+    ShoppingItemViewPage,
     SelectProductPage,
     TabsPage
   ],
@@ -74,6 +76,7 @@ export class AppConfig {
     LogoutPage,
     SplashPage,
     ShoppingItemPage,
+    ShoppingItemViewPage,
     SelectProductPage,
     TabsPage
   ],
