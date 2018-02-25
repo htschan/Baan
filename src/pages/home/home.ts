@@ -45,6 +45,14 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
     this.events.unsubscribe('user:signin');
   }
 
+  importantItem(key: any, val: boolean){
+    this.prodService.importantProduct(key,val);
+  }
+
+  favoriteItem(key: any, val: boolean){
+    this.prodService.favoriteProduct(key,val);
+  }
+
   deleteItem(key: any) {
     this.prodService.deleteShoppinglistItem(key);
 

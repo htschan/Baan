@@ -19,7 +19,6 @@
       </button>
     </ion-fab-list>
   </ion-fab>
-
   <ion-list>
     <ion-item-sliding *ngFor="let item of prodService.shoppingitems | async">
       <ion-item (click)="viewItem(item)">
@@ -33,11 +32,11 @@
           <ion-icon name="checkmark"></ion-icon>
           Erledigt
         </button>
-        <button ion-button color="secondary">
+        <button ion-button color="secondary" (click)="importantItem(item.key,!item.Important)">
           <ion-icon name="alert"></ion-icon>
           Wichtig
         </button>
-        <button ion-button color="secondary">
+        <button ion-button color="secondary" (click)="favoriteItem(item.key,!item.Favorite)">
           <ion-icon name="heart"></ion-icon>
           Favorit
         </button>
@@ -54,5 +53,4 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-
 </ion-content>

@@ -23,7 +23,7 @@ export class ProductService {
     catFilter$: BehaviorSubject<string | null>;
     items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
 
-    constructor(af: AngularFireDatabase, afs: AngularFirestore) {
+    constructor(private af: AngularFireDatabase, afs: AngularFirestore) {
         this.catFilter$ = new BehaviorSubject(null);
         this.categoriesRef = af.list(`${FbBase}/ProductCategories`);
         this.categories = this.categoriesRef.snapshotChanges().map(changes => {
@@ -74,6 +74,12 @@ export class ProductService {
     // buyShoppinglistItem(item: any) {
     //     this.shoppingitems.remove(item);
     // }
+    importantProduct(key: string, val: boolean) {
+        this.af.object(`${FbBase}/Shoppinglist/${key}`).update({ Important: val });
+    }
+    favoriteProduct(key: string, val: boolean) {
+        this.af.object(`${FbBase}/Shoppinglist/${key}`).update({ Favorite: val });
+    }
     deleteShoppinglistItem(key: string) {
         this.shoppingitemsRef.remove(key);
     }
