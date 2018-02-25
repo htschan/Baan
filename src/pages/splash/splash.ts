@@ -15,9 +15,8 @@ export class SplashPage {
 
   ionViewDidEnter() {
 
-    this.viewCtrl.dismiss();
-
+    setTimeout(() => {
+      this.viewCtrl.dismiss();
+    }, 4000);
   }
-
-
 }
