@@ -19,6 +19,8 @@
 import * as functions from 'firebase-functions';
 import * as nodemailer from 'nodemailer';
 
+const cors = require('cors')({ origin: true });
+
 // Configure the email transport using the default SMTP transport and a GMail account.
 // For Gmail, enable these:
 // 1. https://www.google.com/settings/security/lesssecureapps
@@ -40,9 +42,11 @@ const mailTransport = nodemailer.createTransport({
 const APP_NAME = 'Baan - unsere Einkaufsliste';
 
 export const helloWorld = functions.https.onRequest((request, response) => {
-    response.status(200).json({ text: "Hello from Firebase!" });
-   });
-      
+  cors(request, response, () =>
+    response.status(200).json({ text: "Hello from Firebase!" })
+  );
+});
+
 // [START sendWelcomeEmail]
 /**
  * Sends a welcome email to new user.
