@@ -86,9 +86,9 @@ export class ProductService {
     addShoppinglistItem(item: ShoppingItemVm) {
         this.shoppingitemsRef.push(item);
     }
-    // updateShoppinglistItem(key: string, item: any) {
-    //     this.shoppingitems.update(key, item);
-    // }
+    updateShoppinglistItem(key: string, item: any) {
+        this.af.object(`${FbBase}/Shoppinglist/${key}`).update({Name: item.Name, Description: item.Description, Important: item.Important, Favorite: item.Favorite});
+    }
 
 }
 

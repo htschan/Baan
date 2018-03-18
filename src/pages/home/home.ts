@@ -45,12 +45,12 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
     this.events.unsubscribe('user:signin');
   }
 
-  importantItem(key: any, val: boolean){
-    this.prodService.importantProduct(key,val);
+  importantItem(key: any, val: boolean) {
+    this.prodService.importantProduct(key, val);
   }
 
-  favoriteItem(key: any, val: boolean){
-    this.prodService.favoriteProduct(key,val);
+  favoriteItem(key: any, val: boolean) {
+    this.prodService.favoriteProduct(key, val);
   }
 
   deleteItem(key: any) {
@@ -68,7 +68,7 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
     modal.onDidDismiss(data => {
       if (data) {
         let vm = new ShoppingItemVm(data);
-        this.prodService.addShoppinglistItem(vm);
+        this.prodService.updateShoppinglistItem(vm.Key, vm);
       }
     });
     modal.present();

@@ -4,6 +4,7 @@ export class ShoppingItemVm {
 
     constructor(data: any | null) {
         if (data) {
+            this.Key = data.key;
             this.Name = data.name;
             this.Description = data.description;
             this.Important = data.important;
@@ -17,6 +18,7 @@ export class ShoppingItemVm {
         item.Url = data.Url;
         return item;
     }
+    Key: string;
     Name: string;
     Description: string;
     Price: string;

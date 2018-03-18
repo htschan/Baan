@@ -18,6 +18,7 @@ export class ShoppingItemPage {
 
   createForm() {
     this.itemForm = this.fb.group({
+      key: this.param ? this.param.key : '',
       name: this.param ? this.param.Name : '',
       description: this.param ? this.param.Description : '',
       important: this.param ? this.param.Important : false,
