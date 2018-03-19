@@ -7,12 +7,19 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
-    <p>{{message}}</p>
-  </ion-list>
+  <form [formGroup]="itemForm" novalidate>
+    <ion-list>
+      <ion-list-header>Follow us on Twitter</ion-list-header>
+      <ion-item>
+        <ion-icon name="ionic" item-start></ion-icon>
+        @ionicframework
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" fixed>Beschreibung</ion-label>
+        <ion-input type="tel" placeholder="Url" formControlName="url"></ion-input>
+      </ion-item>
+      <p>{{message}}</p>
+    </ion-list>
+    <button ion-button color="danger" full (click)="downloadAudio()">Download</button>
+  </form>
 </ion-content>

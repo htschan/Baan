@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
@@ -29,6 +30,7 @@ import { LoginPage } from '../pages/login/login';
 import { ShoppingItemPage } from '../pages/shoppingitem/shoppingitem';
 import { ShoppingItemViewPage } from '../pages/shoppingitemview/shoppingitemview';
 import { SelectProductPage } from '../pages/selectproduct/selectproduct';
+import { YoutubeService } from '../services/youtube.service';
 
 /*
 export class AppConfig {
@@ -61,6 +63,7 @@ export class AppConfig {
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    HttpClientModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(AppConfig.firebaseConfig),
@@ -86,6 +89,7 @@ export class AppConfig {
     StatusBar,
     AngularFireDatabase,
     ProductService,
+    YoutubeService,
     AuthService,
     { provide: BUILD_INFO, useValue: AppConfig.appConfig.bts },
     { provide: ErrorHandler, useClass: IonicErrorHandler }
