@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { YtMetaDataVm } from '../viewmodels/ytmetadata';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -15,8 +16,15 @@ const httpOptions = {
 export class YoutubeService {
 
     downloadUrl = "https://baanbackend.kitsdg.ch/api/youtube/download";
+    downloadMetaDataUrl = "https://baanbackend.kitsdg.ch/api/youtube/downloadmetadata";
+
+    audiotracks: Observable<YtMetaDataVm[]>;
 
     constructor(private http: HttpClient) {
+        this.audiotracks = this.http.get<YtMetaDataVm>(this.downloadMetaDataUrl, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     downloadAudio(url: string): Observable<any> {

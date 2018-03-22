@@ -31,6 +31,9 @@ import { ShoppingItemPage } from '../pages/shoppingitem/shoppingitem';
 import { ShoppingItemViewPage } from '../pages/shoppingitemview/shoppingitemview';
 import { SelectProductPage } from '../pages/selectproduct/selectproduct';
 import { YoutubeService } from '../services/youtube.service';
+import { HomepopoverPage } from '../pages/homepopover/homepopover';
+import { SonglistPage } from '../pages/songlist/songlist';
+import { YoutubedownloadPage } from '../pages/youtubedownload/youtubedownload';
 
 /*
 export class AppConfig {
@@ -52,6 +55,9 @@ export class AppConfig {
     AboutPage,
     ContactPage,
     HomePage,
+    HomepopoverPage,
+    SonglistPage,
+    YoutubedownloadPage,
     LoginPage,
     LogoutPage,
     SplashPage,
@@ -77,6 +83,9 @@ export class AppConfig {
     AboutPage,
     ContactPage,
     HomePage,
+    HomepopoverPage,
+    SonglistPage,
+    YoutubedownloadPage,
     LoginPage,
     LogoutPage,
     SplashPage,

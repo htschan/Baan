@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Events, ModalController, FabContainer } from 'ionic-angular';
+import { Events, ModalController, FabContainer, PopoverController } from 'ionic-angular';
 import { App } from 'ionic-angular';
 import { ProductService } from '../../services/product.service';
 import { NavGuard } from '../support/nav.guard';
@@ -9,6 +9,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ShoppingItemPage } from '../shoppingitem/shoppingitem';
 import { SelectProductPage } from '../selectproduct/selectproduct';
 import { ShoppingItemViewPage } from '../shoppingitemview/shoppingitemview';
+import { HomepopoverPage } from '../homepopover/homepopover';
 
 @Component({
   selector: 'page-home',
@@ -24,7 +25,8 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
     public appCtrl: App,
     public prodService: ProductService,
     public modalCtrl: ModalController,
-    public events: Events) {
+    public events: Events,
+    public popoverCtrl: PopoverController) {
     super(auth, appCtrl);
     events.subscribe('user:signout', (user) => {
       console.log("home.component user logged out");
@@ -43,6 +45,13 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.events.unsubscribe('user:signout');
     this.events.unsubscribe('user:signin');
+  }
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(HomepopoverPage);
+    popover.present({
+      ev: myEvent
+    });
   }
 
   importantItem(key: any, val: boolean) {

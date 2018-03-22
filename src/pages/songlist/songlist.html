@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Audio Tracks</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <div *ngIf="ytService.audiotracks | async; let items;">
+      <ion-item *ngFor="let item of items">
+        <div *ngIf="item.metaData">
+          <ion-avatar item-start>
+            <img [src]="item?.metaData?.thumbnailStandardRes">
+          </ion-avatar>
+          <h2>{{item?.metaData?.title}}</h2>
+          <code>{{ item?.metaData?.uploadDate }}</code>
+        </div>
+        <div *ngIf="!item.metaData">
+          <h2>{{item?.message}}</h2>
+          <code>{{ item?.downloadFile }}</code>
+        </div>
+      </ion-item>
+      <div *ngIf="items.length === 0">Kein Suchresultat</div>
+    </div>
+  </ion-list>
+</ion-content>
