@@ -8,10 +8,20 @@
   <form [formGroup]="itemForm" novalidate>
     <ion-list>
       <ion-item>
-        <ion-label color="primary" fixed>Beschreibung</ion-label>
+        <ion-label color="primary" fixed>Youtube Adresse</ion-label>
         <ion-input type="tel" placeholder="Url" formControlName="url"></ion-input>
       </ion-item>
     </ion-list>
     <button ion-button color="danger" full (click)="downloadAudio()">Download</button>
   </form>
+  <ion-list>
+    <div *ngIf="queuedTracks?.queuedTracks; let items;">
+      <ion-item *ngFor="let item of items">
+        <h2>{{item}}</h2>
+      </ion-item>
+      <ion-item *ngIf="items.length === 0">
+        <div>Warteschlange leer</div>
+      </ion-item>
+    </div>
+  </ion-list>
 </ion-content>

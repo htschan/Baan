@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { YtMetaDataVm } from '../viewmodels/ytmetadata';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { YtQueuedTracksVm } from '../viewmodels/ytqueuedtracks';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -17,8 +19,11 @@ export class YoutubeService {
 
     downloadUrl = "https://baanbackend.kitsdg.ch/api/youtube/download";
     downloadMetaDataUrl = "https://baanbackend.kitsdg.ch/api/youtube/downloadmetadata";
+    downloadQueuedTracksUrl = "https://baanbackend.kitsdg.ch/api/youtube/downloadqueue";
 
+    private queuedTracksSubject: BehaviorSubject<YtQueuedTracksVm> = new BehaviorSubject(new YtQueuedTracksVm());
     audiotracks: Observable<YtMetaDataVm[]>;
+    queuedtracks: Observable<YtQueuedTracksVm> = this.queuedTracksSubject.asObservable();
 
     constructor(private http: HttpClient) {
         this.audiotracks = this.http.get<YtMetaDataVm>(this.downloadMetaDataUrl, httpOptions)
@@ -32,6 +37,22 @@ export class YoutubeService {
             .pipe(
                 catchError(this.handleError)
             );
+    }
+
+    updateQueuedTracks(): Observable<any> {
+        return this.getQueuedTracks().pipe(
+            tap(data => this.queuedTracksSubject.next(data)),
+            catchError(this.handleError));
+    }
+
+    getQueuedTracks(): Observable<YtQueuedTracksVm> {
+        return this.http.get<YtQueuedTracksVm>(this.downloadQueuedTracksUrl);
+        // .map((response: Response) => {
+        //     let data = response.json() && response.json().something;
+        //     if (data) {
+        //         return data;
+        //     }
+        // })
     }
 
     private handleError(error: HttpErrorResponse) {
