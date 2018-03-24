@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { YoutubeService } from '../../services/youtube.service';
+import { ViewvideoPage } from '../viewvideo/viewvideo';
 
 
 @Component({
@@ -16,4 +17,7 @@ export class SonglistPage {
     console.log('ionViewDidLoad SonglistPage');
   }
 
+  viewVideo(url: string, title: string) {
+    this.navCtrl.push(ViewvideoPage, { url: url, title: title });
+  }
 }

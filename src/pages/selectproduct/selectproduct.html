@@ -19,13 +19,11 @@
     </ion-item>
     <div *ngIf="prodService.items$ | async; let items;">
       <ion-item *ngFor="let item of items" (click)="selectProduct(item.payload.val())">
-        <ion-item>
-          <ion-avatar item-start>
-            <img [src]="item.payload.val().Url">
-          </ion-avatar>
-          <h2>{{item.payload.val().Name}}</h2>
-          <code>{{ item.payload.key }}</code>
-        </ion-item>
+        <ion-avatar item-start>
+          <img [src]="item.payload.val().Url">
+        </ion-avatar>
+        <h2>{{item.payload.val().Name}}</h2>
+        <code>{{ item.payload.key }}</code>
       </ion-item>
       <div *ngIf="items.length === 0">Kein Suchresultat</div>
     </div>

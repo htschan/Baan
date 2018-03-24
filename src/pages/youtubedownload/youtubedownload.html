@@ -14,14 +14,17 @@
     </ion-list>
     <button ion-button color="danger" full (click)="downloadAudio()">Download</button>
   </form>
+  <ion-label>
+    <div>Warteschlange</div>
+  </ion-label>
   <ion-list>
     <div *ngIf="queuedTracks?.queuedTracks; let items;">
       <ion-item *ngFor="let item of items">
         <h2>{{item}}</h2>
       </ion-item>
-      <ion-item *ngIf="items.length === 0">
-        <div>Warteschlange leer</div>
-      </ion-item>
+      <div *ngIf="items.length === 0">
+        <div>&lt;leer&gt;</div>
+      </div>
     </div>
   </ion-list>
 </ion-content>

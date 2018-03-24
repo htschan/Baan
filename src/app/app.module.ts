@@ -34,6 +34,8 @@ import { YoutubeService } from '../services/youtube.service';
 import { HomepopoverPage } from '../pages/homepopover/homepopover';
 import { SonglistPage } from '../pages/songlist/songlist';
 import { YoutubedownloadPage } from '../pages/youtubedownload/youtubedownload';
+import { ViewvideoPage } from '../pages/viewvideo/viewvideo';
+import { YoutubesanitizerPipe } from '../pipes/youtubesanitizer/youtubesanitizer';
 
 /*
 export class AppConfig {
@@ -58,6 +60,8 @@ export class AppConfig {
     HomepopoverPage,
     SonglistPage,
     YoutubedownloadPage,
+    YoutubesanitizerPipe,
+    ViewvideoPage,
     LoginPage,
     LogoutPage,
     SplashPage,
@@ -86,6 +90,7 @@ export class AppConfig {
     HomepopoverPage,
     SonglistPage,
     YoutubedownloadPage,
+    ViewvideoPage,
     LoginPage,
     LogoutPage,
     SplashPage,
