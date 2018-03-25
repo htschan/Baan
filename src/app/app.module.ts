@@ -20,9 +20,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ProductService, BUILD_INFO } from '../services/product.service';
 import { AuthService } from '../services/auth.service';
 
-import { StatusBar } from '@ionic-native/status-bar';
-
-
 import { AppConfig } from '../../myhomeappconfig';
 import { LogoutPage } from '../pages/logout/logout';
 import { SplashPage } from '../pages/splash/splash';
@@ -100,7 +97,6 @@ export class AppConfig {
     TabsPage
   ],
   providers: [
-    StatusBar,
     AngularFireDatabase,
     ProductService,
     YoutubeService,
