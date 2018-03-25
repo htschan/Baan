@@ -32,7 +32,7 @@ node {
 		}
 		stage('build'){
 			dir('./'){
-				bat 'ionic build'
+				bat 'npm run dist'
 			}
 		}
 		stage('deploy'){
