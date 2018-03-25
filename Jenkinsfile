@@ -21,7 +21,7 @@ node {
 		stage('prime'){
 			bat '''
 				@echo off
-				powershell -NoProfile -ExecutionPolicy Bypass -Command "& Copy-Item $env:PROJECT_CONFIG/baan-myhomeappconfig.ts $env:WORKSPACE/Baan/myhomeappconfig.ts"
+				powershell -NoProfile -ExecutionPolicy Bypass -Command "& Copy-Item $env:PROJECT_CONFIG/baan-myhomeappconfig.ts $env:WORKSPACE/myhomeappconfig.ts"
 				powershell -NoProfile -ExecutionPolicy Bypass -Command "& $env:WORKSPACE/ReplaceBuildTimestamp.ps1 -Workspace '%WORKSPACE%' -BuildTimestamp '%BUILD_TIMESTAMP%' -BuildNumber '%BUILD_NUMBER%'"
 			'''
 		}
