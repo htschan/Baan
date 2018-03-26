@@ -18,6 +18,7 @@ const httpOptions = {
 export class YoutubeService {
 
     downloadUrl = "https://baanbackend.kitsdg.ch/api/youtube/download";
+    apiInfoUrl = "https://baanbackend.kitsdg.ch/api/youtube/apiinfo";
     downloadMetaDataUrl = "https://baanbackend.kitsdg.ch/api/youtube/downloadmetadata";
     downloadQueuedTracksUrl = "https://baanbackend.kitsdg.ch/api/youtube/downloadqueue";
 
@@ -30,6 +31,10 @@ export class YoutubeService {
             .pipe(
                 catchError(this.handleError)
             );
+    }
+
+    apiinfo(): Observable<any> {
+        return this.http.get<any>(this.apiInfoUrl);
     }
 
     downloadAudio(url: string): Observable<any> {
