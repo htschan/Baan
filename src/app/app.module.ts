@@ -33,6 +33,8 @@ import { SonglistPage } from '../pages/songlist/songlist';
 import { YoutubedownloadPage } from '../pages/youtubedownload/youtubedownload';
 import { ViewvideoPage } from '../pages/viewvideo/viewvideo';
 import { YoutubesanitizerPipe } from '../pipes/youtubesanitizer/youtubesanitizer';
+import { CameraPage } from '../pages/camera/camera';
+import { TestpagePageModule } from '../pages/testpage/testpage.module';
 
 /*
 export class AppConfig {
@@ -59,6 +61,7 @@ export class AppConfig {
     YoutubedownloadPage,
     YoutubesanitizerPipe,
     ViewvideoPage,
+    CameraPage,
     LoginPage,
     LogoutPage,
     SplashPage,
@@ -76,7 +79,8 @@ export class AppConfig {
     AngularFireModule.initializeApp(AppConfig.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    TestpagePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -88,6 +92,7 @@ export class AppConfig {
     SonglistPage,
     YoutubedownloadPage,
     ViewvideoPage,
+    CameraPage,
     LoginPage,
     LogoutPage,
     SplashPage,

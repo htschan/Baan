@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController,ViewController } from 'ionic-angular';
 import { SonglistPage } from '../songlist/songlist';
 import { YoutubedownloadPage } from '../youtubedownload/youtubedownload';
+import { CameraPage } from '../camera/camera';
+import { TestpagePage } from '../testpage/testpage';
 
 
 @Component({
@@ -24,6 +26,16 @@ export class HomepopoverPage {
 
   gotoYoutubeDownload() {
     this.navCtrl.push(YoutubedownloadPage);
+    this.viewCtrl.dismiss();
+  }
+
+  gotoCamera() {
+    this.navCtrl.push(CameraPage);
+    this.viewCtrl.dismiss();
+  }
+
+  gotoTestpage() {
+    this.navCtrl.push('TestpagePage');
     this.viewCtrl.dismiss();
   }
 

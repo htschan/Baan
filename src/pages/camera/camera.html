@@ -1,0 +1,43 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Kamera</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3>
+        <button ion-button small (click)="start()">Play</button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button small (click)="toggleControls()">Toggle Controls
+          <ion-icon name="home"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button small (click)="pause()">Pause
+          <ion-icon name="home"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-4>
+        <button ion-button small (click)="resume()">Resume</button>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button small (click)="sound()">Play with sound
+          <ion-icon name="home"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <video #videoElement></video>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
