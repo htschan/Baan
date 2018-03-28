@@ -39,4 +39,9 @@ export class HomepopoverPage {
     this.viewCtrl.dismiss();
   }
 
+  gotoGpspage() {
+    this.navCtrl.push('GpspagePage');
+    this.viewCtrl.dismiss();
+  }
+
 }

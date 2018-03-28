@@ -35,6 +35,7 @@ import { ViewvideoPage } from '../pages/viewvideo/viewvideo';
 import { YoutubesanitizerPipe } from '../pipes/youtubesanitizer/youtubesanitizer';
 import { CameraPage } from '../pages/camera/camera';
 import { TestpagePageModule } from '../pages/testpage/testpage.module';
+import { GpspagePageModule } from '../pages/gpspage/gpspage.module';
 
 /*
 export class AppConfig {
@@ -80,7 +81,8 @@ export class AppConfig {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
-    TestpagePageModule
+    TestpagePageModule,
+    GpspagePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

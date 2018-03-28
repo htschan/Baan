@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>GPS Page</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3>
+        <button [disabled]="isTracking" ion-button small (click)="findMe()">Find me</button>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button small (click)="trackMe()">Track me</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <div>
+          Note: Once Track me is enabled, refresh page to enable Find me feature!
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <span>Longitude: {{currentLong}}</span>
+      </ion-col>
+      <ion-col col-6>
+        <span>Longitude: {{currentLong}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <div #gmap style="width:100%;height:300px"></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

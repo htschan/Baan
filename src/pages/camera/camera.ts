@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 /*
@@ -9,7 +9,7 @@ https://blog.cloudboost.io/capturing-camera-using-angular-5-2e177c68201f
   selector: 'page-camera',
   templateUrl: 'camera.html',
 })
-export class CameraPage {
+export class CameraPage implements OnInit{
   @ViewChild('videoElement') videoElement: any;
   video: any;
   isPlaying = false;
