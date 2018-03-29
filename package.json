@@ -13,7 +13,7 @@
     "ionic:serve": "ionic-app-scripts serve",
     "open": "http-server www -o -a localhost -p 1234",
     "hashcb": "hashmark -l 8 -r --cwd www/build \"*.{js,css}\" {name}.{hash}{ext} | map-replace -m \"<[^>]+>\" www/index.html",
-    "dist": "npm run clean && shx rm -rf www/* && npm run build --prod && npm run hashcb && workbox injectManifest"
+    "dist": "npm run clean && shx rm -rf www/* && npm run build && npm run hashcb && workbox injectManifest"
   },
   "config": {
     "ionic_copy": "./copy.config.js"
