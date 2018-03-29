@@ -36,6 +36,7 @@ import { YoutubesanitizerPipe } from '../pipes/youtubesanitizer/youtubesanitizer
 import { CameraPage } from '../pages/camera/camera';
 import { TestpagePageModule } from '../pages/testpage/testpage.module';
 import { GpspagePageModule } from '../pages/gpspage/gpspage.module';
+import { GeoLocationService } from '../services/geolocation.service';
 
 /*
 export class AppConfig {
@@ -107,6 +108,7 @@ export class AppConfig {
     AngularFireDatabase,
     ProductService,
     YoutubeService,
+    GeoLocationService,
     AuthService,
     { provide: BUILD_INFO, useValue: AppConfig.appConfig.bts },
     { provide: ErrorHandler, useClass: IonicErrorHandler }
