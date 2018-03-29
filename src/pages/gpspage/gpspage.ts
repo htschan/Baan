@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 import { } from '@types/googlemaps';
+import { GeoLocationService } from '../../services/geolocation.service';
 
 /*
 https://github.com/ultrasonicsoft/gmap-geolocation-demo
@@ -21,6 +22,14 @@ export class GpspagePage implements OnInit {
   currentLong: any;
 
   marker: google.maps.Marker;
+
+  geoLocation: any;
+
+  constructor(public geoLocationService: GeoLocationService) {
+    geoLocationService.getLocation().subscribe(data => {
+      this.geoLocation = data;
+    })
+  }
 
   ngOnInit() {
     var mapProp = {
