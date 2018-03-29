@@ -2,6 +2,10 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 import { } from '@types/googlemaps';
 
+/*
+https://github.com/ultrasonicsoft/gmap-geolocation-demo
+*/
+
 @IonicPage()
 @Component({
   selector: 'page-gpspage',
