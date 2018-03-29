@@ -3,7 +3,6 @@ import { NavController,ViewController } from 'ionic-angular';
 import { SonglistPage } from '../songlist/songlist';
 import { YoutubedownloadPage } from '../youtubedownload/youtubedownload';
 import { CameraPage } from '../camera/camera';
-import { TestpagePage } from '../testpage/testpage';
 
 
 @Component({
