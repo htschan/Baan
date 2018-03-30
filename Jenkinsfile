@@ -21,6 +21,7 @@ node {
 		stage('prime'){
 			bat '''
 				@echo off
+				echo bat(returnStdout: true, script: 'set')
 				powershell -NoProfile -ExecutionPolicy Bypass -Command "& Copy-Item $env:PROJECT_CONFIG/baan-myhomeappconfig.ts $env:WORKSPACE/myhomeappconfig.ts"
 				powershell -NoProfile -ExecutionPolicy Bypass -Command "& $env:WORKSPACE/ReplaceBuildTimestamp.ps1 -Workspace '%WORKSPACE%' -BuildTimestamp '%BUILD_TIMESTAMP%' -BuildNumber '%BUILD_NUMBER%'"
 				powershell -NoProfile -ExecutionPolicy Bypass -Command "& $env:WORKSPACE/ReplaceGoogleMapsApiUrl.ps1 -Workspace '%WORKSPACE%' -ProjectConfigFolder '%PROJECT_CONFIG%'"
@@ -28,7 +29,7 @@ node {
 		}
 		stage('install'){
 			dir('./') {
-				bat 'yarn install'
+				bat '%YARN% install'
 			}
 		}
 		stage('build'){
