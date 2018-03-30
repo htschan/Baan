@@ -28,7 +28,7 @@ node {
 		}
 		stage('install'){
 			dir('./') {
-				bat 'npm install'
+				bat 'yarn install'
 			}
 		}
 		stage('build'){
@@ -47,7 +47,7 @@ node {
 			}
 		}
 		state('revertchanges'){
-			bat'''
+			bat '''
 				git checkout .
 			'''
 		}
