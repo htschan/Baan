@@ -47,10 +47,10 @@ node {
 				]
 			}
 		}
-		state('revertchanges'){
+		stage('revertchanges'){
 			dir('./'){
 				bat '''
-					%GIT% checkout .
+					git checkout .
 				'''
 			}
 		}
