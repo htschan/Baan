@@ -50,18 +50,20 @@ node {
 		state('revertchanges'){
 			dir('./'){
 				bat '''
-					git checkout .
+					%GIT% checkout .
 				'''
 			}
 		}
 		def msg = "The job ${JOB_NAME} was successful! Build Number: ${BUILD_NUMBER}"
+		echo msg
 		slackSend color: 'good', message: msg
 	}
 	catch (exc) {
 		def msg = "The job ${JOB_NAME} failed! Exception: ${exc}"
+		echo msg
 		slackSend color: '#ff0000', message: msg
 	}
 	finally {
-		echo 'I finished'
+		echo 'I finally finished'
     }
 }
