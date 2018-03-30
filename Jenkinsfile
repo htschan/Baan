@@ -46,6 +46,11 @@ node {
 				]
 			}
 		}
+		state('revertchanges'){
+			bat'''
+				git checkout .
+			'''
+		}
 		def msg = "The job ${JOB_NAME} was successful! Build Number: ${BUILD_NUMBER}"
 		slackSend color: 'good', message: msg
 	}
