@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { DateTime } from 'ionic-angular';
 
 
 const GEOLOCATION_ERRORS = {
@@ -11,14 +10,21 @@ const GEOLOCATION_ERRORS = {
 };
 
 @Injectable()
-export class GeoLocationService {
+export class MotionService {
 
-    public getLocation(geoLocationOptions?: any): Observable<GeoLocation> {
-        geoLocationOptions = geoLocationOptions || { timeout: 5000 };
+    constructor() {
+        console.log("MotionService ctor");
+        window.addEventListener('devicemotion', (event: DeviceMotionEvent) => {
+            console.log("eventlistener devicemotion" + event.interval);
+        })
+    }
+
+    public getDeviceMotion(): Observable<DeviceMotionEvent> {
 
         return Observable.create(observer => {
 
             if (window.navigator && window.navigator.geolocation) {
+                /*
                 window.navigator.geolocation.getCurrentPosition(
                     (position) => {
                         observer.next(position);
@@ -38,6 +44,7 @@ export class GeoLocationService {
                         }
                     },
                     geoLocationOptions);
+                    */
             } else {
                 observer.error(GEOLOCATION_ERRORS['errors.location.unsupportedBrowser']);
             }
@@ -49,21 +56,28 @@ export class GeoLocationService {
     }
 }
 
-export let geolocationServiceInjectables: Array<any> = [
-    { provide: GeoLocationService, useClass: GeoLocationService }
-];
 
-export class GeoLocation {
-    coords: Coordinates;
-    timestamp: DateTime;
+export class DeviceMotionEvent {
+    acceleration: Acceleration;
+    accelerationIncludingGravity: AccelerationIncludingGravity;
+    rotationRate: RotationRate;
+    interval: any;
 }
 
-export class Coordinates {
-    accuracy: number;
-    altitude: number;
-    altitudeAccuracy: number;
-    heading: number;
-    latitude: number;
-    longitude: number;
-    speed: number;
+export class Acceleration {
+    x: any;
+    y: any;
+    z: any;
+}
+
+export class AccelerationIncludingGravity {
+    x: any;
+    y: any;
+    z: any;
+}
+
+export class RotationRate {
+    alpha: any;
+    beta: any;
+    gamma: any;
 }

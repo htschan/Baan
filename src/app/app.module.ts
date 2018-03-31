@@ -37,6 +37,8 @@ import { CameraPage } from '../pages/camera/camera';
 import { TestpagePageModule } from '../pages/testpage/testpage.module';
 import { GpspagePageModule } from '../pages/gpspage/gpspage.module';
 import { GeoLocationService } from '../services/geolocation.service';
+import { MotionService } from '../services/motion.service';
+import { MotionPageModule } from '../pages/motion/motion.module';
 
 /*
 export class AppConfig {
@@ -83,7 +85,8 @@ export class AppConfig {
     AngularFireAuthModule,
     AngularFirestoreModule,
     TestpagePageModule,
-    GpspagePageModule
+    GpspagePageModule,
+    MotionPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -110,6 +113,7 @@ export class AppConfig {
     YoutubeService,
     GeoLocationService,
     AuthService,
+    MotionService,
     { provide: BUILD_INFO, useValue: AppConfig.appConfig.bts },
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
