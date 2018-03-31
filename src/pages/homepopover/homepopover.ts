@@ -43,4 +43,9 @@ export class HomepopoverPage {
     this.viewCtrl.dismiss();
   }
 
+  gotoMotionpage() {
+    this.navCtrl.push('MotionPage');
+    this.viewCtrl.dismiss();
+  }
+
 }
