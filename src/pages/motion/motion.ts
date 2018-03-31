@@ -28,11 +28,11 @@ export class MotionPage {
   supported: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public motionService: MotionService) {
-    if (!window.DeviceMotionEvent) {
-      this.supported = "DeviceMotionEvent not supported on this platform";
-    } else {
-      this.supported = "ok ";
-    }
+    // if (!window.DeviceMotionEvent) {
+    //   this.supported = "DeviceMotionEvent not supported on this platform";
+    // } else {
+    //   this.supported = "ok ";
+    // }
   }
 
   ionViewDidLoad() {
