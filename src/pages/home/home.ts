@@ -100,7 +100,8 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
     let modal = this.modalCtrl.create(SelectProductPage);
     modal.onDidDismiss(data => {
       if (data) {
-        let vm = ShoppingItemVm.fromProductItem(data);
+        let vm = ShoppingItemVm.fromProductItem(data.item, data.key);
+        vm.Key = data.key;
         this.prodService.addShoppinglistItem(vm);
       }
     });

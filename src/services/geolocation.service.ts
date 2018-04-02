@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { DateTime } from 'ionic-angular';
 
 
 const GEOLOCATION_ERRORS = {
     'errors.location.unsupportedBrowser': 'Browser does not support location services',
     'errors.location.permissionDenied': 'You have rejected access to your location',
     'errors.location.positionUnavailable': 'Unable to determine your location',
-    'errors.location.timeout': 'Service timeout has been reached'
+    'errors.location.timeout': 'Service timeout has been reached',
+    'errors.undefined': 'Undefined error'
 };
 
 @Injectable()
 export class GeoLocationService {
 
-    public getLocation(geoLocationOptions?: any): Observable<GeoLocation> {
-        geoLocationOptions = geoLocationOptions || { timeout: 5000 };
+    public getLocation(geolocationOptions?: PositionOptions): Observable<Position> {
+        geolocationOptions = geolocationOptions || <PositionOptions>{ timeout: 5000 };
 
         return Observable.create(observer => {
 
@@ -25,27 +25,47 @@ export class GeoLocationService {
                         observer.complete();
                     },
                     (error) => {
-                        switch (error.code) {
-                            case 1:
-                                observer.error(GEOLOCATION_ERRORS['errors.location.permissionDenied']);
-                                break;
-                            case 2:
-                                observer.error(GEOLOCATION_ERRORS['errors.location.positionUnavailable']);
-                                break;
-                            case 3:
-                                observer.error(GEOLOCATION_ERRORS['errors.location.timeout']);
-                                break;
-                        }
+                        observer.error(this.getErrorMessage(error.code));
                     },
-                    geoLocationOptions);
+                    geolocationOptions);
             } else {
                 observer.error(GEOLOCATION_ERRORS['errors.location.unsupportedBrowser']);
             }
-
         });
+    }
 
+    public watchPosition(geolocationOptions?: PositionOptions): Observable<Position> {
+        geolocationOptions = geolocationOptions || <PositionOptions>{ timeout: 5000 };
+        return Observable.create(observer => {
+            if (window.navigator && window.navigator.geolocation) {
+                var watchId = window.navigator.geolocation.watchPosition(
+                    function successHandler(loc) {
+                        observer.next(loc);
+                    },
+                    function errorHandler(err) {
+                        observer.error(this.getErrorMessage(err.code));
+                    },
+                    geolocationOptions);
+                return () => {
+                    window.navigator.geolocation.clearWatch(watchId);
+                };
+            } else {
+                observer.error(GEOLOCATION_ERRORS['errors.location.unsupportedBrowser']);
+            }
+        });
+    }
 
-
+    private getErrorMessage(code): string {
+        switch (code) {
+            case 1:
+                return GEOLOCATION_ERRORS['errors.location.permissionDenied'];
+            case 2:
+                return GEOLOCATION_ERRORS['errors.location.positionUnavailable'];
+            case 3:
+                return GEOLOCATION_ERRORS['errors.location.timeout'];
+            default:
+                return GEOLOCATION_ERRORS['errors.undefined'];
+        }
     }
 }
 
@@ -53,17 +73,25 @@ export let geolocationServiceInjectables: Array<any> = [
     { provide: GeoLocationService, useClass: GeoLocationService }
 ];
 
-export class GeoLocation {
+// https://w3c.github.io/geolocation-api/#dom-position
+export class Position {
     coords: Coordinates;
-    timestamp: DateTime;
+    timestamp: any;
 }
 
 export class Coordinates {
     accuracy: number;
-    altitude: number;
-    altitudeAccuracy: number;
-    heading: number;
+    altitude?: number;
+    altitudeAccuracy?: number;
+    heading?: number;
     latitude: number;
     longitude: number;
-    speed: number;
+    speed?: number;
 }
+
+// https://w3c.github.io/geolocation-api/#dom-positionoptions
+export class PositionOptions {
+    enableHighAccuracy: boolean = false;
+    timeout: number = 0xFFFFFFFF; // msec, maximum length of time that is allowed to pass 
+    maximumAge: number = 0; // 0 = immediately aquire a position, otherwise return cached position
+};
