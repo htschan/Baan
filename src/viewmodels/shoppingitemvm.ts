@@ -11,8 +11,8 @@ export class ShoppingItemVm {
             this.Favorite = data.favorite;
         }
     }
-    static fromProductItem(data: ProductVm): ShoppingItemVm {
-        let item = new this({ name: data.Name, description: "", important: false, favorite: false });
+    static fromProductItem(data: ProductVm, key: string): ShoppingItemVm {
+        let item = new this({ key: key, name: data.Name, description: "", important: false, favorite: false });
         item.Price = data.Price;
         item.Quantity = data.Quantity;
         item.Url = data.Url;

@@ -18,7 +18,7 @@
       </ion-select>
     </ion-item>
     <div *ngIf="prodService.items$ | async; let items;">
-      <ion-item *ngFor="let item of items" (click)="selectProduct(item.payload.val())">
+      <ion-item *ngFor="let item of items" (click)="selectProduct(item.payload.val(),item.payload.key)">
         <ion-avatar item-start>
           <img [src]="item.payload.val().Url">
         </ion-avatar>
