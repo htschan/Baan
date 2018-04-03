@@ -39,6 +39,9 @@ import { GpspagePageModule } from '../pages/gpspage/gpspage.module';
 import { GeoLocationService } from '../services/geolocation.service';
 import { MotionService } from '../services/motion.service';
 import { MotionPageModule } from '../pages/motion/motion.module';
+import { ChatAddRoomPageModule } from '../pages/chat-add-room/chat-add-room.module';
+import { ChatChatPageModule } from '../pages/chat-chat/chat-chat.module';
+import { ChatRoomPageModule } from '../pages/chat-room/chat-room.module';
 
 /*
 export class AppConfig {
@@ -86,7 +89,10 @@ export class AppConfig {
     AngularFirestoreModule,
     TestpagePageModule,
     GpspagePageModule,
-    MotionPageModule
+    MotionPageModule,
+    ChatAddRoomPageModule,
+    ChatChatPageModule,
+    ChatRoomPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
