@@ -48,4 +48,8 @@ export class HomepopoverPage {
     this.viewCtrl.dismiss();
   }
 
+  gotoChatroompage() {
+    this.navCtrl.push('ChatRoomPage');
+    this.viewCtrl.dismiss();
+  }
 }

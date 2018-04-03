@@ -20,4 +20,8 @@ export class SonglistPage {
   viewVideo(url: string, title: string) {
     this.navCtrl.push(ViewvideoPage, { url: url, title: title });
   }
+
+  gotoRoot() {
+    this.navCtrl.popAll();
+  }
 }
