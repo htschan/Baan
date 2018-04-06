@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, ModalController, Nav } from 'ionic-angular';
 
 import { HomePage } from '../pages/home/home';
+import { ShoppingPage } from '../pages/shopping/shopping';
 import { ContactPage } from '../pages/contact/contact';
 import { AboutPage } from '../pages/about/about';
 import { SonglistPage } from '../pages/songlist/songlist';
@@ -28,7 +29,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'Einkaufen', component: HomePage },
+      { title: 'Einkaufen', component: ShoppingPage },
       { title: 'Audio Traks', component: SonglistPage },
       { title: 'Youtube Download', component: YoutubedownloadPage },
       { title: 'Kamera', component: CameraPage },
