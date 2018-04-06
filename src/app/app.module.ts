@@ -15,7 +15,6 @@ import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
 
 import { ProductService, BUILD_INFO } from '../services/product.service';
 import { AuthService } from '../services/auth.service';
@@ -28,7 +27,6 @@ import { ShoppingItemPage } from '../pages/shoppingitem/shoppingitem';
 import { ShoppingItemViewPage } from '../pages/shoppingitemview/shoppingitemview';
 import { SelectProductPage } from '../pages/selectproduct/selectproduct';
 import { YoutubeService } from '../services/youtube.service';
-import { HomepopoverPage } from '../pages/homepopover/homepopover';
 import { SonglistPage } from '../pages/songlist/songlist';
 import { YoutubedownloadPage } from '../pages/youtubedownload/youtubedownload';
 import { ViewvideoPage } from '../pages/viewvideo/viewvideo';
@@ -63,7 +61,6 @@ export class AppConfig {
     AboutPage,
     ContactPage,
     HomePage,
-    HomepopoverPage,
     SonglistPage,
     YoutubedownloadPage,
     YoutubesanitizerPipe,
@@ -75,7 +72,6 @@ export class AppConfig {
     ShoppingItemPage,
     ShoppingItemViewPage,
     SelectProductPage,
-    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -100,7 +96,6 @@ export class AppConfig {
     AboutPage,
     ContactPage,
     HomePage,
-    HomepopoverPage,
     SonglistPage,
     YoutubedownloadPage,
     ViewvideoPage,
@@ -111,7 +106,6 @@ export class AppConfig {
     ShoppingItemPage,
     ShoppingItemViewPage,
     SelectProductPage,
-    TabsPage
   ],
   providers: [
     AngularFireDatabase,

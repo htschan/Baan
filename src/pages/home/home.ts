@@ -1,15 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Events, ModalController, FabContainer, PopoverController } from 'ionic-angular';
+import { Events, ModalController, PopoverController } from 'ionic-angular';
 import { App } from 'ionic-angular';
-import { ProductService } from '../../services/product.service';
 import { NavGuard } from '../support/nav.guard';
 import { AuthService } from '../../services/auth.service';
-import { ShoppingItemVm } from '../../viewmodels/shoppingitemvm';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { ShoppingItemPage } from '../shoppingitem/shoppingitem';
-import { SelectProductPage } from '../selectproduct/selectproduct';
-import { ShoppingItemViewPage } from '../shoppingitemview/shoppingitemview';
-import { HomepopoverPage } from '../homepopover/homepopover';
 
 @Component({
   selector: 'page-home',
@@ -17,17 +11,15 @@ import { HomepopoverPage } from '../homepopover/homepopover';
 })
 export class HomePage extends NavGuard implements OnInit, OnDestroy {
 
-  items: ShoppingItemVm[] = [];
   displayName;
 
   constructor(
     public auth: AuthService,
     public appCtrl: App,
-    public prodService: ProductService,
     public modalCtrl: ModalController,
     public events: Events,
     public popoverCtrl: PopoverController) {
-    super(auth, appCtrl);
+    super(auth, modalCtrl, appCtrl);
     events.subscribe('user:signout', (user) => {
       console.log("home.component user logged out");
     });
@@ -45,66 +37,5 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.events.unsubscribe('user:signout');
     this.events.unsubscribe('user:signin');
-  }
-
-  presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create(HomepopoverPage);
-    popover.present({
-      ev: myEvent
-    });
-  }
-
-  importantItem(key: any, val: boolean) {
-    this.prodService.importantProduct(key, val);
-  }
-
-  favoriteItem(key: any, val: boolean) {
-    this.prodService.favoriteProduct(key, val);
-  }
-
-  deleteItem(key: any) {
-    this.prodService.deleteShoppinglistItem(key);
-
-  }
-
-  viewItem(item: any) {
-    let modal = this.modalCtrl.create(ShoppingItemViewPage, { data: item });
-    modal.present();
-  }
-
-  editItem(item: any) {
-    let modal = this.modalCtrl.create(ShoppingItemPage, { data: item });
-    modal.onDidDismiss(data => {
-      if (data) {
-        let vm = new ShoppingItemVm(data);
-        this.prodService.updateShoppinglistItem(vm.Key, vm);
-      }
-    });
-    modal.present();
-  }
-
-  addItem(fab: FabContainer) {
-    fab.close();
-    let modal = this.modalCtrl.create(ShoppingItemPage);
-    modal.onDidDismiss(data => {
-      if (data) {
-        let vm = new ShoppingItemVm(data);
-        this.prodService.addShoppinglistItem(vm);
-      }
-    });
-    modal.present();
-  }
-
-  selectProduct(fab: FabContainer) {
-    fab.close();
-    let modal = this.modalCtrl.create(SelectProductPage);
-    modal.onDidDismiss(data => {
-      if (data) {
-        let vm = ShoppingItemVm.fromProductItem(data.item, data.key);
-        vm.Key = data.key;
-        this.prodService.addShoppinglistItem(vm);
-      }
-    });
-    modal.present();
   }
 }
