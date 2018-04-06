@@ -23,7 +23,7 @@ export class ChatAddRoomPage {
   }
 
   addRoom() {
-    let newData = this.ref.push({
+    this.ref.push({
       roomname: this.data.roomname
     });
     this.navCtrl.pop();

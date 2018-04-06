@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, ViewController, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
-import { TabsPage } from '../tabs/tabs';
+import { HomePage } from '../home/home';
 
 
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
+  templateUrl: 'login.html'
 })
 export class LoginPage {
   title: String = ' ';
@@ -33,28 +33,28 @@ export class LoginPage {
   signInWithFacebook() {
     this.auth.facebookLogin().then(() => {
       console.log("login facebook logged in");
-      this.navCtrl.setRoot(TabsPage);
+      this.navCtrl.setRoot(HomePage);
     });
   }
 
   signInWithTwitter() {
     this.auth.twitterLogin().then(() => {
       console.log("login twitter logged in");
-      this.navCtrl.setRoot(TabsPage);
+      this.navCtrl.setRoot(HomePage);
     });
   }
 
   signInWithGoogle() {
     this.auth.googleLogin().then(() => {
       console.log("login google logged in");
-      this.navCtrl.setRoot(TabsPage);
+      this.navCtrl.setRoot(HomePage);
     });
   }
 
   login() {
     this.auth.emailLogin(this.registerCredentials.email, this.registerCredentials.password).then(() => {
       console.log("login email/password logged in");
-      this.navCtrl.setRoot(TabsPage);
+      this.navCtrl.setRoot(HomePage);
     });
   }
 

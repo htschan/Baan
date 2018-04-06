@@ -1,12 +1,13 @@
 import { LoginPage } from "../login/login";
 import { AuthService } from "../../services/auth.service";
-import { App } from 'ionic-angular';
+import { App, ModalController } from 'ionic-angular';
 
 export class NavGuard {
     _guardCandidate = true;
 
     constructor(
         public auth: AuthService,
+        public modalCtrl: ModalController,
         public appCtrl: App) {
     }
 
@@ -23,7 +24,10 @@ export class NavGuard {
 
     async login() {
         console.log("nav.guard login");
-        this.appCtrl.getRootNav().push(LoginPage);
+        let splash = this.modalCtrl.create(LoginPage);
+        splash.present();
+        // let rootNavs: Nav[] = this.appCtrl.getRootNavs();
+        // rootNavs[0].setRoot(LoginPage);
         return Promise.resolve(false);
     }
 
