@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NavController, NavParams, FabContainer, App, ModalController, Events } from 'ionic-angular';
-import { SelectProductPage } from '../selectproduct/selectproduct';
-import { AuthService } from '../../services/auth.service';
-import { ProductService } from '../../services/product.service';
-import { ShoppingItemVm } from '../../viewmodels/shoppingitemvm';
+import { FabContainer, App, ModalController, Events, IonicPage } from 'ionic-angular';
+import { SelectProductPage } from '../../selectproduct/selectproduct';
+import { AuthService } from '../../../services/auth.service';
+import { ProductService } from '../../../services/product.service';
+import { ShoppingItemVm } from '../../../viewmodels/shoppingitemvm';
 import { ShoppingItemViewPage } from '../shoppingitemview/shoppingitemview';
+import { NavGuard } from '../../support/nav.guard';
 import { ShoppingItemPage } from '../shoppingitem/shoppingitem';
-import { NavGuard } from '../support/nav.guard';
 
-
+@IonicPage()
 @Component({
   selector: 'page-shopping',
   templateUrl: 'shopping.html',
@@ -16,7 +16,6 @@ import { NavGuard } from '../support/nav.guard';
 export class ShoppingPage extends NavGuard implements OnInit, OnDestroy {
 
   items: ShoppingItemVm[] = [];
-  displayName;
 
   constructor(
     public auth: AuthService,
@@ -28,15 +27,10 @@ export class ShoppingPage extends NavGuard implements OnInit, OnDestroy {
     events.subscribe('user:signout', (user) => {
       console.log("home.component user logged out");
     });
-    events.subscribe('user:signin', (user) => {
-      console.log("home.component user signed in");
-      this.displayName = user.displayName;
-    });
-    console.dir(AuthService);
   }
 
   ngOnInit(): void {
-    console.log("Home on init");
+    console.log("Shopping on init");
   }
 
   ngOnDestroy(): void {

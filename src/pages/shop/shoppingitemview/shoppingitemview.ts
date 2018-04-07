@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
-import { ProductService } from '../../services/product.service';
+import { ProductService } from '../../../services/product.service';
 import { ShoppingItemPage } from '../shoppingitem/shoppingitem';
-import { ShoppingItemVm } from '../../viewmodels/shoppingitemvm';
+import { ShoppingItemVm } from '../../../viewmodels/shoppingitemvm';
 
 
 @Component({

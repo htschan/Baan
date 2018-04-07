@@ -12,34 +12,35 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { MyApp } from './app.component';
 
+import { ProductService, BUILD_INFO } from '../services/product.service';
+import { AuthService } from '../services/auth.service';
+import { YoutubeService } from '../services/youtube.service';
+import { LayoutService } from '../services/layout.service';
+import { GeoLocationService } from '../services/geolocation.service';
+import { MotionService } from '../services/motion.service';
+import { TodoService } from '../services/todo.service';
+
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
-
-import { ProductService, BUILD_INFO } from '../services/product.service';
-import { AuthService } from '../services/auth.service';
 
 import { AppConfig } from '../../myhomeappconfig';
 import { LogoutPage } from '../pages/logout/logout';
 import { SplashPage } from '../pages/splash/splash';
 import { LoginPage } from '../pages/login/login';
-import { ShoppingItemPage } from '../pages/shoppingitem/shoppingitem';
-import { ShoppingItemViewPage } from '../pages/shoppingitemview/shoppingitemview';
 import { SelectProductPage } from '../pages/selectproduct/selectproduct';
-import { YoutubeService } from '../services/youtube.service';
 import { SonglistPage } from '../pages/songlist/songlist';
-import { YoutubedownloadPage } from '../pages/youtubedownload/youtubedownload';
 import { ViewvideoPage } from '../pages/viewvideo/viewvideo';
 import { YoutubesanitizerPipe } from '../pipes/youtubesanitizer/youtubesanitizer';
-import { CameraPage } from '../pages/camera/camera';
 import { TestpagePageModule } from '../pages/testpage/testpage.module';
 import { GpspagePageModule } from '../pages/gpspage/gpspage.module';
-import { GeoLocationService } from '../services/geolocation.service';
-import { MotionService } from '../services/motion.service';
 import { MotionPageModule } from '../pages/motion/motion.module';
-import { ChatAddRoomPageModule } from '../pages/chat-add-room/chat-add-room.module';
-import { ChatChatPageModule } from '../pages/chat-chat/chat-chat.module';
-import { ChatRoomPageModule } from '../pages/chat-room/chat-room.module';
+import { ChatRoomPageModule } from '../pages/chat/chat-room/chat-room.module';
+import { TodoPageModule } from '../pages/todo/todo/todo.module';
+import { ShoppingPageModule } from '../pages/shop/shopping/shopping.module';
+import { SonglistPageModule } from '../pages/songlist/songlist.module';
+import { YoutubedownloadPageModule } from '../pages/youtubedownload/youtubedownload.module';
+import { CameraPageModule } from '../pages/camera/camera.module';
 
 /*
 export class AppConfig {
@@ -61,16 +62,11 @@ export class AppConfig {
     AboutPage,
     ContactPage,
     HomePage,
-    SonglistPage,
-    YoutubedownloadPage,
     YoutubesanitizerPipe,
     ViewvideoPage,
-    CameraPage,
     LoginPage,
     LogoutPage,
     SplashPage,
-    ShoppingItemPage,
-    ShoppingItemViewPage,
     SelectProductPage,
   ],
   imports: [
@@ -84,11 +80,14 @@ export class AppConfig {
     AngularFireAuthModule,
     AngularFirestoreModule,
     TestpagePageModule,
+    YoutubedownloadPageModule,
+    CameraPageModule,
     GpspagePageModule,
     MotionPageModule,
-    ChatAddRoomPageModule,
-    ChatChatPageModule,
+    SonglistPageModule,
     ChatRoomPageModule,
+    ShoppingPageModule,
+    TodoPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -97,14 +96,10 @@ export class AppConfig {
     ContactPage,
     HomePage,
     SonglistPage,
-    YoutubedownloadPage,
     ViewvideoPage,
-    CameraPage,
     LoginPage,
     LogoutPage,
     SplashPage,
-    ShoppingItemPage,
-    ShoppingItemViewPage,
     SelectProductPage,
   ],
   providers: [
@@ -115,7 +110,9 @@ export class AppConfig {
     AuthService,
     MotionService,
     { provide: BUILD_INFO, useValue: AppConfig.appConfig.bts },
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    LayoutService,
+    TodoService
   ]
 })
 export class AppModule { }

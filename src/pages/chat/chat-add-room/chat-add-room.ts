@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 const FbBase = "/MyHome";
 
-@IonicPage()
 @Component({
   selector: 'page-chat-add-room',
   templateUrl: 'chat-add-room.html',

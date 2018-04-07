@@ -12,7 +12,7 @@ https://github.com/ultrasonicsoft/gmap-geolocation-demo
   selector: 'page-gpspage',
   templateUrl: 'gpspage.html',
 })
-export class GpspagePage implements OnInit {
+export class GpsPage implements OnInit {
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
 

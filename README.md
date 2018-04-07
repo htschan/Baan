@@ -34,3 +34,10 @@ For Apache and Nginx: https://varvy.com/pagespeed/cache-control.html#htaccess
 ## Secure an ASP.NET Core api with Firebase
 
 https://blog.markvincze.com/secure-an-asp-net-core-api-with-firebase/
+
+
+## Angular Reactive Templates with ngIf and the Async Pipe
+
+https://blog.angular-university.io/angular-reactive-templates/
+
+

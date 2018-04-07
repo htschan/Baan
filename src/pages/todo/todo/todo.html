@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Todo</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!-- Real floating action button, fixed. It will not scroll with the content -->
+  <ion-fab top right edge #fab1>
+    <button ion-fab mini>
+      <ion-icon name="add"></ion-icon>
+    </button>
+    <ion-fab-list>
+      <button ion-fab (click)=addItem(fab1)>
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+  <ion-list>
+    <ion-card *ngFor="let item of todoService.todos | async">
+      <ion-card-header (click)="viewItem(item)">
+        {{item.title}}
+      </ion-card-header>
+      <ion-card-content>
+        card content
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>

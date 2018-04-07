@@ -22,5 +22,10 @@
   </p>
   <button ion-button outline (click)="signOut()">Logout</button>
 
+  <div *ngIf="layoutService.data | async as data else loading">Screen Width: {{data.width}} Height: {{data.height}}</div>
+
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
 
 </ion-content>

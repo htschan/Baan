@@ -1,10 +1,11 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 
 /*
 https://blog.cloudboost.io/capturing-camera-using-angular-5-2e177c68201f
 */
 
+@IonicPage()
 @Component({
   selector: 'page-camera',
   templateUrl: 'camera.html',

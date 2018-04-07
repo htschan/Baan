@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, IonicPage } from 'ionic-angular';
 import { YoutubeService } from '../../services/youtube.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
 
+@IonicPage()
 @Component({
   selector: 'page-youtubedownload',
   templateUrl: 'youtubedownload.html',

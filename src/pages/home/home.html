@@ -9,4 +9,112 @@
 
 <ion-content padding>
   <h1>Home page</h1>
+  <div *ngIf="layoutService.data | async as data else loading">{{data.width}} {{data.height}}</div>
+  <ion-slides style="max-height: 100px" pager>
+    <ion-slide>
+      <h1>Slide 1</h1>
+      <ion-grid style="margin-bottom: 80px;">
+        <ion-row>
+          <ion-col>
+            <button ion-button clear (click)="openPage('ShoppingPage')">Einkaufsliste&nbsp;
+              <ion-badge color="secondary" item-end>5</ion-badge>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button clear (click)="openPage('TodoPage')">Todos</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button clear (click)="openPage('SonglistPage')">Audio Tracks</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 2</h1>
+      <ion-grid style="margin-bottom: 40px;">
+        <ion-row>
+          <ion-col>
+            <button ion-button clear (click)="openPage('YoutubedownloadPage')">Youtube Download</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button clear (click)="openPage('CameraPage')">Kamera</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button round (click)="openPage('TestPage')">Test</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 3</h1>
+      <ion-grid style="margin-bottom: 40px;">
+        <ion-row>
+          <ion-col>
+            <button ion-button outline round  (click)="openPage('GpsPage')">GPS</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button clear large>
+              <ion-img width="80" height="40" src="../../assets/imgs/icon-72x72.png" (click)="openPage('MotionPage')"></ion-img>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button>Third</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+  </ion-slides>
+  <ion-slides style="max-height: 100px; margin-top: 40px;">
+    <ion-slide>
+      <h1>Slide A</h1>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button ion-button clear (click)="openPage('ChatRoomPage')">Chat</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button>Second</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button>Third</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide B</h1>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button ion-button>Default</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button>Second</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button>Third</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide C</h1>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button ion-button>Default</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button>Second</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button>Third</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+  </ion-slides>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
 </ion-content>

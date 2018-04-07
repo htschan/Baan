@@ -1,11 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { NavController, NavParams, Content } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 
 const FbBase = "/MyHome";
 
-@IonicPage()
 @Component({
   selector: 'page-chat-chat',
   templateUrl: 'chat-chat.html',
