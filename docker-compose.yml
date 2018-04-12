@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   baan:
     image: registry.angusido.com/baan:ci-${BAAN_BUILD_NUMBER-10}
