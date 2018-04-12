@@ -1,7 +1,7 @@
 version: '2'
 services:
   baan:
-    build: .
+    image: registry.angusido.com/baan:ci-${BAAN_BUILD_NUMBER-10}
     ports:
     - 8088:80
 
