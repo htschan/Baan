@@ -12,42 +12,37 @@
   <div *ngIf="layoutService.data | async as data else loading">{{data.width}} {{data.height}}</div>
   <ion-slides style="max-height: 100px" pager>
     <ion-slide>
-      <h1>Slide 1</h1>
-      <ion-grid style="margin-bottom: 80px;">
+      <ion-grid>
         <ion-row>
           <ion-col>
-            <button ion-button clear (click)="openPage('ShoppingPage')">Einkaufsliste&nbsp;
-              <ion-badge color="secondary" item-end>5</ion-badge>
-            </button>
+            <ion-img src="../../assets/imgs/mm_shop.png" (click)="openPage('ShoppingPage')"></ion-img>
           </ion-col>
           <ion-col>
-            <button ion-button clear (click)="openPage('TodoPage')">Todos</button>
+            <ion-img src="../../assets/imgs/mm_todo.png" (click)="openPage('TodoPage')" ></ion-img>
           </ion-col>
           <ion-col>
-            <button ion-button clear (click)="openPage('SonglistPage')">Audio Tracks</button>
+            <ion-img src="../../assets/imgs/mm_tracks.png" (click)="openPage('SonglistPage')" ></ion-img>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-slide>
     <ion-slide>
-      <h1>Slide 2</h1>
-      <ion-grid style="margin-bottom: 40px;">
+      <ion-grid>
         <ion-row>
           <ion-col>
-            <button ion-button clear (click)="openPage('YoutubedownloadPage')">Youtube Download</button>
+            <ion-img src="../../assets/imgs/mm_tube.png" (click)="openPage('YoutubedownloadPage')"></ion-img>
           </ion-col>
           <ion-col>
-            <button ion-button clear (click)="openPage('CameraPage')">Kamera</button>
+            <ion-img src="../../assets/imgs/mm_camera.png" (click)="openPage('CameraPage')" ></ion-img>
           </ion-col>
           <ion-col>
-            <button ion-button round (click)="openPage('TestPage')">Test</button>
+            <ion-img src="../../assets/imgs/mm_test.png" (click)="openPage('TestPage')" ></ion-img>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-slide>
     <ion-slide>
-      <h1>Slide 3</h1>
-      <ion-grid style="margin-bottom: 40px;">
+      <ion-grid>
         <ion-row>
           <ion-col>
             <button ion-button outline round  (click)="openPage('GpsPage')">GPS</button>
