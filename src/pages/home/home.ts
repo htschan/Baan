@@ -12,6 +12,9 @@ import { LayoutService } from '../../services/layout.service';
 })
 export class HomePage extends NavGuard implements OnInit, OnDestroy {
   displayName;
+  tiles: Array<{ title: string, imgsrc: string, pgname: string }> = [];
+  tilesd: Array<Array<{ title: string, imgsrc: string, pgname: string }>> = [];
+  widthsubscription: any;
 
   constructor(
     public navCtrl: NavController,
@@ -30,6 +33,34 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
       this.displayName = user.displayName;
     });
     console.dir(AuthService);
+    this.tiles = [
+      { title: 'Einkaufen', imgsrc: '../../assets/imgs/mm_shop.png', pgname: 'ShoppingPage' },
+      { title: 'Todo', imgsrc: '../../assets/imgs/mm_todo.png', pgname: 'TodoPage' },
+      { title: 'Audio Tracks', imgsrc: '../../assets/imgs/mm_tracks.png', pgname: 'SonglistPage' },
+      { title: 'Youtube Download', imgsrc: '../../assets/imgs/mm_tube.png', pgname: 'YoutubedownloadPage' },
+      { title: 'Kamera', imgsrc: '../../assets/imgs/mm_camera.png', pgname: 'CameraPage' },
+      { title: 'Test', imgsrc: '../../assets/imgs/mm_test.png', pgname: 'TestPage' },
+      { title: 'GPS', imgsrc: '../../assets/imgs/mm_test.png', pgname: 'GpsPage' },
+      { title: 'Motion', imgsrc: '../../assets/imgs/mm_test.png', pgname: 'MotionPage' },
+      { title: 'Chat', imgsrc: '../../assets/imgs/mm_test.png', pgname: 'ChatPage' },
+      { title: 'Über', imgsrc: '../../assets/imgs/mm_test.png', pgname: 'AboutPage' },
+      { title: 'Kontakt', imgsrc: '../../assets/imgs/mm_test.png', pgname: 'ContactPage' },
+    ];
+    this.widthsubscription = layoutService.data.subscribe(data => {
+      let colcount = Math.trunc(Math.abs(data.width - 80) / 100 + 1);
+      let tileix = 0;
+      let tmpd: Array<Array<{ title: string, imgsrc: string, pgname: string }>> = [];
+      let done = false;
+      while (!done) {
+        let tmp: Array<{ title: string, imgsrc: string, pgname: string }> = [];
+        for (let i = 0; i < colcount && !done; i++) {
+          tmp.push(this.tiles[tileix++]);
+          done = tileix >= this.tiles.length;
+        }
+        tmpd.push(tmp);
+      }
+      this.tilesd = tmpd;
+    });
   }
 
   ngOnInit(): void {
@@ -39,6 +70,7 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.events.unsubscribe('user:signout');
     this.events.unsubscribe('user:signin');
+    this.widthsubscription.unsubscribe();
   }
 
   openPage(page: string) {

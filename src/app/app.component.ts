@@ -33,7 +33,7 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Einkaufen', component: ShoppingPage },
       { title: 'Todo', component: TodoPage },
-      { title: 'Audio Traks', component: SonglistPage },
+      { title: 'Audio Tracks', component: SonglistPage },
       { title: 'Youtube Download', component: YoutubedownloadPage },
       { title: 'Kamera', component: CameraPage },
       { title: 'Test', component: TestPage },

@@ -10,6 +10,17 @@
 <ion-content padding>
   <h1>Home page</h1>
   <div *ngIf="layoutService.data | async as data else loading">{{data.width}} {{data.height}}</div>
+  <ion-slides>
+    <ion-slide>
+      <ion-grid>
+        <ion-row *ngFor="let tilerow of tilesd">
+          <ion-col *ngFor="let tile of tilerow">
+            <ion-img [src]="tile.imgsrc" (click)="openPage(tile.pgname)" [alt]="tile.title"></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+  </ion-slides>
   <ion-slides style="max-height: 100px" pager>
     <ion-slide>
       <ion-grid>
@@ -18,10 +29,10 @@
             <ion-img src="../../assets/imgs/mm_shop.png" (click)="openPage('ShoppingPage')"></ion-img>
           </ion-col>
           <ion-col>
-            <ion-img src="../../assets/imgs/mm_todo.png" (click)="openPage('TodoPage')" ></ion-img>
+            <ion-img src="../../assets/imgs/mm_todo.png" (click)="openPage('TodoPage')"></ion-img>
           </ion-col>
           <ion-col>
-            <ion-img src="../../assets/imgs/mm_tracks.png" (click)="openPage('SonglistPage')" ></ion-img>
+            <ion-img src="../../assets/imgs/mm_tracks.png" (click)="openPage('SonglistPage')"></ion-img>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -33,10 +44,10 @@
             <ion-img src="../../assets/imgs/mm_tube.png" (click)="openPage('YoutubedownloadPage')"></ion-img>
           </ion-col>
           <ion-col>
-            <ion-img src="../../assets/imgs/mm_camera.png" (click)="openPage('CameraPage')" ></ion-img>
+            <ion-img src="../../assets/imgs/mm_camera.png" (click)="openPage('CameraPage')"></ion-img>
           </ion-col>
           <ion-col>
-            <ion-img src="../../assets/imgs/mm_test.png" (click)="openPage('TestPage')" ></ion-img>
+            <ion-img src="../../assets/imgs/mm_test.png" (click)="openPage('TestPage')"></ion-img>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -45,7 +56,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <button ion-button outline round  (click)="openPage('GpsPage')">GPS</button>
+            <button ion-button outline round (click)="openPage('GpsPage')">GPS</button>
           </ion-col>
           <ion-col>
             <button ion-button clear large>
