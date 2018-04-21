@@ -15,7 +15,7 @@ import { ChatAddRoomPage } from '../chat-add-room/chat-add-room';
         ChatAddRoomPage
     ],
     imports: [
-        IonicPageModule.forChild(ChatRoomPage),
+        IonicPageModule.forChild(ChatRoomPage)
     ],
 })
 export class ChatRoomPageModule { }

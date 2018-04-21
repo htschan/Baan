@@ -1,10 +1,11 @@
 import { Component, Inject, VERSION } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
 import { LogoutPage } from '../logout/logout';
 import { BUILD_INFO } from '../../services/product.service';
 import { YoutubeService } from '../../services/youtube.service';
 import { LayoutService } from '../../services/layout.service';
 
+@IonicPage()
 @Component({
   selector: 'page-about',
   templateUrl: 'about.html'

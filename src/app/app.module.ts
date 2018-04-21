@@ -20,8 +20,6 @@ import { GeoLocationService } from '../services/geolocation.service';
 import { MotionService } from '../services/motion.service';
 import { TodoService } from '../services/todo.service';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 
 import { AppConfig } from '../../myhomeappconfig';
@@ -41,6 +39,8 @@ import { ShoppingPageModule } from '../pages/shop/shopping/shopping.module';
 import { SonglistPageModule } from '../pages/songlist/songlist.module';
 import { YoutubedownloadPageModule } from '../pages/youtubedownload/youtubedownload.module';
 import { CameraPageModule } from '../pages/camera/camera.module';
+import { ContactPageModule } from '../pages/contact/contact.module';
+import { AboutPageModule } from '../pages/about/about.module';
 
 /*
 export class AppConfig {
@@ -59,8 +59,6 @@ export class AppConfig {
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
     YoutubesanitizerPipe,
     ViewvideoPage,
@@ -87,13 +85,13 @@ export class AppConfig {
     SonglistPageModule,
     ChatRoomPageModule,
     ShoppingPageModule,
-    TodoPageModule
+    TodoPageModule,
+    ContactPageModule,
+    AboutPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
     SonglistPage,
     ViewvideoPage,

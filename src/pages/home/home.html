@@ -13,14 +13,14 @@
   <ion-grid *ngIf="!showSlides">
     <ion-row *ngFor="let tilerow of tilesd">
       <ion-col *ngFor="let tile of tilerow">
-        <ion-img [src]="tile.imgsrc" (click)="openPage(tile.pgname)" [alt]="tile.title"></ion-img>
+        <img [src]="tile.imgsrc" (click)="openPage(tile.pgname)" [alt]="tile.title"/>
       </ion-col>
     </ion-row>
   </ion-grid>
   <ion-slides *ngIf="showSlides" style="max-height: 140px; margin-bottom: 40px;" pager>
     <ion-slide *ngFor="let tilerow of tilesd">
       <ion-col *ngFor="let tile of tilerow">
-        <ion-img [src]="tile.imgsrc" (click)="openPage(tile.pgname)" [alt]="tile.title"></ion-img>
+        <img [src]="tile.imgsrc" (click)="openPage(tile.pgname)" [alt]="tile.title"/>
       </ion-col>
     </ion-slide>
   </ion-slides>

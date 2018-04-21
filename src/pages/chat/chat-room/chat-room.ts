@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../../services/auth.service';
+import { ChatChatPage } from '../chat-chat/chat-chat';
+import { ChatAddRoomPage } from '../chat-add-room/chat-add-room';
 
 const FbBase = "/MyHome";
 
@@ -28,11 +30,11 @@ export class ChatRoomPage {
   }
 
   addRoom() {
-    this.navCtrl.push("ChatAddRoomPage");
+    this.navCtrl.push(ChatAddRoomPage);
   }
 
   joinRoom(key) {
-    this.navCtrl.setRoot("ChatChatPage", {
+    this.navCtrl.push(ChatChatPage, {
       key: key,
       nickname: this.authService.currentUser.displayName || "<undefined>"
     });
