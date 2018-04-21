@@ -10,48 +10,21 @@
 <ion-content padding>
   <h1>Home page</h1>
   <div *ngIf="layoutService.data | async as data else loading">{{data.width}} {{data.height}}</div>
-  <ion-slides>
-    <ion-slide>
-      <ion-grid>
-        <ion-row *ngFor="let tilerow of tilesd">
-          <ion-col *ngFor="let tile of tilerow">
-            <ion-img [src]="tile.imgsrc" (click)="openPage(tile.pgname)" [alt]="tile.title"></ion-img>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+  <ion-grid *ngIf="!showSlides">
+    <ion-row *ngFor="let tilerow of tilesd">
+      <ion-col *ngFor="let tile of tilerow">
+        <ion-img [src]="tile.imgsrc" (click)="openPage(tile.pgname)" [alt]="tile.title"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-slides *ngIf="showSlides" style="max-height: 140px; margin-bottom: 40px;" pager>
+    <ion-slide *ngFor="let tilerow of tilesd">
+      <ion-col *ngFor="let tile of tilerow">
+        <ion-img [src]="tile.imgsrc" (click)="openPage(tile.pgname)" [alt]="tile.title"></ion-img>
+      </ion-col>
     </ion-slide>
   </ion-slides>
-  <ion-slides style="max-height: 100px" pager>
-    <ion-slide>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-img src="../../assets/imgs/mm_shop.png" (click)="openPage('ShoppingPage')"></ion-img>
-          </ion-col>
-          <ion-col>
-            <ion-img src="../../assets/imgs/mm_todo.png" (click)="openPage('TodoPage')"></ion-img>
-          </ion-col>
-          <ion-col>
-            <ion-img src="../../assets/imgs/mm_tracks.png" (click)="openPage('SonglistPage')"></ion-img>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-    <ion-slide>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-img src="../../assets/imgs/mm_tube.png" (click)="openPage('YoutubedownloadPage')"></ion-img>
-          </ion-col>
-          <ion-col>
-            <ion-img src="../../assets/imgs/mm_camera.png" (click)="openPage('CameraPage')"></ion-img>
-          </ion-col>
-          <ion-col>
-            <ion-img src="../../assets/imgs/mm_test.png" (click)="openPage('TestPage')"></ion-img>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
+  <!-- <ion-slides style="max-height: 100px" pager>
     <ion-slide>
       <ion-grid>
         <ion-row>
@@ -69,57 +42,7 @@
         </ion-row>
       </ion-grid>
     </ion-slide>
-  </ion-slides>
-  <ion-slides style="max-height: 100px; margin-top: 40px;">
-    <ion-slide>
-      <h1>Slide A</h1>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <button ion-button clear (click)="openPage('ChatRoomPage')">Chat</button>
-          </ion-col>
-          <ion-col>
-            <button ion-button>Second</button>
-          </ion-col>
-          <ion-col>
-            <button ion-button>Third</button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-    <ion-slide>
-      <h1>Slide B</h1>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <button ion-button>Default</button>
-          </ion-col>
-          <ion-col>
-            <button ion-button>Second</button>
-          </ion-col>
-          <ion-col>
-            <button ion-button>Third</button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-    <ion-slide>
-      <h1>Slide C</h1>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <button ion-button>Default</button>
-          </ion-col>
-          <ion-col>
-            <button ion-button>Second</button>
-          </ion-col>
-          <ion-col>
-            <button ion-button>Third</button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-  </ion-slides>
+  </ion-slides> -->
   <ng-template #loading>
     <div>Loading ...</div>
   </ng-template>

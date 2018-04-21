@@ -15,6 +15,7 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
   tiles: Array<{ title: string, imgsrc: string, pgname: string }> = [];
   tilesd: Array<Array<{ title: string, imgsrc: string, pgname: string }>> = [];
   widthsubscription: any;
+  showSlides: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -48,6 +49,7 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
     ];
     this.widthsubscription = layoutService.data.subscribe(data => {
       let colcount = Math.trunc(Math.abs(data.width - 80) / 100 + 1);
+      this.showSlides = colcount <= this.tiles.length;
       let tileix = 0;
       let tmpd: Array<Array<{ title: string, imgsrc: string, pgname: string }>> = [];
       let done = false;
