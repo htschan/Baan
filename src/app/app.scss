@@ -21,3 +21,32 @@
 	left: 0;
 }
 
+
+.split-pane-side {
+	border-right: 0px !important;
+ }
+ 
+ .menu-container {
+	background-color: color($colors, secondary);
+ }
+ 
+ .transparent {
+	background: transparent;
+ }
+ 
+ .list-item {
+	color: #ffffff;
+	margin-bottom: 10px;
+	font-size: 2rem;
+ }
+ 
+ :hover.list-item {
+	background: #e2e61c;
+ }
+ 
+ .scroll-content{
+	overflow: hidden;
+	margin-right: -17px;
+	overflow-y: scroll;
+ }
+ 
