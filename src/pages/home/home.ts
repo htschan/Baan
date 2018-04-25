@@ -48,7 +48,7 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
       { title: 'Kontakt', imgsrc: '../../assets/imgs/mm_contact.png', pgname: 'ContactPage' },
     ];
     this.widthsubscription = layoutService.data.subscribe(data => {
-      let colcount = Math.trunc(Math.abs(data.width - 80) / 120 + 1);
+      let colcount = Math.trunc(Math.abs(data.contentWidth - 80) / 120 + 1);
       this.showSlides = colcount <= this.tiles.length;
       let tileix = 0;
       let tmpd: Array<Array<{ title: string, imgsrc: string, pgname: string }>> = [];

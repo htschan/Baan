@@ -1,23 +1,25 @@
-<ion-split-pane when="sm">
+<ion-split-pane when="sm" (ionChange)="splitChanged($event)">
 
-<ion-menu [content]="content">
-    <ion-header>
-        <ion-toolbar color="secondary">
-            <ion-title (click)="openHomePage()"><ion-icon name="home"></ion-icon></ion-title>
-        </ion-toolbar>
-    </ion-header>
+    <ion-menu [content]="content">
+        <ion-header>
+            <ion-toolbar color="secondary">
+                <ion-title (click)="openHomePage()">
+                    <ion-icon name="home"></ion-icon>
+                </ion-title>
+            </ion-toolbar>
+        </ion-header>
 
-    <ion-content class="menu-container">
-        <ion-list no-lines>
-            <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" class="transparent list-item">
-                {{p.title}}
-            </button>
-        </ion-list>
-    </ion-content>
+        <ion-content class="menu-container">
+            <ion-list no-lines>
+                <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" class="transparent list-item">
+                    {{p.title}}
+                </button>
+            </ion-list>
+        </ion-content>
 
-</ion-menu>
+    </ion-menu>
 
-<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content main swipeBackEnabled="false"></ion-nav>
+    <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+    <ion-nav [root]="rootPage" #content main swipeBackEnabled="false"></ion-nav>
 
 </ion-split-pane>

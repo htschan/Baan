@@ -49,14 +49,18 @@ export class MyApp {
     this.platform.ready().then(() => {
       let splash = this.modalCtrl.create(SplashPage);
       splash.present();
-      this.layouService.setScreenSize(this.platform.width(), this.platform.height());
+      this.layouService.setScreenSize(
+        this.platform.width(),
+        this.platform.height(),
+        this.nav.getNativeElement().offsetWidth,
+        this.nav.getNativeElement().offsetHeight);
     });
   }
 
   openHomePage() {
     this.nav.setRoot(HomePage);
   }
-  
+
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
@@ -67,6 +71,14 @@ export class MyApp {
   onResize(event) {
     event.target.innerHeight;
     event.target.innerWidth;
-    this.layouService.setScreenSize(event.target.innerWidth, event.target.innerHeight);
+    this.layouService.setScreenSize(
+      event.target.innerWidth,
+      event.target.innerHeight,
+      this.nav.getNativeElement().offsetWidth,
+      this.nav.getNativeElement().offsetHeight);
+  }
+
+  splitChanged(event: Event) {
+    console.log("split " );
   }
 }
