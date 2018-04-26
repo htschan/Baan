@@ -22,7 +22,7 @@ COPY . .
 # test
 
 # publish
-RUN ionic build
+RUN npm run dist
 
 # Runtime stage
 FROM nginx:alpine
