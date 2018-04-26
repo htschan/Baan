@@ -1,4 +1,4 @@
-<ion-split-pane when="sm" (ionChange)="splitChanged($event)">
+<ion-split-pane [when]="layoutService.showSplitPane()" (ionChange)="splitChanged($event)">
 
     <ion-menu [content]="content">
         <ion-header>

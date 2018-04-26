@@ -10,7 +10,11 @@ import { LoginPage } from '../login/login';
 })
 export class LogoutPage {
 
-  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public auth: AuthService, public appCtrl: App) {
+  constructor(
+    public viewCtrl: ViewController, 
+    public navCtrl: NavController, 
+    public auth: AuthService, 
+    public appCtrl: App) {
   }
 
   ionViewDidLoad() {

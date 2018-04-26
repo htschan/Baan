@@ -25,7 +25,7 @@ export class MyApp {
   rootPage: any = HomePage;
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public modalCtrl: ModalController, public layouService: LayoutService) {
+  constructor(public platform: Platform, public modalCtrl: ModalController, public layoutService: LayoutService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -49,7 +49,7 @@ export class MyApp {
     this.platform.ready().then(() => {
       let splash = this.modalCtrl.create(SplashPage);
       splash.present();
-      this.layouService.setScreenSize(
+      this.layoutService.setScreenSize(
         this.platform.width(),
         this.platform.height(),
         this.nav.getNativeElement().offsetWidth,
@@ -71,7 +71,7 @@ export class MyApp {
   onResize(event) {
     event.target.innerHeight;
     event.target.innerWidth;
-    this.layouService.setScreenSize(
+    this.layoutService.setScreenSize(
       event.target.innerWidth,
       event.target.innerHeight,
       this.nav.getNativeElement().offsetWidth,
@@ -79,6 +79,6 @@ export class MyApp {
   }
 
   splitChanged(event: Event) {
-    console.log("split " );
+    console.log("split ");
   }
 }
