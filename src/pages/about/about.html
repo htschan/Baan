@@ -16,27 +16,15 @@
     </ion-card-content>
   </ion-card>
   <ion-card>
-    <ion-card-title>
-      Credits:
-    </ion-card-title>
     <ion-card-content>
-      <p>
-        Built with Angular {{version}}
-      </p>
-      <p>
-        Image: Baan-{{buildInfo}}
-      </p>
-      <p>
-        Backend Build Info: Baan.Backend-{{backendbuildinfo}}
-      </p>
+      <button ion-button outline (click)="signOut()">Logout</button>
     </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <button ion-button outline (click)="signOut()">Logout</button>
   </ion-card>
 
   <ion-card>
-    <div *ngIf="layoutService.data | async as data else loading">Screen Width: {{data.width}} Height: {{data.height}}</div>
+    <ion-card-content>
+      <div *ngIf="layoutService.data | async as data else loading">Screen Width: {{data.width}} Height: {{data.height}}</div>
+    </ion-card-content>
   </ion-card>
 
   <ng-template #loading>
@@ -78,7 +66,7 @@
       <ion-label>Mobile</ion-label>
     </ion-chip>
     <ion-chip [color]="layoutService.isPlatform('mobileweb') ? 'secondary' : 'default'">
-      <ion-label>MObileWeb</ion-label>
+      <ion-label>MobileWeb</ion-label>
     </ion-chip>
     <ion-chip [color]="layoutService.isPlatform('phablet') ? 'secondary' : 'default'">
       <ion-label>Phablet</ion-label>
@@ -89,5 +77,21 @@
     <ion-chip [color]="layoutService.isPlatform('windows') ? 'secondary' : 'default'">
       <ion-label>Windows</ion-label>
     </ion-chip>
+  </ion-card>
+  <ion-card>
+    <ion-card-title>
+      Credits:
+    </ion-card-title>
+    <ion-card-content>
+      <p>
+        Built with Angular {{version}}
+      </p>
+      <p>
+        Image: Baan-{{buildInfo}}
+      </p>
+      <p>
+        Backend Build Info: Baan.Backend-{{backendbuildinfo}}
+      </p>
+    </ion-card-content>
   </ion-card>
 </ion-content>

@@ -11,18 +11,18 @@
       Anmelden
     </ion-card-header>
     <ion-card-content>
+      <ion-row>
+        <button ion-button color="primary" full (click)="signInWithFacebook()">
+          <ion-icon name="logo-facebook"></ion-icon>&nbsp;&nbsp; Login mit Facebook
+        </button>
+        <button ion-button color="primary" full (click)="signInWithTwitter()">
+          <ion-icon name="logo-twitter"></ion-icon>&nbsp;&nbsp; Login mit Twitter
+        </button>
+        <button ion-button color="primary" full (click)="signInWithGoogle()">
+          <ion-icon name="logo-google"></ion-icon>&nbsp;&nbsp; Login mit Google
+        </button>
+      </ion-row>
       <form (ngSubmit)="login()" #registerForm="ngForm">
-        <ion-row>
-          <button ion-button color="primary" full (click)="signInWithFacebook()">
-            <ion-icon name="logo-facebook"></ion-icon>&nbsp;&nbsp; Login mit Facebook
-          </button>
-          <button ion-button color="primary" full (click)="signInWithTwitter()">
-            <ion-icon name="logo-twitter"></ion-icon>&nbsp;&nbsp; Login mit Twitter
-          </button>
-          <button ion-button color="primary" full (click)="signInWithGoogle()">
-              <ion-icon name="logo-google"></ion-icon>&nbsp;&nbsp; Login mit Google
-            </button>
-          </ion-row>
         <ion-row>
           <ion-col>
             <ion-list inset>
@@ -45,7 +45,6 @@
             <button ion-button class="register-btn" block clear (click)="createAccount()">Neues Konto erstellen</button>
           </ion-col>
         </ion-row>
-
       </form>
 
       <p (click)="help()">Passwort vergessen?

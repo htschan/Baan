@@ -11,9 +11,9 @@ import { LoginPage } from '../login/login';
 export class LogoutPage {
 
   constructor(
-    public viewCtrl: ViewController, 
-    public navCtrl: NavController, 
-    public auth: AuthService, 
+    public viewCtrl: ViewController,
+    public navCtrl: NavController,
+    public auth: AuthService,
     public appCtrl: App) {
   }
 
@@ -25,7 +25,8 @@ export class LogoutPage {
     this.auth.signOut().then(() => {
       this.viewCtrl.dismiss();
       this.navCtrl.popToRoot();
-      this.appCtrl.getRootNav().push(LoginPage);
+      // this.appCtrl.getRootNav().push(LoginPage);
+      this.navCtrl.setRoot(LoginPage);
     });
   }
 

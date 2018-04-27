@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, ViewController, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
 import { HomePage } from '../home/home';
+import { LayoutService } from '../../services/layout.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public auth: AuthService,
+    public layoutService: LayoutService,
     public toastCtrl: ToastController,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController) {
@@ -26,6 +28,10 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
+  ionViewWillEnter() {
+    this.layoutService.hideSplitPane();
+  }
+
   public createAccount() {
     // this.navCtrl.push(RegisterPage);
   }
@@ -33,28 +39,28 @@ export class LoginPage {
   signInWithFacebook() {
     this.auth.facebookLogin().then(() => {
       console.log("login facebook logged in");
-      this.navCtrl.setRoot(HomePage);
+      this.gotoHomePage();
     });
   }
 
   signInWithTwitter() {
     this.auth.twitterLogin().then(() => {
       console.log("login twitter logged in");
-      this.navCtrl.setRoot(HomePage);
+      this.gotoHomePage();
     });
   }
 
   signInWithGoogle() {
     this.auth.googleLogin().then(() => {
       console.log("login google logged in");
-      this.navCtrl.setRoot(HomePage);
+      this.gotoHomePage();
     });
   }
 
   login() {
     this.auth.emailLogin(this.registerCredentials.email, this.registerCredentials.password).then(() => {
       console.log("login email/password logged in");
-      this.navCtrl.setRoot(HomePage);
+      this.gotoHomePage();
     });
   }
 
@@ -64,6 +70,11 @@ export class LoginPage {
 
   help() {
     this.toastCtrl.create({ message: "Einfach Login drücken !", duration: 3000, position: "top" }).present();
+  }
+
+  gotoHomePage() {
+    this.layoutService.unHideSplitPane();
+    this.navCtrl.setRoot(HomePage);
   }
 
   showLoading() {

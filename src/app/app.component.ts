@@ -1,5 +1,5 @@
 import { Component, ViewChild, HostListener } from '@angular/core';
-import { Platform, ModalController, Nav } from 'ionic-angular';
+import { Platform, ModalController, Nav, Events } from 'ionic-angular';
 
 import { HomePage } from '../pages/home/home';
 import { ShoppingPage } from '../pages/shop/shopping/shopping';
@@ -25,8 +25,15 @@ export class MyApp {
   rootPage: any = HomePage;
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public modalCtrl: ModalController, public layoutService: LayoutService) {
+  constructor(public platform: Platform, 
+    public events: Events,
+    public modalCtrl: ModalController, 
+    public layoutService: LayoutService) {
     this.initializeApp();
+
+    events.subscribe('user:signin', (user) => {
+      this.rootPage = HomePage;
+    });
 
     // used for an example of ngFor and navigation
     this.pages = [
