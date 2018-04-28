@@ -15,6 +15,7 @@ import { ChatRoomPage } from '../pages/chat/chat-room/chat-room';
 import { SplashPage } from '../pages/splash/splash';
 import { LayoutService } from '../services/layout.service';
 import { TodoPage } from '../pages/todo/todo/todo';
+import { IntroPage } from '../pages/intro/intro';
 
 @Component({
   templateUrl: 'app.html'
@@ -22,7 +23,7 @@ import { TodoPage } from '../pages/todo/todo/todo';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = IntroPage;
   pages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, 

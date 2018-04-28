@@ -14,7 +14,7 @@ export class NavGuard {
     async ionViewCanEnter() {
         return this.auth.isAuthenticated().then(authenicated => {
             if (authenicated) {
-                console.log("ionViewCanEntger authenticated");
+                console.log("ionViewCanEnter authenticated");
                 return true;
             }
             else
@@ -26,8 +26,6 @@ export class NavGuard {
         console.log("nav.guard login");
         let splash = this.modalCtrl.create(LoginPage);
         splash.present();
-        // let rootNavs: Nav[] = this.appCtrl.getRootNavs();
-        // rootNavs[0].setRoot(LoginPage);
         return Promise.resolve(false);
     }
 

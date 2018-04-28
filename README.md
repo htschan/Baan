@@ -41,3 +41,6 @@ https://blog.markvincze.com/secure-an-asp-net-core-api-with-firebase/
 https://blog.angular-university.io/angular-reactive-templates/
 
 
+## Customizing Ionic Apps for Web & Mobile
+
+https://blog.ionicframework.com/customizing-ionic-apps-for-web-mobile/

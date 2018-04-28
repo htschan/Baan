@@ -41,6 +41,7 @@ import { YoutubedownloadPageModule } from '../pages/youtubedownload/youtubedownl
 import { CameraPageModule } from '../pages/camera/camera.module';
 import { ContactPageModule } from '../pages/contact/contact.module';
 import { AboutPageModule } from '../pages/about/about.module';
+import { IntroPage } from '../pages/intro/intro';
 
 /*
 export class AppConfig {
@@ -59,6 +60,7 @@ export class AppConfig {
 @NgModule({
   declarations: [
     MyApp,
+    IntroPage,
     HomePage,
     YoutubesanitizerPipe,
     ViewvideoPage,
@@ -92,6 +94,7 @@ export class AppConfig {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    IntroPage,
     HomePage,
     SonglistPage,
     ViewvideoPage,
