@@ -19,7 +19,6 @@ export class AboutPage {
   versionGen: any;
 
   constructor(@Inject(BUILD_INFO) buildInfo: string,
-//    @Inject(VERSION_GEN) versionGen: string,
     public navCtrl: NavController,
     public ytService: YoutubeService,
     public layoutService: LayoutService,
