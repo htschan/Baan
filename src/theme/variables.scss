@@ -89,3 +89,20 @@ $colors: (
 
 
 $split-pane-side-max-width: 12%;
+
+$main-background: #ccff90;
+$toolbar-background: #99cc60; 
+
+$secondary-main-background: #ffca38;
+$secondary-light-background: #fffd61;
+$secondary-dark-background: #c79a00;
+
+$background-color: $main-background;
+$toolbar-background: $toolbar-background;
+
+$menu-ios-background: $main-background;
+$menu-md-background:  $main-background;
+$menu-wp-background:  $main-background;
+
+$list-background-color: $secondary-main-background;
+$list-border-color: $secondary-dark-background;

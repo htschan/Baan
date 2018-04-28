@@ -18,6 +18,7 @@ import { TodoPage } from '../pages/todo/todo/todo';
 import { IntroPage } from '../pages/intro/intro';
 
 @Component({
+  selector: 'my-app',
   templateUrl: 'app.html'
 })
 export class MyApp {
@@ -38,7 +39,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
+      // { title: 'Home', component: HomePage },
       { title: 'Einkaufen', component: ShoppingPage },
       { title: 'Todo', component: TodoPage },
       { title: 'Audio Tracks', component: SonglistPage },

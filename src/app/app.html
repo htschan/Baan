@@ -1,15 +1,19 @@
 <ion-split-pane [when]="layoutService.showSplitPane()" (ionChange)="splitChanged($event)">
 
     <ion-menu [content]="content">
-        <ion-header>
-            <ion-toolbar color="secondary">
+        <ion-header class="toolbar-gradient">
+            <ion-toolbar>
                 <ion-title (click)="openHomePage()">
                     <ion-icon name="home"></ion-icon>
                 </ion-title>
             </ion-toolbar>
         </ion-header>
 
-        <ion-content class="menu-container">
+        <ion-content class="menu-container menu-gradient">
+            <div class="spacer" style="width: 254px; height: 10px;"></div>
+            <div class="category-image">
+                <img src="assets/imgs/icon-72x72.png" style="display: block; width: 60%; height: auto; margin-left: auto; margin-right: auto;" (click)="openHomePage()">
+            </div>
             <ion-list no-lines>
                 <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" class="transparent list-item">
                     {{p.title}}
