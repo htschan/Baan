@@ -5,6 +5,7 @@ import { BUILD_INFO } from '../../services/product.service';
 import { YoutubeService } from '../../services/youtube.service';
 import { LayoutService } from '../../services/layout.service';
 import { AuthService } from '../../services/auth.service';
+import { VERSION as VERSION_GEN } from '../../services/version';
 
 @IonicPage()
 @Component({
@@ -15,14 +16,17 @@ export class AboutPage {
   version: string;
   buildInfo: string;
   backendbuildinfo: string;
+  versionGen: any;
 
   constructor(@Inject(BUILD_INFO) buildInfo: string,
+//    @Inject(VERSION_GEN) versionGen: string,
     public navCtrl: NavController,
     public ytService: YoutubeService,
     public layoutService: LayoutService,
     public authService: AuthService) {
     this.version = VERSION.full;
     this.buildInfo = buildInfo;
+    this.versionGen = VERSION_GEN;
     ytService.apiinfo().subscribe(data => {
       this.backendbuildinfo = data.buildTimeStamp;
     })

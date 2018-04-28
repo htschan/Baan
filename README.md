@@ -44,3 +44,7 @@ https://blog.angular-university.io/angular-reactive-templates/
 ## Customizing Ionic Apps for Web & Mobile
 
 https://blog.ionicframework.com/customizing-ionic-apps-for-web-mobile/
+
+## Version stamping your app with Angular CLI
+
+https://medium.com/@amcdnl/version-stamping-your-app-with-the-angular-cli-d563284bb94d

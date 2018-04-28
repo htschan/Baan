@@ -35,54 +35,59 @@
     <ion-card-title>
       Orientation:
     </ion-card-title>
-    <ion-chip [color]="layoutService.isLandscape() ? 'secondary' : 'default'">
-      <ion-label>Landscape</ion-label>
-    </ion-chip>
-    <ion-chip [color]="layoutService.isPortrait() ? 'secondary' : 'default'">
-      <ion-label>Portrait</ion-label>
-    </ion-chip>
-    <ion-card-title>
-      Platform:
-    </ion-card-title>
-    <ion-chip [color]="layoutService.isPlatform('android') ? 'secondary' : 'default'">
-      <ion-label>Android</ion-label>
-    </ion-chip>
-    <ion-chip [color]="layoutService.isPlatform('cordova') ? 'secondary' : 'default'">
-      <ion-label>Cordova</ion-label>
-    </ion-chip>
-    <ion-chip [color]="layoutService.isPlatform('core') ? 'secondary' : 'default'">
-      <ion-label>Desktop Browser</ion-label>
-    </ion-chip>
-    <ion-chip [color]="layoutService.isPlatform('ios') ? 'secondary' : 'default'">
-      <ion-label>IOS</ion-label>
-    </ion-chip>
-    <ion-chip [color]="layoutService.isPlatform('ipad') ? 'secondary' : 'default'">
-      <ion-label>iPad</ion-label>
-    </ion-chip>
-    <ion-chip [color]="layoutService.isPlatform('iphone') ? 'secondary' : 'default'">
-      <ion-label>iPhone</ion-label>
-    </ion-chip>
-    <ion-chip [color]="layoutService.isPlatform('mobile') ? 'secondary' : 'default'">
-      <ion-label>Mobile</ion-label>
-    </ion-chip>
-    <ion-chip [color]="layoutService.isPlatform('mobileweb') ? 'secondary' : 'default'">
-      <ion-label>MobileWeb</ion-label>
-    </ion-chip>
-    <ion-chip [color]="layoutService.isPlatform('phablet') ? 'secondary' : 'default'">
-      <ion-label>Phablet</ion-label>
-    </ion-chip>
-    <ion-chip [color]="layoutService.isPlatform('tablet') ? 'secondary' : 'default'">
-      <ion-label>Tablet</ion-label>
-    </ion-chip>
-    <ion-chip [color]="layoutService.isPlatform('windows') ? 'secondary' : 'default'">
-      <ion-label>Windows</ion-label>
-    </ion-chip>
+    <ion-card-content>
+      <ion-chip [color]="layoutService.isLandscape() ? 'secondary' : 'default'">
+        <ion-label>Landscape</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPortrait() ? 'secondary' : 'default'">
+        <ion-label>Portrait</ion-label>
+      </ion-chip>
+      <ion-card-title>
+        Platform:
+      </ion-card-title>
+      <ion-chip [color]="layoutService.isPlatform('android') ? 'secondary' : 'default'">
+        <ion-label>Android</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('cordova') ? 'secondary' : 'default'">
+        <ion-label>Cordova</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('core') ? 'secondary' : 'default'">
+        <ion-label>Desktop Browser</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('ios') ? 'secondary' : 'default'">
+        <ion-label>IOS</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('ipad') ? 'secondary' : 'default'">
+        <ion-label>iPad</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('iphone') ? 'secondary' : 'default'">
+        <ion-label>iPhone</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('mobile') ? 'secondary' : 'default'">
+        <ion-label>Mobile</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('mobileweb') ? 'secondary' : 'default'">
+        <ion-label>MobileWeb</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('phablet') ? 'secondary' : 'default'">
+        <ion-label>Phablet</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('tablet') ? 'secondary' : 'default'">
+        <ion-label>Tablet</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('windows') ? 'secondary' : 'default'">
+        <ion-label>Windows</ion-label>
+      </ion-chip>
+    </ion-card-content>
   </ion-card>
   <ion-card>
     <ion-card-title>
       Credits:
     </ion-card-title>
     <ion-card-content>
+      <p>
+        {{versionGen.version}}
+      </p>
       <p>
         Built with Angular {{version}}
       </p>
