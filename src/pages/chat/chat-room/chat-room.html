@@ -14,7 +14,7 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let room of rooms | async">
+    <ion-item *ngFor="let room of rooms | async" class="item-gradient">
       {{room.roomname}}
       <ion-icon name="chatboxes" item-end (click)="joinRoom(room.key)"></ion-icon>
     </ion-item>

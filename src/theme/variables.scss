@@ -34,11 +34,11 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222
+  primary:    #7DD0DF,
+  secondary:  #346400,
+  danger:     #EF4328,
+  light:      #ABD631,
+  dark:       #3E0000
 );
 
 
@@ -93,7 +93,7 @@ $split-pane-side-max-width: 12%;
 $main-background: #ccff90;
 $toolbar-background: #99cc60; 
 
-$secondary-main-background: #ffca38;
+$secondary-main-background: #FEBE12;
 $secondary-light-background: #fffd61;
 $secondary-dark-background: #c79a00;
 
@@ -104,5 +104,5 @@ $menu-ios-background: $main-background;
 $menu-md-background:  $main-background;
 $menu-wp-background:  $main-background;
 
-$list-background-color: $secondary-main-background;
+$list-background-color: $secondary-light-background;
 $list-border-color: $secondary-dark-background;

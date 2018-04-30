@@ -1,3 +1,6 @@
 page-todo {
 
+    .card-gradient {
+        background: linear-gradient(to bottom, $secondary-main-background 0%,$secondary-light-background 100%);
+    }
 }

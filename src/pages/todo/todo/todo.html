@@ -23,7 +23,7 @@
     </ion-fab-list>
   </ion-fab>
   <ion-list>
-    <ion-card *ngFor="let item of todoService.todos | async">
+    <ion-card *ngFor="let item of todoService.todos | async" class="card-gradient">
       <ion-card-header (click)="viewItem(item)">
         {{item.title}}
       </ion-card-header>

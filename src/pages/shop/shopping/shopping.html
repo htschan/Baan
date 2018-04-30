@@ -29,7 +29,7 @@
   </ion-fab>
   <ion-list>
     <ion-item-sliding *ngFor="let item of prodService.shoppingitems | async">
-      <ion-item (click)="viewItem(item)">
+      <ion-item (click)="viewItem(item)" class="item-gradient">
         <ion-avatar item-start>
           <img [src]="item.Url">
         </ion-avatar>

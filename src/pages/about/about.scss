@@ -4,5 +4,8 @@ page-about {
         max-width: 80px;
         max-height: 80px;
      }
-     
+    ion-card-content, ion-card {
+        background: linear-gradient(to bottom, $secondary-main-background 0%,$secondary-light-background 100%);
+    }
+
 }

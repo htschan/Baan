@@ -14,7 +14,7 @@
 
 <ion-content padding>
   <ion-list *ngIf="ytService.audiotracks | async; let items;">
-    <ion-item *ngFor="let item of items">
+    <ion-item *ngFor="let item of items" style="margin-bottom: 6px;" class="item-gradient">
       <ion-thumbnail item-start>
         <img [src]="item?.metaData?.thumbnailStandardRes">
       </ion-thumbnail>
