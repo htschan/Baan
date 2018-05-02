@@ -4,7 +4,7 @@
     <ion-buttons start>
       <button ion-button (click)="dismiss()">Abbrechen</button>
     </ion-buttons>
-    <ion-title>Produkt</ion-title>
+    <ion-title>Todo</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -23,24 +23,14 @@
     </div>
     <ion-item>
       <ion-label color="primary">Titel</ion-label>
-      <ion-input placeholder="Was" formControlName="name"></ion-input>
+      <ion-input placeholder="Was" formControlName="title"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label color="primary" fixed>Beschreibung</ion-label>
-      <ion-input type="tel" placeholder="Beschreibung" formControlName="description"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Wichtig</ion-label>
-      <ion-checkbox color="dark" checked="false" formControlName="important"></ion-checkbox>
-    </ion-item>
-    <ion-item>
-      <ion-label>Favorit</ion-label>
-      <ion-checkbox color="primary" checked="false" formControlName="favorite"></ion-checkbox>
+      <ion-input type="text" placeholder="Beschreibung" formControlName="comment"></ion-input>
     </ion-item>
 
     <button ion-button color="danger" full (click)="dismiss()">Speichern</button>
   </form>
-  <p>Form value: {{ itemForm.value | json }}</p>
-  <p>Form status: {{ itemForm.status | json }}</p>
 </ion-content>

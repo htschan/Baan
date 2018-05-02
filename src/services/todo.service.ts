@@ -24,8 +24,8 @@ export class TodoService {
     addNewTodo(item: Todo) {
         item.modifiedAt = firebase.database.ServerValue.TIMESTAMP as string;
         item.createdAt = firebase.database.ServerValue.TIMESTAMP as string;
-        item.modifiedBy = this.authService.currentUser.uid;
-        item.createdBy = this.authService.currentUser.uid;
+        item.modifiedBy = this.authService.currentUser.displayName;
+        item.createdBy = this.authService.currentUser.displayName;
         this.todosRef.push(item);
     }
     updateShoppinglistItem(key: string, item: Todo) {
