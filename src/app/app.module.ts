@@ -42,6 +42,7 @@ import { CameraPageModule } from '../pages/camera/camera.module';
 import { ContactPageModule } from '../pages/contact/contact.module';
 import { AboutPageModule } from '../pages/about/about.module';
 import { IntroPage } from '../pages/intro/intro';
+import { KmlPageModule } from '../pages/kml/kml.module';
 
 /*
 export class AppConfig {
@@ -83,6 +84,7 @@ export class AppConfig {
     YoutubedownloadPageModule,
     CameraPageModule,
     GpspagePageModule,
+    KmlPageModule,
     MotionPageModule,
     SonglistPageModule,
     ChatRoomPageModule,

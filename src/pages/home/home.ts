@@ -42,6 +42,7 @@ export class HomePage extends NavGuard implements OnInit, OnDestroy {
       { title: 'Kamera', imgsrc: '../../assets/imgs/mm_camera.png', pgname: 'CameraPage' },
       { title: 'Test', imgsrc: '../../assets/imgs/mm_test.png', pgname: 'TestPage' },
       { title: 'GPS', imgsrc: '../../assets/imgs/mm_gps.png', pgname: 'GpsPage' },
+      { title: 'KML', imgsrc: '../../assets/imgs/mm_gps.png', pgname: 'KmlPage' },
       { title: 'Motion', imgsrc: '../../assets/imgs/mm_motion.png', pgname: 'MotionPage' },
       { title: 'Chat', imgsrc: '../../assets/imgs/mm_chat.png', pgname: 'ChatRoomPage' },
       { title: 'Über', imgsrc: '../../assets/imgs/mm_about.png', pgname: 'AboutPage' },

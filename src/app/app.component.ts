@@ -16,6 +16,7 @@ import { SplashPage } from '../pages/splash/splash';
 import { LayoutService } from '../services/layout.service';
 import { TodoPage } from '../pages/todo/todo/todo';
 import { IntroPage } from '../pages/intro/intro';
+import { KmlPage } from '../pages/kml/kml';
 
 @Component({
   selector: 'my-app',
@@ -47,6 +48,7 @@ export class MyApp {
       { title: 'Kamera', component: CameraPage },
       { title: 'Test', component: TestPage },
       { title: 'GPS', component: GpsPage },
+      { title: 'KML', component: KmlPage },
       { title: 'Motion', component: MotionPage },
       { title: 'Chat', component: ChatRoomPage },
       { title: 'Über', component: AboutPage },
