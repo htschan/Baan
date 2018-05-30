@@ -7,8 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+
+import { AgmCoreModule, GoogleMapsAPIWrapper, KmlLayerManager } from '@agm/core';
+import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 
 import { MyApp } from './app.component';
 
@@ -42,7 +46,10 @@ import { CameraPageModule } from '../pages/camera/camera.module';
 import { ContactPageModule } from '../pages/contact/contact.module';
 import { AboutPageModule } from '../pages/about/about.module';
 import { IntroPage } from '../pages/intro/intro';
-import { KmlPageModule } from '../pages/kml/kml.module';
+import { KmlPage } from '../pages/kml/kml';
+import { UploadFileService } from '../services/upload-file.service';
+import { ComponentsModule } from '../components/components.module';
+import { DirectivesModule } from '../directives/directives.module';
 
 /*
 export class AppConfig {
@@ -69,6 +76,7 @@ export class AppConfig {
     LogoutPage,
     SplashPage,
     SelectProductPage,
+    KmlPage
   ],
   imports: [
     BrowserModule,
@@ -80,18 +88,24 @@ export class AppConfig {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireStorageModule,
+    AgmCoreModule.forRoot({
+      apiKey: AppConfig.googleMaps.apiKey
+    }),
+    AgmJsMarkerClustererModule,
     TestpagePageModule,
     YoutubedownloadPageModule,
     CameraPageModule,
     GpspagePageModule,
-    KmlPageModule,
     MotionPageModule,
     SonglistPageModule,
     ChatRoomPageModule,
     ShoppingPageModule,
     TodoPageModule,
     ContactPageModule,
-    AboutPageModule
+    AboutPageModule,
+    DirectivesModule,
+    ComponentsModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -104,9 +118,13 @@ export class AppConfig {
     LogoutPage,
     SplashPage,
     SelectProductPage,
+    KmlPage
   ],
   providers: [
     AngularFireDatabase,
+    AngularFireStorageModule,
+    GoogleMapsAPIWrapper,
+    KmlLayerManager,
     ProductService,
     YoutubeService,
     GeoLocationService,
@@ -115,7 +133,8 @@ export class AppConfig {
     { provide: BUILD_INFO, useValue: AppConfig.appConfig.bts },
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     LayoutService,
-    TodoService
+    TodoService,
+    UploadFileService
   ]
 })
 export class AppModule { }

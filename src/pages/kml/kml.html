@@ -1,15 +1,35 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>kml</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>KML</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-  <agm-map [latitude]="lat" [longitude]="lng">
+  <agm-map [latitude]="lat" [longitude]="lng" [mapTypeId]="mapTypeId">
     <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+<!--    <agm-kml-layer url="https://sorawit.ch/kml/20170703.kml"></agm-kml-layer>
+    <agm-kml-layer url="https://sorawit.ch/kml/20170705.kml"></agm-kml-layer> -->
+    <agm-kml-layer [url]="kmlurl"></agm-kml-layer>
+    <agm-kml-layer [url]="uploadService.downloadURL | async"></agm-kml-layer>
   </agm-map>
 
+  <div *ngIf="currentFileUpload" class="progress" style="width:400px">
+    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+      aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+      {{progress.percentage}}%</div>
+  </div>
+
+  <label for="file">File:</label>
+  <input type="file" (change)="selectFile($event)" accept=".kml" />
+  <button ion-button [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+  <div>{{ uploadService.uploadPercent | async }}</div>
+  <a [href]="uploadService.downloadURL | async">{{ uploadService.downloadURL | async }}</a>
+
+
+  <file-upload></file-upload>
+
+  
 </ion-content>
