@@ -1,19 +1,27 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from 'angularfire2/storage';
-import { finalize } from 'rxjs/operators';
+import { finalize, tap, flatMap } from 'rxjs/operators';
 
 import { FileUpload } from '../model/fileupload';
 import { Observable } from 'rxjs/Observable';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { map } from 'rxjs/operator/map';
+import { switchMap } from 'rxjs/operator/switchMap';
 
 @Injectable()
 export class UploadFileService {
 
-  constructor(private afStorage: AngularFireStorage) { }
+  constructor(private afStorage: AngularFireStorage, private db: AngularFirestore) {
+    // this.downloadURL.subscribe(url => {
+    //   console.log("url = " + url);
+    // })
+  }
 
 
   private basePath = '/MyHome/kml';
   downloadURL: Observable<string>;
   uploadPercent: Observable<number>;
+  snapshot: Observable<any>;
 
   pushFileToStorage(fileUpload: FileUpload, progress: { percentage: number }) {
     const file = fileUpload.file;
@@ -25,9 +33,20 @@ export class UploadFileService {
 
     // get notified when the download URL is available
     uploadTask.snapshotChanges().pipe(
-      finalize(() => this.downloadURL = fileRef.getDownloadURL())
+      tap(beer => {
+        console.log(`Before: ${beer}`)
+      }),
+      finalize(() => this.downloadURL = fileRef.getDownloadURL()),
     ).subscribe();
 
+    // this.snapshot = uploadTask.snapshotChanges().pipe(
+    //   tap(snap => {
+    //     if (snap.bytesTransferred === snap.totalBytes) {
+    //       // Update firestore on completion
+    //       this.db.collection('photos').add( { path: this.basePath, size: snap.totalBytes })
+    //     }
+    //   })
+    // )
   }
 
   // private saveFileData(fileUpload: FileUpload) {
