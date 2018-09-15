@@ -1,95 +1,69 @@
 import { Component, ViewChild, HostListener } from '@angular/core';
-import { Platform, ModalController, Nav, Events } from 'ionic-angular';
 
-import { HomePage } from '../pages/home/home';
-import { ShoppingPage } from '../pages/shop/shopping/shopping';
-import { ContactPage } from '../pages/contact/contact';
-import { AboutPage } from '../pages/about/about';
-import { SonglistPage } from '../pages/songlist/songlist';
-import { YoutubedownloadPage } from '../pages/youtubedownload/youtubedownload';
-import { CameraPage } from '../pages/camera/camera';
-import { TestPage } from '../pages/testpage/testpage';
-import { GpsPage } from '../pages/gpspage/gpspage';
-import { MotionPage } from '../pages/motion/motion';
-import { ChatRoomPage } from '../pages/chat/chat-room/chat-room';
-import { SplashPage } from '../pages/splash/splash';
-import { LayoutService } from '../services/layout.service';
-import { TodoPage } from '../pages/todo/todo/todo';
-import { IntroPage } from '../pages/intro/intro';
-import { KmlPage } from '../pages/kml/kml';
+import { Platform, Content } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { LayoutService } from './services/layout.service';
 
 @Component({
-  selector: 'my-app',
-  templateUrl: 'app.html'
+  selector: 'app-root',
+  templateUrl: 'app.component.html'
 })
-export class MyApp {
-  @ViewChild(Nav) nav: Nav;
+export class AppComponent {
+  @ViewChild(Content) content: Content;
 
-  rootPage: any = IntroPage;
-  pages: Array<{ title: string, component: any }>;
+  public appPages = [
+    { title: 'Home', url: '/home', icon: 'home' },
+    { title: 'List', url: '/list', icon: 'list' },
+    { title: 'Shopping', url: '/Shopping', icon: 'list' },
+    { title: 'Todo', url: '/Todo', icon: 'list' },
+    { title: 'Audio Tracks', url: '/Songlist', icon: 'list' },
+    { title: 'Youtube Download', url: '/Youtubedownload', icon: 'list' },
+    { title: 'Camera', url: '/Camera', icon: 'list' },
+    { title: 'Test', url: '/Test', icon: 'list' },
+    { title: 'GPS', url: '/Gps', icon: 'list' },
+    { title: 'KML', url: '/Kml', icon: 'list' },
+    { title: 'Motion', url: '/Motion', icon: 'list' },
+    { title: 'Chat', url: '/ChatRoom', icon: 'list' },
+    { title: 'Über', url: '/About', icon: 'list' },
+    { title: 'Kontakt', url: '/Contact', icon: 'list' }
+  ];
 
-  constructor(public platform: Platform, 
-    public events: Events,
-    public modalCtrl: ModalController, 
-    public layoutService: LayoutService) {
+  constructor(
+    private platform: Platform,
+    private splashScreen: SplashScreen,
+    private statusBar: StatusBar,
+    public layoutService: LayoutService
+  ) {
     this.initializeApp();
-
-    events.subscribe('user:signin', (user) => {
-      this.rootPage = HomePage;
-    });
-
-    // used for an example of ngFor and navigation
-    this.pages = [
-      // { title: 'Home', component: HomePage },
-      { title: 'Einkaufen', component: ShoppingPage },
-      { title: 'Todo', component: TodoPage },
-      { title: 'Audio Tracks', component: SonglistPage },
-      { title: 'Youtube Download', component: YoutubedownloadPage },
-      { title: 'Kamera', component: CameraPage },
-      { title: 'Test', component: TestPage },
-      { title: 'GPS', component: GpsPage },
-      { title: 'KML', component: KmlPage },
-      { title: 'Motion', component: MotionPage },
-      { title: 'Chat', component: ChatRoomPage },
-      { title: 'Über', component: AboutPage },
-      { title: 'Kontakt', component: ContactPage },
-    ];
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      let splash = this.modalCtrl.create(SplashPage);
-      splash.present();
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
       this.layoutService.setScreenSize(
         this.platform.width(),
         this.platform.height(),
-        this.nav.getNativeElement().offsetWidth,
-        this.nav.getNativeElement().offsetHeight);
+        this.platform.width(),
+        this.platform.height());
+        // this.content.getNativeElement().offsetWidth,
+        // this.content.getNativeElement().offsetHeight);
     });
-  }
-
-  openHomePage() {
-    this.nav.setRoot(HomePage);
-  }
-
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    event.target.innerHeight;
-    event.target.innerWidth;
     this.layoutService.setScreenSize(
       event.target.innerWidth,
       event.target.innerHeight,
-      this.nav.getNativeElement().offsetWidth,
-      this.nav.getNativeElement().offsetHeight);
+      event.target.innerWidth,
+      event.target.innerHeight);
+      // this.nav.getNativeElement().offsetWidth,
+      // this.nav.getNativeElement().offsetHeight);
   }
 
   splitChanged(event: Event) {
-    console.log("split ");
+    console.log('split ');
   }
 }

@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h1>Home page</h1>
+  <div *ngIf="layoutService.data | async as data else loading">{{data.width}} {{data.height}}</div>
+  <ion-grid *ngIf="!showSlides">
+    <ion-row *ngFor="let tilerow of tilesd">
+      <ion-col *ngFor="let tile of tilerow">
+        <img [src]="tile.imgsrc" (click)="openPage(tile.pgname)" [alt]="tile.title" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-slides *ngIf="showSlides" style="max-height: 140px; margin-bottom: 40px;" pager>
+    <ion-slide *ngFor="let tilerow of tilesd">
+      <ion-col *ngFor="let tile of tilerow">
+        <img [src]="tile.imgsrc" (click)="openPage(tile.pgname)" [alt]="tile.title" />
+      </ion-col>
+    </ion-slide>
+  </ion-slides>
+  <!-- <ion-slides style="max-height: 100px" pager>
+    <ion-slide>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button outline round (click)="openPage('GpsPage')">GPS</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button clear large>
+              <ion-img width="80" height="40" src="../../assets/imgs/icon-72x72.png" (click)="openPage('MotionPage')"></ion-img>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button>Third</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+  </ion-slides> -->
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ion-content>

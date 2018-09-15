@@ -1,55 +1,37 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { HttpModule } from '@angular/http';
+import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireStorageModule } from 'angularfire2/storage';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { AgmCoreModule, GoogleMapsAPIWrapper, KmlLayerManager } from '@agm/core';
-import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
-import { MyApp } from './app.component';
-
-import { ProductService, BUILD_INFO } from '../services/product.service';
-import { AuthService } from '../services/auth.service';
-import { YoutubeService } from '../services/youtube.service';
-import { LayoutService } from '../services/layout.service';
-import { GeoLocationService } from '../services/geolocation.service';
-import { MotionService } from '../services/motion.service';
-import { TodoService } from '../services/todo.service';
-
-import { HomePage } from '../pages/home/home';
-
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { GeoLocationService } from './services/geolocation.service';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './services/auth.guard';
+import { LayoutService } from './services/layout.service';
+import { MotionService } from './services/motion.service';
 import { AppConfig } from '../../myhomeappconfig';
-import { LogoutPage } from '../pages/logout/logout';
-import { SplashPage } from '../pages/splash/splash';
-import { LoginPage } from '../pages/login/login';
-import { SelectProductPage } from '../pages/selectproduct/selectproduct';
-import { SonglistPage } from '../pages/songlist/songlist';
-import { ViewvideoPage } from '../pages/viewvideo/viewvideo';
-import { YoutubesanitizerPipe } from '../pipes/youtubesanitizer/youtubesanitizer';
-import { TestpagePageModule } from '../pages/testpage/testpage.module';
-import { GpspagePageModule } from '../pages/gpspage/gpspage.module';
-import { MotionPageModule } from '../pages/motion/motion.module';
-import { ChatRoomPageModule } from '../pages/chat/chat-room/chat-room.module';
-import { TodoPageModule } from '../pages/todo/todo/todo.module';
-import { ShoppingPageModule } from '../pages/shop/shopping/shopping.module';
-import { SonglistPageModule } from '../pages/songlist/songlist.module';
-import { YoutubedownloadPageModule } from '../pages/youtubedownload/youtubedownload.module';
-import { CameraPageModule } from '../pages/camera/camera.module';
-import { ContactPageModule } from '../pages/contact/contact.module';
-import { AboutPageModule } from '../pages/about/about.module';
-import { IntroPage } from '../pages/intro/intro';
-import { KmlPage } from '../pages/kml/kml';
-import { UploadFileService } from '../services/upload-file.service';
-import { ComponentsModule } from '../components/components.module';
-import { DirectivesModule } from '../directives/directives.module';
+import { GpsPageModule } from './gps/gps.module';
+import { MotionPageModule } from './motion/motion.module';
+import { ProductService, BUILD_INFO } from './services/product.service';
+import { TodoService } from './services/todo.service';
+import { UploadFileService } from './services/upload-file.service';
+import { YoutubeService } from './services/youtube.service';
+import { LoginPageModule } from './login/login.module';
+import { LogoutPageModule } from './logout/logout.module';
+import { ShoppingPageModule } from './shopping/shopping.module';
+import { TodoPageModule } from './todo/todo.module';
+import { SonglistPageModule } from './songlist/songlist.module';
 
 /*
 export class AppConfig {
@@ -61,80 +43,49 @@ export class AppConfig {
     projectId: "myproj-f3489",
     storageBucket: "aaaaaa-r7364.appspot.com",
     messagingSenderId: "234972364927"
-  };  
+  };
 }
 */
 
 @NgModule({
   declarations: [
-    MyApp,
-    IntroPage,
-    HomePage,
-    YoutubesanitizerPipe,
-    ViewvideoPage,
-    LoginPage,
-    LogoutPage,
-    SplashPage,
-    SelectProductPage,
-    KmlPage
+    AppComponent
   ],
+  entryComponents: [],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
     HttpClientModule,
-    HttpModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    AngularFireModule.initializeApp(AppConfig.firebaseConfig),
     AngularFireModule.initializeApp(AppConfig.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
-    AgmCoreModule.forRoot({
-      apiKey: AppConfig.googleMaps.apiKey
-    }),
-    AgmJsMarkerClustererModule,
-    TestpagePageModule,
-    YoutubedownloadPageModule,
-    CameraPageModule,
-    GpspagePageModule,
-    MotionPageModule,
-    SonglistPageModule,
-    ChatRoomPageModule,
+    GpsPageModule,
     ShoppingPageModule,
+    MotionPageModule,
+    LoginPageModule,
+    LogoutPageModule,
     TodoPageModule,
-    ContactPageModule,
-    AboutPageModule,
-    DirectivesModule,
-    ComponentsModule,
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    IntroPage,
-    HomePage,
-    SonglistPage,
-    ViewvideoPage,
-    LoginPage,
-    LogoutPage,
-    SplashPage,
-    SelectProductPage,
-    KmlPage
+    SonglistPageModule
   ],
   providers: [
-    AngularFireDatabase,
-    AngularFireStorageModule,
-    GoogleMapsAPIWrapper,
-    KmlLayerManager,
+    StatusBar,
+    SplashScreen,
+    AuthService,
+    AuthGuard,
+    LayoutService,
     ProductService,
+    TodoService,
+    UploadFileService,
     YoutubeService,
     GeoLocationService,
-    AuthService,
     MotionService,
     { provide: BUILD_INFO, useValue: AppConfig.appConfig.bts },
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-    LayoutService,
-    TodoService,
-    UploadFileService
-  ]
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Kamera</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3>
+        <ion-button small (click)="start()">Play</ion-button>
+      </ion-col>
+      <ion-col col-6>
+        <ion-button small (click)="toggleControls()">Toggle Controls
+          <ion-icon name="home"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col col-3>
+        <ion-button small (click)="pause()">Pause
+          <ion-icon name="home"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-4>
+        <ion-button small (click)="resume()">Resume</ion-button>
+      </ion-col>
+      <ion-col col-4>
+        <ion-button small (click)="sound()">Play with sound
+          <ion-icon name="home"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <video #videoElement style="height: 300px; max-width: 100%" controls>Your browser does not support the video
+          tag.</video>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

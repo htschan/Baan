@@ -1,0 +1,7 @@
+.item-gradient {
+  background: linear-gradient(
+    to bottom,
+    var(--ion-secondary-main-background) 0%,
+    var(--ion-secondary-light-background) 100%
+  );
+}

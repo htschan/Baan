@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Youtube Audio Download</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="itemForm" novalidate>
+    <ion-list>
+      <ion-item>
+        <ion-label color="primary" fixed>Youtube Adresse</ion-label>
+        <ion-input type="tel" placeholder="Url" formControlName="url"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button ion-button color="danger" full (click)="downloadAudio()">Download</ion-button>
+  </form>
+  <ion-label>
+    <div>Warteschlange</div>
+  </ion-label>
+  <ion-list>
+    <div *ngIf="queuedTracks?.queuedTracks; let items;">
+      <ion-item *ngFor="let item of items">
+        <h2>{{item}}</h2>
+      </ion-item>
+      <div *ngIf="items.length === 0">
+        <div>&lt;leer&gt;</div>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>

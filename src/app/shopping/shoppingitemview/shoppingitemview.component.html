@@ -1,0 +1,43 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button ion-button (click)="dismiss()" color="secondary">Abbrechen</ion-button>
+    </ion-buttons>
+    <ion-title>View Shopping Item</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-button icon-only (click)="editItem(param)">
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+    </ion-card-header>
+    <ion-card-title>
+      {{param.Name}}
+    </ion-card-title>
+    <ion-card-content>
+      <p>
+        <ion-img src="{{param.Url}}"></ion-img>
+      </p>
+      <p>
+        {{param.Description}}
+      </p>
+      <p>
+        {{param.Important ? "Important" : ""}}
+      </p>
+      <p>
+        {{param.Favorite ? "Favorit" : "" }}
+      </p>
+      <p>
+        {{param.Price}}
+      </p>
+      <p>
+        {{param.Quantity}}
+      </p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

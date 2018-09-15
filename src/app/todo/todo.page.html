@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Todo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- Real floating action button, fixed. It will not scroll with the content -->
+  <ion-fab vertical="top" horizontal="end" slot="fixed" #fab1>
+    <ion-fab-button (click)=addItem(fab1)>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list>
+    <ion-card *ngFor="let item of todoService.todos | async" class="card-gradient">
+      <ion-card-header (click)="viewItem(item)">
+        {{item.title}}
+        <ion-button icon-only (click)="presentPopover($event)">
+          <ion-icon name="more"></ion-icon>
+        </ion-button>
+      </ion-card-header>
+      <ion-card-content>
+        {{item.comment}}
+        <br> {{item.finished}}
+        <br> {{item.modifiedAt | date:'dd.MM.yyyy HH:mm'}}
+        <br> {{item.modifiedBy}}
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>

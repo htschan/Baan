@@ -15,7 +15,7 @@ export class MetaData {
     statistics: Statistics;
     title: string;
     uploadDate: Date;
-    thumbnailStandardRes: string
+    thumbnailStandardRes: string;
 }
 
 export class Statistics {

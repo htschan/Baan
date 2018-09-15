@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Audio Tracks</ion-title>
+    <ion-buttons slot="end">
+      <ion-button icon-only>
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list *ngIf="ytService.audiotracks | async; let items;">
+    <ion-item *ngFor="let item of items" style="margin-bottom: 6px;" class="item-gradient">
+      <ion-thumbnail item-start>
+        <img [src]="item?.metaData?.thumbnailStandardRes">
+      </ion-thumbnail>
+      <h2>{{item?.metaData?.title}}</h2>
+      <p>{{ item?.metaData?.uploadDate | date:'dd.MM.yyyy'}} {{ item?.metaData?.duration }}</p>
+      <ion-button ion-button clear item-end (click)="viewVideo(item?.url, item?.metaData?.title)">View</ion-button>
+      <div *ngIf="!item.metaData">
+        <p>{{item?.message}}</p>
+        <p>{{ item?.downloadFile }}</p>
+      </div>
+    </ion-item>
+    <div *ngIf="items.length === 0">Kein Suchresultat</div>
+  </ion-list>
+</ion-content>
