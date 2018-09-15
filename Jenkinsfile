@@ -34,7 +34,7 @@ node {
 		}
 		stage('build'){
 			dir('./'){
-				bat 'npm run dist'
+				bat 'ionic build --prod --engine browser'
 			}
 		}
 		stage('deploy'){
