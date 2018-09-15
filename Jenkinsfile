@@ -32,6 +32,11 @@ node {
 				bat '%YARN% install'
 			}
 		}
+		stage('ioniccli'){
+			dir('./') {
+				bat '%YARN% install ionic'
+			}
+		}
 		stage('build'){
 			dir('./'){
 				bat 'ionic build --prod --engine browser'
