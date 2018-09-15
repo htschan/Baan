@@ -34,7 +34,7 @@ node {
 		}
 		stage('ioniccli'){
 			dir('./') {
-				bat '%YARN% install ionic'
+				bat '%YARN% add ionic'
 			}
 		}
 		stage('build'){
