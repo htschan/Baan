@@ -39,7 +39,7 @@ node {
 		}
 		stage('build'){
 			dir('./'){
-				bat 'ionic build --prod --engine browser'
+				bat 'ionic build --engine browser'
 			}
 		}
 		stage('deploy'){
