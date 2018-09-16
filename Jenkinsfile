@@ -39,7 +39,10 @@ node {
 		}
 		stage('build'){
 			dir('./'){
-				bat 'ionic build --no-interactive --confirm'
+				bat '''
+					npm install -g ionic
+					ionic build --no-interactive --confirm
+				'''
 			}
 		}
 		stage('deploy'){
