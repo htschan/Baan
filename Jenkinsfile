@@ -19,7 +19,7 @@ node {
 			
 		}
 		stage('npm'){
-			env.NODEJS_HOME = "${tool 'Node 10.x'}"
+			env.NODEJS_HOME = "${tool 'NodeJS'}"
 			// on windows
 			env.PATH="${env.NODEJS_HOME};${env.PATH}"
 			bat 'npm --version'			
