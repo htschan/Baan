@@ -23,6 +23,7 @@ node {
 			// on windows
 			env.PATH="${env.NODEJS_HOME};${env.PATH}"
 			bat 'npm --version'			
+			bar 'npm rebuild node-sass'
 		}
 		stage('prime'){
 			bat '''
@@ -41,11 +42,6 @@ node {
 		stage('ioniccli'){
 			dir('./') {
 				bat '%YARN% add ionic'
-			}
-		}
-		stage('installionic'){
-			dir('./'){
-				bat 'npm install -g ionic'
 			}
 		}
 		stage('build'){
