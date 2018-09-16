@@ -37,12 +37,14 @@ node {
 				bat '%YARN% add ionic'
 			}
 		}
+		stage('installionic'){
+			dir('./'){
+				bat 'npm install -g ionic'
+			}
+		}
 		stage('build'){
 			dir('./'){
-				bat '''
-					npm install -g ionic
-					ionic build --no-interactive --confirm
-				'''
+				bat 'ionic build --no-interactive --confirm'
 			}
 		}
 		stage('deploy'){
