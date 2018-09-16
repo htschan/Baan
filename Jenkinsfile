@@ -39,7 +39,7 @@ node {
 		}
 		stage('build'){
 			dir('./'){
-				bat 'ionic build'
+				bat 'ionic build --no-interactive --confirm'
 			}
 		}
 		stage('deploy'){
