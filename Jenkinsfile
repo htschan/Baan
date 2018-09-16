@@ -23,7 +23,7 @@ node {
 			// on windows
 			env.PATH="${env.NODEJS_HOME};${env.PATH}"
 			bat 'npm --version'			
-			bar 'npm rebuild node-sass'
+			bat 'npm rebuild node-sass'
 		}
 		stage('prime'){
 			bat '''
