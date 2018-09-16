@@ -18,6 +18,12 @@ node {
 			git changelog: false, poll: false, url: '${THE_REPO}'    
 			
 		}
+		stage('npm'){
+			env.NODEJS_HOME = "${tool 'Node 10.x'}"
+			// on windows
+			env.PATH="${env.NODEJS_HOME};${env.PATH}"
+			bat 'npm --version'			
+		}
 		stage('prime'){
 			bat '''
 				@echo off
