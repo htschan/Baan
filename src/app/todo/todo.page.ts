@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { switchMap, map, shareReplay } from 'rxjs/operators';
+import { DbService } from '../services/db.service';
 import { AuthService } from '../services/auth.service';
-import { TodoService } from '../services/todo.service';
-import { PopoverController, ModalController, Events, Fab, App } from '@ionic/angular';
-import { Todo } from '../../model/todo';
-import { ItemviewComponent } from './itemview/itemview.component';
+
+import { ModalController } from '@ionic/angular';
+import { TodoFormComponent } from './todo-form/todo-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo',
@@ -11,106 +14,66 @@ import { ItemviewComponent } from './itemview/itemview.component';
   styleUrls: ['./todo.page.scss'],
 })
 export class TodoPage implements OnInit {
+  todos;
+  filtered;
+
+  filter = new BehaviorSubject(null);
 
   constructor(
+    public db: DbService,
+    public modal: ModalController,
     public auth: AuthService,
-    public appCtrl: App,
-    public todoService: TodoService,
-    public popoverCtrl: PopoverController,
-    public modalCtrl: ModalController,
-    public events: Events) {
-    events.subscribe('user:signout', (user) => {
-      console.log('home.component user logged out');
-    });
+    public router: Router
+  ) { }
+
+  ngOnInit() {
+    this.todos = this.auth.user$.pipe(
+      switchMap(user =>
+        this.db.collection$('todos', ref =>
+          ref
+            .where('uid', '==', user.uid)
+            .orderBy('createdAt', 'desc')
+            .limit(25)
+        )
+      ),
+      shareReplay(1)
+    );
+
+    this.filtered = this.filter.pipe(
+      switchMap(status => {
+        return this.todos.pipe(
+          map(arr =>
+            (arr as any[]).filter(
+              obj => (status ? obj.status === status : true)
+            )
+          )
+        );
+      })
+    );
   }
 
-  ngOnInit(): void {
-    console.log('ToDo on init');
+  deleteTodo(todo) {
+    this.db.delete(`todos/${todo.id}`);
   }
 
-  importantItem(key: any, val: boolean) {
-    // this.todoService.importantProduct(key, val);
+  toggleStatus(todo) {
+    const status = todo.status === 'complete' ? 'pending' : 'complete';
+    this.db.updateAt(`todos/${todo.id}`, { status });
   }
 
-  favoriteItem(key: any, val: boolean) {
-    // this.todoService.favoriteProduct(key, val);
+  updateFilter(val) {
+    this.filter.next(val);
   }
 
-  deleteItem(key: any) {
-    // this.todoService.deleteShoppinglistItem(key);
-
-  }
-
-  viewItem(item: any) {
-    // let modal = this.modalCtrl.create(TodoItemViewPage, { data: item });
-    // modal.present();
-  }
-
-  editItem(item: any) {
-    // let modal = this.modalCtrl.create(TodoItemPage, { data: item });
-    // modal.onDidDismiss(data => {
-    //   if (data) {
-    //     let vm = new ShoppingItemVm(data);
-    //     this.prodService.updateShoppinglistItem(vm.Key, vm);
-    //   }
-    // });
-    // modal.present();
-  }
-
-  async addItem(fab: Fab) {
-    fab.close();
-    const modal = await this.modalCtrl.create({
-      component: ItemviewComponent,
-      componentProps: { title: 'the title', comment: 'the coment' }
-    });
-    modal.onDidDismiss().then(data => {
-      if (data) {
-        const vm = new Todo(data);
-        this.todoService.addNewTodo(vm);
-      }
+  async presentTodoForm(todo?: any) {
+    const modal = await this.modal.create({
+      component: TodoFormComponent,
+      componentProps: { todo }
     });
     return await modal.present();
   }
 
-  selectProduct(fab: Fab) {
-    fab.close();
-    // let modal = this.modalCtrl.create(SelectProductPage);
-    // modal.onDidDismiss(data => {
-    //   if (data) {
-    //     let vm = ShoppingItemVm.fromProductItem(data.item, data.key);
-    //     vm.Key = data.key;
-    //     this.prodService.addShoppinglistItem(vm);
-    //   }
-    // });
-    // modal.present();
-  }
-
-  async presentPopover(myEvent) {
-    const popover = await this.popoverCtrl.create({
-      component: PopoverPage,
-      event: event,
-      translucent: false,
-      backdropDismiss: true
-    });
-    return await popover.present();
-  }
-}
-
-@Component({
-  template: `
-    <ion-list>
-      <ion-list-header>Ionic</ion-list-header>
-      <ion-button ion-item (click)="close()">Learn Ionic</ion-button>
-      <ion-button ion-item (click)="close()">Documentation</ion-button>
-      <ion-button ion-item (click)="close()">Showcase</ion-button>
-      <ion-button ion-item (click)="close()">GitHub Repo</ion-button>
-    </ion-list>
-  `
-})
-export class PopoverPage {
-  constructor(public popCtrl: PopoverController) { }
-
-  close() {
-    this.popCtrl.dismiss();
+  trackById(idx, todo) {
+    return todo.id;
   }
 }

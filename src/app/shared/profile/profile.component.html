@@ -1,0 +1,14 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle>
+      UID: {{ user.uid }}
+    </ion-card-subtitle>
+    <img [src]="user.photURL || 'assets/icon/anon.svg'">
+    <ion-card-title>
+      {{ user.displayName || 'Mysterious User' }}
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    Anonymous: {{ user.idAnonymous }}<br> Email: {{ user.email || 'unknown' }}
+  </ion-card-content>
+</ion-card>>

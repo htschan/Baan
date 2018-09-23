@@ -1,5 +1,7 @@
 {
   "name": "Baan",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

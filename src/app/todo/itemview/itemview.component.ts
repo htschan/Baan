@@ -26,7 +26,7 @@ export class ItemviewComponent {
       finished: false
     });
   }
-  
+
   dismiss() {
     if (this.itemForm.dirty) {
       this.modalCtrl.dismiss(this.itemForm.value);

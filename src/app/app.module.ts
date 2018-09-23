@@ -4,38 +4,27 @@ import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicStorageModule } from '@ionic/storage';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Firebase } from '@ionic-native/firebase/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { GeoLocationService } from './services/geolocation.service';
-import { AuthService } from './services/auth.service';
-import { AuthGuard } from './services/auth.guard';
-import { LayoutService } from './services/layout.service';
-import { MotionService } from './services/motion.service';
 import { AppConfig } from '../../myhomeappconfig';
-import { GpsPageModule } from './gps/gps.module';
-import { MotionPageModule } from './motion/motion.module';
-import { ProductService, BUILD_INFO } from './services/product.service';
-import { TodoService } from './services/todo.service';
-import { UploadFileService } from './services/upload-file.service';
-import { YoutubeService } from './services/youtube.service';
-import { LoginPageModule } from './login/login.module';
-import { LogoutPageModule } from './logout/logout.module';
-import { ShoppingPageModule } from './shopping/shopping.module';
-import { TodoPageModule } from './todo/todo.module';
-import { SonglistPageModule } from './songlist/songlist.module';
+import { BUILD_INFO } from './services/product.service';
 
 /*
 export class AppConfig {
-  // Initialize Firebase
   static firebaseConfig: any = {
     apiKey: "AUlj8AHNöiet12UXBjaZUTsalDBHD67D-HqaHgl",
     authDomain: "aaaaaa-r7364.firebaseapp.com",
@@ -56,33 +45,23 @@ export class AppConfig {
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+      driverOrder: ['indexeddb', 'sqlite', 'websql']
+    }),
     AppRoutingModule,
-    AngularFireModule.initializeApp(AppConfig.firebaseConfig),
     AngularFireModule.initializeApp(AppConfig.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireStorageModule,
-    GpsPageModule,
-    ShoppingPageModule,
-    MotionPageModule,
-    LoginPageModule,
-    LogoutPageModule,
-    TodoPageModule,
-    SonglistPageModule
+    AngularFireFunctionsModule,
+    AngularFireMessagingModule
   ],
   providers: [
+    Firebase,
+    GooglePlus,
     StatusBar,
     SplashScreen,
-    AuthService,
-    AuthGuard,
-    LayoutService,
-    ProductService,
-    TodoService,
-    UploadFileService,
-    YoutubeService,
-    GeoLocationService,
-    MotionService,
     { provide: BUILD_INFO, useValue: AppConfig.appConfig.bts },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

@@ -3,23 +3,25 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
-import { IonicModule, Item } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 
-import { TodoPage, PopoverPage } from './todo.page';
-import { ItemviewComponent } from './itemview/itemview.component';
+import { TodoPage } from './todo.page';
+import { TodoFormComponent } from './todo-form/todo-form.component';
+import { TodoDetailComponent } from './todo-detail/todo-detail.component';
 
 const routes: Routes = [
   {
     path: '',
     component: TodoPage
+  },
+  {
+    path: ':id',
+    component: TodoDetailComponent
   }
 ];
 
 @NgModule({
-  entryComponents: [
-    ItemviewComponent,
-    PopoverPage
-  ],
+  entryComponents: [TodoFormComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -27,9 +29,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  exports: [
-    ReactiveFormsModule
-  ],
-  declarations: [TodoPage, ItemviewComponent, PopoverPage]
+  declarations: [TodoPage, TodoFormComponent, TodoDetailComponent]
 })
-export class TodoPageModule {}
+export class TodoPageModule { }

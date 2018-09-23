@@ -1,7 +1,8 @@
-.card-gradient {
-  background: linear-gradient(
-    to bottom,
-    var(--ion-secondary-main-background) 0%,
-    var(--ion-secondary-light-background) 100%
-  );
+.complete {
+  text-decoration: line-through;
+  color: var(--ion-color-medium);
+}
+
+ion-button {
+  margin-left: 5px;
 }

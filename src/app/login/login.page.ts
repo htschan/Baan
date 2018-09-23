@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { LayoutService } from '../services/layout.service';
 import { ToastController, AlertController, LoadingController, ModalController } from '@ionic/angular';
@@ -11,17 +11,20 @@ import { ToastController, AlertController, LoadingController, ModalController } 
 })
 export class LoginPage {
   loading: any;
+  returnUrl = '/';
   title: String = ' ';
   registerCredentials = { 'email': 'a@sorawit.ch', 'password': '' };
 
   constructor(
     private modalCtrl: ModalController,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     public auth: AuthService,
     public layoutService: LayoutService,
     public toastCtrl: ToastController,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController) {
+    this.returnUrl = this.activatedRoute.snapshot.paramMap.get('returnUrl') as string;
   }
 
   ionViewWillEnter() {
@@ -30,6 +33,15 @@ export class LoginPage {
 
   public createAccount() {
     // this.navCtrl.push(RegisterPage);
+  }
+
+  async signInAnonymously() {
+    await this.auth.anonymousLogin();
+    this.gotoHomePage();
+  }
+
+  async signInWithGoogle() {
+    await this.auth.googleLogin(this.returnUrl);
   }
 
   signInWithFacebook() {
@@ -43,13 +55,6 @@ export class LoginPage {
   signInWithTwitter() {
     this.auth.twitterLogin().then(() => {
       console.log('login twitter logged in');
-      this.gotoHomePage();
-    });
-  }
-
-  signInWithGoogle() {
-    this.auth.googleLogin().then(() => {
-      console.log('login google logged in');
       this.gotoHomePage();
     });
   }
