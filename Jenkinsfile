@@ -8,7 +8,6 @@
 	
 	THE_REPO=<git repository url>
 	PROJECT_CONFIG=<path to config data on build server>
-	FTP_SITE_LOCATION=<path to the publish directory>
 
 */
 
@@ -28,10 +27,9 @@ node {
 		stage('prime'){
 			bat '''
 				@echo off
-				set
-				powershell -NoProfile -ExecutionPolicy Bypass -Command "& Copy-Item $env:PROJECT_CONFIG/baan-myhomeappconfig.ts $env:WORKSPACE/myhomeappconfig.ts"
-				powershell -NoProfile -ExecutionPolicy Bypass -Command "& $env:WORKSPACE/ReplaceBuildTimestamp.ps1 -Workspace '%WORKSPACE%' -BuildTimestamp '%BUILD_TIMESTAMP%' -BuildNumber '%BUILD_NUMBER%'"
-				powershell -NoProfile -ExecutionPolicy Bypass -Command "& $env:WORKSPACE/ReplaceGoogleMapsApiUrl.ps1 -Workspace '%WORKSPACE%' -ProjectConfigFolder '%PROJECT_CONFIG%'"
+				npm run getAppConfig
+				npm run setBuildInfo '%BUILD_TIMESTAMP%' '%BUILD_NUMBER%' 'JenkinsWin'
+				npm run setGoogleMapsApiUrl
 			'''
 		}
 		stage('install'){

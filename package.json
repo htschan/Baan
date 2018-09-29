@@ -9,7 +9,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "getAppConfig": "node buildSupport.js getAppConfig",
+    "setBuildInfo": "node buildSupport.js setBuildInfo",
+    "setGoogleMapsApiUrl": "node buildSupport.js setGoogleMapsApiUrl"
   },
   "private": true,
   "dependencies": {
@@ -71,7 +74,9 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~2.9.2"
+    "typescript": "~2.9.2",
+    "ftp": "^0.3.10",
+    "fs": "^0.0.1-security"
   },
   "description": "An Ionic project",
   "cordova": {

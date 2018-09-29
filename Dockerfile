@@ -1,28 +1,29 @@
 # Build stage
-FROM node:6-alpine AS build-env
+FROM node:10-alpine AS build-env
 
 WORKDIR /baan
 # RUN pwd
 
 # setup ionic
-RUN npm install -g node-gyp@3.6.2
+# RUN npm install -g node-gyp@3.6.2
 RUN npm install -g ionic
-RUN ionic config set -g yarn true
 
 # copy src
 COPY package.json ./package.json
-COPY myhomeappconfig.ts .
 
 # restore
-RUN yarn install
-# RUN ls -alR
+RUN npm install
 
 COPY . .
+
+RUN ls -al
+
+RUN node getappconfig.js
 
 # test
 
 # publish
-RUN npm run dist
+RUN ionic build
 
 # Runtime stage
 FROM nginx:alpine
