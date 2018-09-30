@@ -48,6 +48,9 @@ node {
 		stage('nodesass'){
 			bat 'npm rebuild node-sass'
 		}
+		stage('prebuild'){
+			bat 'npm run getVersionStamp'
+		}
 		stage('build'){
 			dir('./'){
 				bat 'ionic build --no-interactive --confirm'
