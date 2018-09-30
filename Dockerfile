@@ -25,7 +25,7 @@ COPY . .
 
 # RUN ls -al
 
-RUN nmp run getAppConfig
+RUN npm run getAppConfig
 RUN npm run setBuildInfo "${build_timestamp}" "${build_number}" "${build_server}"
 RUN npm run setGoogleMapsApiUrl
 RUN npm run prebuild
