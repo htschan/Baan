@@ -24,7 +24,7 @@ RUN npm install
 COPY . .
 
 # RUN ls -al
-
+RUN printenv
 RUN npm run getAppConfig
 RUN npm run setBuildInfo "${build_timestamp}" "${build_number}" "${build_server}"
 RUN npm run setGoogleMapsApiUrl

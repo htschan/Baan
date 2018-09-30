@@ -18,6 +18,7 @@ function connect(client) {
     const user = process.env.ci_config_ftp_user;
     const password = process.env.ci_config_ftp_password;
     if (!user || !user || !password) {
+        console.log(`server: ${server} user: ${user} password: ????`);
         throw "One or more FTP parameters not defined as Environment variable";
     }
     client.connect({ host: server, port: 21, user: user, password: password });
