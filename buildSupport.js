@@ -14,6 +14,7 @@ const INDEX_HTML = 'src/index.html';
 
 // Connect to FTP server, credentials are passed via environment
 function connect(client) {
+    console.log(`server: ${server} user: ${user} password: ${password}`);
     const server = process.env.ci_config_ftp_server;
     const user = process.env.ci_config_ftp_user;
     const password = process.env.ci_config_ftp_password;
