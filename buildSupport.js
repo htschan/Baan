@@ -1,7 +1,12 @@
 "use strict";
 
-var ftpClient = require('ftp');
-var fs = require('fs');
+const ftpClient = require('ftp');
+const fs = require('fs');
+const { gitDescribeSync } = require('git-describe');
+const { version } = require('./package.json');
+const { resolve, relative } = require('path');
+const { writeFileSync } = require('fs-extra');
+
 
 const APP_CONFIG = 'myhomeappconfig.ts';
 const GOOGLE_MAPS_API_URL_FILE = 'GoogleMapsApiUrl.txt';
@@ -43,7 +48,9 @@ function getFtpFile(filename, doAfterDownload) {
 
 // Get the APP_CONFIG file via FTP
 function getAppConfig() {
-    getFtpFile(APP_CONFIG);
+    getFtpFile(APP_CONFIG, () => {
+        console.log("getAppConfig was successful");
+    });
 }
 
 // Set the build info in APP_CONFIG, parameters are passed via command line
@@ -64,32 +71,51 @@ function setBuildInfo() {
         fs.writeFile(APP_CONFIG, result, 'utf8', function (err) {
             if (err) throw err;
         });
+        console.log("setBuildInfo was successful");
     });
-}
-
-// Replace the google maps api link with the one contained in GOOGLE_MAPS_API_URL_FILE
-function replaceGoogleMapsApi() {
-    if (fs.existsSync(GOOGLE_MAPS_API_URL_FILE)) {
-        fs.readFile(GOOGLE_MAPS_API_URL_FILE, 'utf8', function (err, url) {
-            if (err) {
-                throw err;
-            }
-            fs.readFile(INDEX_HTML, 'utf8', function (err, html) {
-                if (err) {
-                    throw err;
-                }
-                var result = html.replace(/https:\/\/maps.googleapis.com\/maps\/api\/js/g, url);
-                fs.writeFile(INDEX_HTML, result, 'utf8', function (err) {
-                    if (err) throw err;
-                });
-            })
-        });
-    } else throw `The file ${GOOGLE_MAPS_API_URL_FILE} doesn't exist`;
 }
 
 // Get the GOOGLE_MAPS_API_URL_FILE via FTP and set the link in index.html
 function setGoogleMapsApiUrl() {
-    getFtpFile(GOOGLE_MAPS_API_URL_FILE, replaceGoogleMapsApi);
+    getFtpFile(GOOGLE_MAPS_API_URL_FILE, () => {
+        if (fs.existsSync(GOOGLE_MAPS_API_URL_FILE)) {
+            fs.readFile(GOOGLE_MAPS_API_URL_FILE, 'utf8', function (err, url) {
+                if (err) {
+                    throw err;
+                }
+                fs.readFile(INDEX_HTML, 'utf8', function (err, html) {
+                    if (err) {
+                        throw err;
+                    }
+                    var result = html.replace(/https:\/\/maps.googleapis.com\/maps\/api\/js/g, url);
+                    fs.writeFile(INDEX_HTML, result, 'utf8', function (err) {
+                        if (err) throw err;
+                    });
+                })
+                console.log("Replace Google Maps API Url successful");
+            });
+        } else throw `The file ${GOOGLE_MAPS_API_URL_FILE} doesn't exist`;
+    });
+}
+
+function getVersionStamp() {
+    const gitInfo = gitDescribeSync({
+        dirtyMark: false,
+        dirtySemver: false
+    });
+
+    gitInfo.version = version;
+
+    const file = resolve(__dirname, 'src', 'app', 'services', 'version.ts');
+    writeFileSync(file,
+        `// IMPORTANT: THIS FILE IS AUTO GENERATED! DO NOT MANUALLY EDIT OR CHECKIN!
+    /* tslint:disable */
+    export const VERSION = ${JSON.stringify(gitInfo, null, 4)};
+    /* tslint:enable */
+    `, { encoding: 'utf-8' });
+
+    console.log(`Wrote version info ${gitInfo.raw} to ${relative(resolve(__dirname, '..'), file)}`);
+
 }
 
 // npm run getAppConfig
@@ -103,6 +129,8 @@ function setGoogleMapsApiUrl() {
 // npm run setGoogleMapsApiUrl
 // Requires Environment Variable
 //   same as getAppConfig
+//
+// npm run getVersionStamp
 try {
     const command = process.argv[2];
     switch (command) {
@@ -114,6 +142,9 @@ try {
             break;
         case 'setGoogleMapsApiUrl':
             setGoogleMapsApiUrl();
+            break;
+        case 'getVersionStamp':
+            getVersionStamp();
             break;
         default:
             throw `Command argument undefined or unknown: ${command}`;

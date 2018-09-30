@@ -30,7 +30,7 @@ node {
 			bat 'npm run getAppConfig'
 		}
 		stage('buildInfo'){
-			bat 'npm run setBuildInfo %BUILD_TIMESTAMP% %BUILD_NUMBER% JenkinsWin'
+			bat 'npm run setBuildInfo "%BUILD_TIMESTAMP%"" "%BUILD_NUMBER%"" "JenkinsWin"'
 		}
 		stage('googleMapsApi'){
 			bat 'npm run setGoogleMapsApiUrl'
