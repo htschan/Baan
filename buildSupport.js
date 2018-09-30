@@ -131,8 +131,10 @@ function getVersionStamp() {
 //   same as getAppConfig
 //
 // npm run getVersionStamp
+// Requires git commandline to be installed
 try {
     const command = process.argv[2];
+    console.log(`${process.argv[1]} trying to execute command ${process.argv[2]}`);
     switch (command) {
         case 'getAppConfig':
             getAppConfig();

@@ -1,6 +1,11 @@
 # Build stage
 FROM node:10-alpine AS build-env
-ARG build_server="Teamcity"
+ARG ci_config_ftp_server=""
+ARG ci_config_ftp_user=""
+ARG ci_config_ftp_password=""
+ARG build_timestamp=""
+ARG build_number="0"
+ARG build_server="build server undef"
 ENV ci_config_ftp_server=${ci_config_ftp_server}
 ENV ci_config_ftp_user=${ci_config_ftp_user}
 ENV ci_config_ftp_password=${ci_config_ftp_password}
@@ -24,11 +29,9 @@ RUN npm install
 COPY . .
 
 # RUN ls -al
-RUN printenv
 RUN npm run getAppConfig
 RUN npm run setBuildInfo "${build_timestamp}" "${build_number}" "${build_server}"
 RUN npm run setGoogleMapsApiUrl
-RUN npm run prebuild
 
 # test
 
