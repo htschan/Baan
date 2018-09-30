@@ -49,7 +49,7 @@ node {
 			bat 'npm rebuild node-sass'
 		}
 		stage('prebuild'){
-			bat 'npm run getVersionStamp'
+			bat 'npm run prebuild'
 		}
 		stage('build'){
 			dir('./'){
