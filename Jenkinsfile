@@ -26,6 +26,11 @@ node {
 			env.PATH="${env.NODEJS_HOME};${env.PATH}"
 			bat 'npm --version'			
 		}
+		stage('install'){
+			dir('./') {
+				bat '%YARN% install'
+			}
+		}
 		stage('appConfig'){
 			bat 'npm run getAppConfig'
 		}
@@ -34,11 +39,6 @@ node {
 		}
 		stage('googleMapsApi'){
 			bat 'npm run setGoogleMapsApiUrl'
-		}
-		stage('install'){
-			dir('./') {
-				bat '%YARN% install'
-			}
 		}
 		stage('ioniccli'){
 			dir('./') {
