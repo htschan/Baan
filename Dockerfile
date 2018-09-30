@@ -3,7 +3,7 @@ FROM node:10-alpine AS build-env
 ARG build_server="Teamcity"
 ENV ci_config_ftp_server=${ci_config_ftp_server}
 ENV ci_config_ftp_user=${ci_config_ftp_user}
-ENV ci_config_ftp_passwd=${ci_config_ftp_password}
+ENV ci_config_ftp_password=${ci_config_ftp_password}
 ENV build_timestamp=${build_timestamp}
 ENV build_number=${build_number}
 ENV build_server=${build_server}    
