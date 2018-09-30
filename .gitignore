@@ -33,6 +33,5 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 /myhomeappconfig.ts
-/src/app/services/version.ts
 dist/
 /GoogleMapsApiUrl.txt

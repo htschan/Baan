@@ -100,6 +100,11 @@ function setGoogleMapsApiUrl() {
     });
 }
 
+function getVersionFilePath() {
+    const file = resolve(__dirname, 'src', 'app', 'services', 'version.ts');
+    return file;
+}
+
 function getVersionStamp() {
     const gitInfo = gitDescribeSync({
         dirtyMark: false,
@@ -108,7 +113,7 @@ function getVersionStamp() {
 
     gitInfo.version = version;
 
-    const file = resolve(__dirname, 'src', 'app', 'services', 'version.ts');
+    const file = getVersionFilePath();
     writeFileSync(file,
         `// IMPORTANT: THIS FILE IS AUTO GENERATED! DO NOT MANUALLY EDIT OR CHECKIN!
     /* tslint:disable */
@@ -117,6 +122,31 @@ function getVersionStamp() {
     `, { encoding: 'utf-8' });
 
     console.log(`Wrote version info ${gitInfo.raw} to ${relative(resolve(__dirname, '..'), file)}`);
+}
+
+function setVersionStamp() {
+    const semver = process.argv[3];
+    const suffix = process.argv[4];
+    const hash = process.argv[5];
+    console.log(`setVersionStamp semver: ${semver} suffix: ${suffix} hash: ${hash}`);
+    // read the file
+    var fs = require("fs");
+    // Get content from file
+    const filePath = getVersionFilePath();
+    var contents = fs.readFileSync(filePath);
+    // Define to JSON type
+    var jsonContent = JSON.parse(contents);
+    // Get Value from JSON
+    console.log("semverString:", jsonContent.semverString);
+    console.log("suffix:", jsonContent.suffix);
+    console.log("hash:", jsonContent.hash);
+    console.log("raw:", jsonContent.raw);
+    jsonContent.semverString = semver;
+    jsonContent.suffix = suffix;
+    jsonContent.hash = hash.substring(0,7);
+    jsonCOntent.raw = hash;
+    const data = JSON.stringify(contents);
+    fs.writeFileSync(filePath, data);
 }
 
 // npm run getAppConfig
@@ -131,8 +161,11 @@ function getVersionStamp() {
 // Requires Environment Variable
 //   same as getAppConfig
 //
-// npm run getVersionStamp
+// npm run prebuild
 // Requires git commandline to be installed
+//
+// npm run setVersionStamp <semver> <suffix> <hash>
+//
 try {
     const command = process.argv[2];
     console.log(`${process.argv[1]} trying to execute command ${process.argv[2]}`);
@@ -148,6 +181,9 @@ try {
             break;
         case 'getVersionStamp':
             getVersionStamp();
+            break;
+        case 'setVersionStamp':
+            setVersionStamp();
             break;
         default:
             throw `Command argument undefined or unknown: ${command}`;

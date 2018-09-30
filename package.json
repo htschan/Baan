@@ -13,7 +13,8 @@
     "prebuild": "node buildSupport.js getVersionStamp",
     "getAppConfig": "node buildSupport.js getAppConfig",
     "setBuildInfo": "node buildSupport.js setBuildInfo",
-    "setGoogleMapsApiUrl": "node buildSupport.js setGoogleMapsApiUrl"
+    "setGoogleMapsApiUrl": "node buildSupport.js setGoogleMapsApiUrl",
+    "setVersionStamp": "node buildSupport.js setVersionStamp"
   },
   "private": true,
   "dependencies": {
