@@ -14,7 +14,8 @@ ENV build_number=${build_number}
 ENV build_server=${build_server}    
 
 WORKDIR /baan
-# RUN pwd
+
+RUN apk add git
 
 # setup ionic
 # RUN npm install -g node-gyp@3.6.2
@@ -33,6 +34,7 @@ RUN git --version
 RUN npm run getAppConfig
 RUN npm run setBuildInfo "${build_timestamp}" "${build_number}" "${build_server}"
 RUN npm run setGoogleMapsApiUrl
+RUN npm run getVersionStamp
 
 # test
 
