@@ -19,7 +19,7 @@ RUN npm install
 
 COPY . .
 
-# RUN ls -al
+RUN ls -al
 
 RUN node getappconfig.js
 
