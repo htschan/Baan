@@ -40,7 +40,7 @@ RUN git --version
 RUN npm run getAppConfig
 RUN npm run setBuildInfo "${build_timestamp}" "${build_number}" "${build_server}"
 RUN npm run setGoogleMapsApiUrl
-RUN npm run setVersionStamp "${semver}" "${suffix}" "${hash}"
+# RUN npm run setVersionStamp "${semver}" "${suffix}" "${hash}"
 
 # test
 
