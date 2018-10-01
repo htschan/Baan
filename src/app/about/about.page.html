@@ -44,15 +44,25 @@
       </ion-chip>
       <ion-card-title>
         Platform:
+        'android': typeof isAndroid;
+        'cordova': typeof isCordova;
+        'ios': typeof isIOS;
+        'ipad': typeof isIpad;
+        'iphone': typeof isIphone;
+        'mobile': typeof isMobile;
+        'phablet': typeof isPhablet;
+        'tablet': typeof isTablet;
+        'capacitor': typeof isCapacitorNative;
+        'electron': typeof isElectron;
+        'pwa': typeof isPWA;
+        'desktop': typeof isDesktop;
+        'hybrid': typeof isHybrid;
       </ion-card-title>
       <ion-chip [color]="layoutService.isPlatform('android') ? 'secondary' : 'default'">
         <ion-label>Android</ion-label>
       </ion-chip>
       <ion-chip [color]="layoutService.isPlatform('cordova') ? 'secondary' : 'default'">
         <ion-label>Cordova</ion-label>
-      </ion-chip>
-      <ion-chip [color]="layoutService.isPlatform('core') ? 'secondary' : 'default'">
-        <ion-label>Desktop Browser</ion-label>
       </ion-chip>
       <ion-chip [color]="layoutService.isPlatform('ios') ? 'secondary' : 'default'">
         <ion-label>IOS</ion-label>
@@ -66,17 +76,26 @@
       <ion-chip [color]="layoutService.isPlatform('mobile') ? 'secondary' : 'default'">
         <ion-label>Mobile</ion-label>
       </ion-chip>
-      <ion-chip [color]="layoutService.isPlatform('mobileweb') ? 'secondary' : 'default'">
-        <ion-label>MobileWeb</ion-label>
-      </ion-chip>
       <ion-chip [color]="layoutService.isPlatform('phablet') ? 'secondary' : 'default'">
         <ion-label>Phablet</ion-label>
       </ion-chip>
       <ion-chip [color]="layoutService.isPlatform('tablet') ? 'secondary' : 'default'">
         <ion-label>Tablet</ion-label>
       </ion-chip>
-      <ion-chip [color]="layoutService.isPlatform('windows') ? 'secondary' : 'default'">
-        <ion-label>Windows</ion-label>
+      <ion-chip [color]="layoutService.isPlatform('capacitor') ? 'secondary' : 'default'">
+        <ion-label>Capacitor</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('electron') ? 'secondary' : 'default'">
+        <ion-label>Electron</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('pwa') ? 'secondary' : 'default'">
+        <ion-label>PWA</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('desktop') ? 'secondary' : 'default'">
+        <ion-label>Desktop</ion-label>
+      </ion-chip>
+      <ion-chip [color]="layoutService.isPlatform('hybrid') ? 'secondary' : 'default'">
+        <ion-label>Hybrid</ion-label>
       </ion-chip>
     </ion-card-content>
   </ion-card>

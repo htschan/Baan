@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GeoLocationService, Position, PositionOptions } from '../services/geolocation.service';
-
+// import { } from '@types/googlemaps';
 /*
 https://github.com/ultrasonicsoft/gmap-geolocation-demo
 */
@@ -10,7 +10,7 @@ https://github.com/ultrasonicsoft/gmap-geolocation-demo
   templateUrl: './gps.page.html',
   styleUrls: ['./gps.page.scss'],
 })
-export class GpsPage /*implements OnInit*/ {
+export class GpsPage/* implements OnInit*/ {
 /*
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
