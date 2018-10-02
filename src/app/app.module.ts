@@ -22,6 +22,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppConfig } from '../../myhomeappconfig';
 import { BUILD_INFO } from './services/product.service';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guards/auth.guard';
 
 /*
 export class AppConfig {
@@ -62,6 +64,8 @@ export class AppConfig {
     GooglePlus,
     StatusBar,
     SplashScreen,
+    AuthGuard,
+    AuthService,
     { provide: BUILD_INFO, useValue: AppConfig.appConfig.bts },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

@@ -6,7 +6,7 @@ import { LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { auth } from 'firebase/app';
 import * as firebase from 'firebase/app';
-import { take, map, switchMap } from 'rxjs/operators';
+import { take, map, switchMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { of, Observable } from 'rxjs';
 import { DbService } from './db.service';
@@ -31,7 +31,10 @@ export class AuthService {
     public events: Events) {
 
     this.user$ = this.afAuth.authState.pipe(
-      switchMap(user => (user ? db.doc$(`users/${user.uid}`) : of(null)))
+      switchMap(user => (user ? db.doc$(`users/${user.uid}`) : of(null))),
+      tap(user => {
+        console.log(user.id);
+      })
     );
 
     this.handleRedirect();
@@ -41,6 +44,9 @@ export class AuthService {
     return this.user$
       .pipe(
         take(1),
+        tap(user => {
+          console.log(user.id);
+        }),
         map(u => u && u.uid)
       )
       .toPromise();
