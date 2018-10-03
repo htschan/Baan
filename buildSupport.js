@@ -12,12 +12,22 @@ const APP_CONFIG = 'myhomeappconfig.ts';
 const GOOGLE_MAPS_API_URL_FILE = 'GoogleMapsApiUrl.txt';
 const INDEX_HTML = 'src/index.html';
 
+function getAppConfigDestinationPath() {
+    const file = resolve(__dirname, 'src', APP_CONFIG);
+    return file;
+}
+
+function getVersionFilePath() {
+    const file = resolve(__dirname, 'src', 'app', 'services', 'version.ts');
+    return file;
+}
+
 // Connect to FTP server, credentials are passed via environment
 function connect(client) {
     const server = process.env.ci_config_ftp_server;
     const user = process.env.ci_config_ftp_user;
     const password = process.env.ci_config_ftp_password;
-    console.log(`server: ${server} user: ${user} password: ${password}`);
+    console.log(`server: ${server} user: ${user} password: ????`);
     if (!user || !user || !password) {
         console.log(`server: ${server} user: ${user} password: ????`);
         throw "One or more FTP parameters not defined as Environment variable";
@@ -31,11 +41,10 @@ function receiveFtp(client, filename, doAfterDownload) {
         if (err) throw err;
         stream.once('close', function () {
             client.end();
-            if (doAfterDownload !== undefined) {
-                doAfterDownload();
-            }
         });
-        stream.pipe(fs.createWriteStream(filename));
+        if (doAfterDownload !== undefined) {
+            doAfterDownload(stream);
+        }
     });
 }
 
@@ -50,7 +59,8 @@ function getFtpFile(filename, doAfterDownload) {
 
 // Get the APP_CONFIG file via FTP
 function getAppConfig() {
-    getFtpFile(APP_CONFIG, () => {
+    getFtpFile(APP_CONFIG, (stream) => {
+        stream.pipe(fs.createWriteStream(getAppConfigDestinationPath()));
         console.log("getAppConfig was successful");
     });
 }
@@ -79,7 +89,8 @@ function setBuildInfo() {
 
 // Get the GOOGLE_MAPS_API_URL_FILE via FTP and set the link in index.html
 function setGoogleMapsApiUrl() {
-    getFtpFile(GOOGLE_MAPS_API_URL_FILE, () => {
+    getFtpFile(GOOGLE_MAPS_API_URL_FILE, (stream) => {
+        stream.pipe(fs.createWriteStream(GOOGLE_MAPS_API_URL_FILE));
         if (fs.existsSync(GOOGLE_MAPS_API_URL_FILE)) {
             fs.readFile(GOOGLE_MAPS_API_URL_FILE, 'utf8', function (err, url) {
                 if (err) {
@@ -98,11 +109,6 @@ function setGoogleMapsApiUrl() {
             });
         } else throw `The file ${GOOGLE_MAPS_API_URL_FILE} doesn't exist`;
     });
-}
-
-function getVersionFilePath() {
-    const file = resolve(__dirname, 'src', 'app', 'services', 'version.ts');
-    return file;
 }
 
 function getVersionStamp() {
@@ -143,7 +149,7 @@ function setVersionStamp() {
     console.log("raw:", jsonContent.raw);
     jsonContent.semverString = semver;
     jsonContent.suffix = suffix;
-    jsonContent.hash = hash.substring(0,7);
+    jsonContent.hash = hash.substring(0, 7);
     jsonCOntent.raw = hash;
     const data = JSON.stringify(contents);
     fs.writeFileSync(filePath, data);

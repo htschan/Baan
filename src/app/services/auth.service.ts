@@ -12,7 +12,7 @@ import { of, Observable } from 'rxjs';
 import { DbService } from './db.service';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Platform } from '@ionic/angular';
-import { AppConfig } from '../../../myhomeappconfig';
+import { AppConfig } from '../../myhomeappconfig';
 
 @Injectable({
   providedIn: 'root'

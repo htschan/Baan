@@ -20,7 +20,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AppConfig } from '../../myhomeappconfig';
+import { AppConfig } from '../myhomeappconfig';
 import { BUILD_INFO } from './services/product.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';

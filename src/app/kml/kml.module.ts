@@ -10,7 +10,7 @@ import { FileUploadComponent } from '../components/file-upload/file-upload.compo
 import { FileSizePipe } from '../pipes/file-size/file-size';
 import { AgmCoreModule, KmlLayerManager, GoogleMapsAPIWrapper } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
-import { AppConfig } from '../../../myhomeappconfig';
+import { AppConfig } from '../../myhomeappconfig';
 
 const routes: Routes = [
   {

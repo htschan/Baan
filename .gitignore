@@ -32,6 +32,6 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
-/myhomeappconfig.ts
+src/myhomeappconfig.ts
 dist/
 /GoogleMapsApiUrl.txt
