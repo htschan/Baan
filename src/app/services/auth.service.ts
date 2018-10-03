@@ -33,7 +33,7 @@ export class AuthService {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => (user ? db.doc$(`users/${user.uid}`) : of(null))),
       tap(user => {
-        console.log(user.id);
+        console.log(user ? user.id : 'not logged in');
       })
     );
 
@@ -45,7 +45,7 @@ export class AuthService {
       .pipe(
         take(1),
         tap(user => {
-          console.log(user.id);
+          console.log(user ? user.id : 'not logged in');
         }),
         map(u => u && u.uid)
       )
