@@ -31,10 +31,7 @@ export class AuthService {
     public events: Events) {
 
     this.user$ = this.afAuth.authState.pipe(
-      switchMap(user => (user ? db.doc$(`users/${user.uid}`) : of(null))),
-      tap(user => {
-        console.log(user ? user.id : 'not logged in');
-      })
+      switchMap(user => (user ? db.doc$(`users/${user.uid}`) : of(null)))
     );
 
     this.handleRedirect();
@@ -44,9 +41,6 @@ export class AuthService {
     return this.user$
       .pipe(
         take(1),
-        tap(user => {
-          console.log(user ? user.id : 'not logged in');
-        }),
         map(u => u && u.uid)
       )
       .toPromise();
