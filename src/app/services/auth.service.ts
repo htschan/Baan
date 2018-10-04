@@ -63,20 +63,23 @@ export class AuthService {
   }
 
   async googleLogin(returnUrl: string) {
-    try {
-      let user;
-      this.setReturnUrl(returnUrl);
-      if (this.platform.is('cordova')) {
-        user = await this.nativeGoogleLogin();
-      } else {
-        await this.setRedirect(true);
-        const provider = new auth.GoogleAuthProvider();
-        user = await this.afAuth.auth.signInWithRedirect(provider);
-      }
-      return await this.updateUserData(user);
-    } catch (err) {
-      console.log(err);
-    }
+    return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider)
+      .then(() => this.updateUserData())
+      .catch(error => console.log(error));
+    // try {
+    //   let user;
+    //   this.setReturnUrl(returnUrl);
+    //   if (this.platform.is('cordova')) {
+    //     user = await this.nativeGoogleLogin();
+    //   } else {
+    //     await this.setRedirect(true);
+    //     const provider = new auth.GoogleAuthProvider();
+    //     user = await this.afAuth.auth.signInWithRedirect(provider);
+    //   }
+    //   return await this.updateUserData(user);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   }
 
   async nativeGoogleLogin(): Promise<any> {
@@ -102,7 +105,7 @@ export class AuthService {
     const result = await this.afAuth.auth.getRedirectResult();
 
     if (result.user) {
-      await this.updateUserData(result.user);
+      await this.updateUserData_(result.user);
     }
 
     await loading.dismiss();
@@ -117,7 +120,7 @@ export class AuthService {
 
   async anonymousLogin() {
     const credential = await this.afAuth.auth.signInAnonymously();
-    return await this.updateUserData(credential.user);
+    return await this.updateUserData_(credential.user);
   }
 
   async signOut(): Promise<any> {
@@ -126,32 +129,50 @@ export class AuthService {
     return this.router.navigate(['/']);
   }
 
-  private updateUserData({ uid, email, displayName, photoURL, isAnonymous }) {
+  private updateUserData(): void {
     // Writes user name and email to realtime db
     // useful if your app displays information about users or for admin features
-    const path = `users/${uid}`;
+
+    if (this._user === null) {
+      return;
+    }
+
+    const path = `MyHome/Profiles/${this.currentUserId}`; // Endpoint on firebase
     const data = {
-      uid,
-      email,
-      displayName,
-      photoURL,
-      isAnonymous
+      name: this.currentUser.displayName,
+      email: this.currentUser.email,
     };
-
-    return this.db.updateAt(path, data);
-
-    // if (this._user === null) {
-    //   return;
-    // }
-
-    // const path = `MyHome/Profiles/${this.currentUserId}`; // Endpoint on firebase
-    // const data = {
-    //   name: this.currentUser.displayName,
-    //   email: this.currentUser.email,
-    // };
 
     // this.db.object(path).update(data)
     //   .catch(error => console.log(error));
+
+  }
+  private updateUserData_({ uid, email, displayName, photoURL, isAnonymous }) {
+    //   // Writes user name and email to realtime db
+    //   // useful if your app displays information about users or for admin features
+    //   const path = `users/${uid}`;
+    //   const data = {
+    //     uid,
+    //     email,
+    //     displayName,
+    //     photoURL,
+    //     isAnonymous
+    //   };
+
+    //   return this.db.updateAt(path, data);
+
+    //   // if (this._user === null) {
+    //   //   return;
+    //   // }
+
+    //   // const path = `MyHome/Profiles/${this.currentUserId}`; // Endpoint on firebase
+    //   // const data = {
+    //   //   name: this.currentUser.displayName,
+    //   //   email: this.currentUser.email,
+    //   // };
+
+    //   // this.db.object(path).update(data)
+    //   //   .catch(error => console.log(error));
   }
 
 
@@ -206,16 +227,16 @@ export class AuthService {
 
   private async socialSignIn(provider: any): Promise<any> {
     const credential = await this.afAuth.auth.signInWithPopup(provider);
-    return await this.updateUserData(credential.user);
+    return await this.updateUserData_(credential.user);
   }
 
   async emailSignUp(email: string, password: string): Promise<any> {
     const credential = await this.afAuth.auth.createUserAndRetrieveDataWithEmailAndPassword(email, password);
-    return await this.updateUserData(credential.user);
+    return await this.updateUserData_(credential.user);
   }
 
   async emailLogin(email: string, password: string): Promise<any> {
     const credential = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-    return await this.updateUserData(credential.user);
+    return await this.updateUserData_(credential.user);
   }
 }
