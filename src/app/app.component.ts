@@ -25,6 +25,7 @@ export class AppComponent {
     { title: 'KML', url: '/Kml', icon: 'list' },
     { title: 'Motion', url: '/Motion', icon: 'list' },
     { title: 'Chat', url: '/ChatRoom', icon: 'list' },
+    { title: 'Profil', url: '/Profil', icon: 'list' },
     { title: 'Über', url: '/About', icon: 'list' },
     { title: 'Kontakt', url: '/Contact', icon: 'list' }
   ];

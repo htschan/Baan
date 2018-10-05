@@ -42,6 +42,7 @@ export class HomePage implements OnInit, OnDestroy {
       { title: 'KML', imgsrc: '../../assets/imgs/mm_gps.png', pgname: 'KmlPage' },
       { title: 'Motion', imgsrc: '../../assets/imgs/mm_motion.png', pgname: 'MotionPage' },
       { title: 'Chat', imgsrc: '../../assets/imgs/mm_chat.png', pgname: 'ChatRoomPage' },
+      { title: 'Profil', imgsrc: '../../assets/imgs/mm_about.png', pgname: 'ProfilePage' },
       { title: 'Über', imgsrc: '../../assets/imgs/mm_about.png', pgname: 'AboutPage' },
       { title: 'Kontakt', imgsrc: '../../assets/imgs/mm_contact.png', pgname: 'ContactPage' },
     ];

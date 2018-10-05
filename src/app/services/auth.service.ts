@@ -64,7 +64,7 @@ export class AuthService {
 
   async googleLogin(returnUrl: string) {
     return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider)
-      .then(() => this.updateUserData())
+      .then((credential) => this.updateUserData_(credential.user))
       .catch(error => console.log(error));
     // try {
     //   let user;
@@ -129,50 +129,16 @@ export class AuthService {
     return this.router.navigate(['/']);
   }
 
-  private updateUserData(): void {
-    // Writes user name and email to realtime db
-    // useful if your app displays information about users or for admin features
-
-    if (this._user === null) {
-      return;
-    }
-
-    const path = `MyHome/Profiles/${this.currentUserId}`; // Endpoint on firebase
-    const data = {
-      name: this.currentUser.displayName,
-      email: this.currentUser.email,
-    };
-
-    // this.db.object(path).update(data)
-    //   .catch(error => console.log(error));
-
-  }
   private updateUserData_({ uid, email, displayName, photoURL, isAnonymous }) {
-    //   // Writes user name and email to realtime db
-    //   // useful if your app displays information about users or for admin features
-    //   const path = `users/${uid}`;
-    //   const data = {
-    //     uid,
-    //     email,
-    //     displayName,
-    //     photoURL,
-    //     isAnonymous
-    //   };
-
-    //   return this.db.updateAt(path, data);
-
-    //   // if (this._user === null) {
-    //   //   return;
-    //   // }
-
-    //   // const path = `MyHome/Profiles/${this.currentUserId}`; // Endpoint on firebase
-    //   // const data = {
-    //   //   name: this.currentUser.displayName,
-    //   //   email: this.currentUser.email,
-    //   // };
-
-    //   // this.db.object(path).update(data)
-    //   //   .catch(error => console.log(error));
+      const path = `users/${uid}`;
+      const data = {
+        uid,
+        email,
+        displayName,
+        photoURL,
+        isAnonymous
+      };
+      return this.db.updateAt(path, data);
   }
 
 
