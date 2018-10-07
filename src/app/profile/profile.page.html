@@ -1,9 +1,34 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-title>Profil</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+  <ng-container *ngIf="auth.user$ | async as user; else login">
+    <app-profile [user]="user"></app-profile>
+    <ion-button color="light" (click)="auth.signOut()">Logout</ion-button>
+  </ng-container>
+  <ng-template #login>
+    <ion-button color="medium" (click)="auth.anonymousLogin()">
+      <ion-icon slot="start" name="glasses"></ion-icon>
+      Login Anonym
+    </ion-button>
+    <ion-button color="medium" (click)="auth.googleLogin()">
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+        Login mit Google
+      </ion-button>
+    <ion-button color="medium" (click)="auth.facebookLogin()">
+        <ion-icon slot="start" name="logo-facebook"></ion-icon>
+        Login mit Facebook
+      </ion-button>
+    <ion-button color="medium" (click)="auth.twitterLogin()">
+        <ion-icon slot="start" name="logo-twitter"></ion-icon>
+        Login mit Twitter
+      </ion-button>
+    <ion-button color="medium" (click)="auth.githubLogin()">
+        <ion-icon slot="start" name="logo-github"></ion-icon>
+        Login mit Github
+      </ion-button>
+    </ng-template>
 </ion-content>

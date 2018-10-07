@@ -1,31 +1,29 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+
 import { AuthService } from '../services/auth.service';
-import { AlertController } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { tap, map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private auth: AuthService, private alertController: AlertController, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
-  async canActivate(
+  canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Promise<boolean> {
-    const uid = await this.auth.uid();
-    const isLoggedIn = !!uid;
+    state: RouterStateSnapshot): Observable<boolean> {
 
-    if (!isLoggedIn) {
-      this.router.navigate(['login', { returnUrl: state.url }]);
-      // const alert = await this.alertController.create({
-      //   header: 'Blocked',
-      //   subHeader: 'Users only',
-      //   message: 'You have been blocked by the router guard..',
-      //   buttons: ['OK']
-      // });
-      // await alert.present();
-    }
-    return isLoggedIn;
+    return this.auth.user$.pipe(
+      take(1),
+      map(user => !!user),
+      tap(loggedIn => {
+        if (!loggedIn) {
+          console.log('access denied');
+          this.router.navigate(['Profil']);
+        }
+      }));
   }
 }

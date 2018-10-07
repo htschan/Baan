@@ -41,7 +41,7 @@ export class LoginPage {
   }
 
   async signInWithGoogle() {
-    await this.auth.googleLogin(this.returnUrl);
+    await this.auth.googleLogin();
   }
 
   signInWithFacebook() {

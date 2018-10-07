@@ -29,7 +29,6 @@ const routes: Routes = [
   { path: 'About', loadChildren: './about/about.module#AboutPageModule' },
   { path: 'Contact', loadChildren: './contact/contact.module#ContactPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'logout', loadChildren: './logout/logout.module#LogoutPageModule' },
   { path: 'Profil', loadChildren: './profile/profile.module#ProfilePageModule' }
 ];
 

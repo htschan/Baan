@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Events } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { User } from '@firebase/auth-types';
 import { LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { auth } from 'firebase/app';
-import * as firebase from 'firebase/app';
+import { auth, User } from 'firebase/app';
 import { take, map, switchMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { of, Observable } from 'rxjs';
@@ -18,8 +16,8 @@ import { AppConfig } from '../../myhomeappconfig';
   providedIn: 'root'
 })
 export class AuthService {
-  user$: Observable<any>;
-  _user: User = null;
+  user$: Observable<User>;
+  currentUser: User;
 
   constructor(private afAuth: AngularFireAuth,
     private db: DbService,
@@ -62,24 +60,40 @@ export class AuthService {
     return await this.storage.get('returnUrl');
   }
 
-  async googleLogin(returnUrl: string) {
-    return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider)
-      .then((credential) => this.updateUserData_(credential.user))
-      .catch(error => console.log(error));
-    // try {
-    //   let user;
-    //   this.setReturnUrl(returnUrl);
-    //   if (this.platform.is('cordova')) {
-    //     user = await this.nativeGoogleLogin();
-    //   } else {
-    //     await this.setRedirect(true);
-    //     const provider = new auth.GoogleAuthProvider();
-    //     user = await this.afAuth.auth.signInWithRedirect(provider);
-    //   }
-    //   return await this.updateUserData(user);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+  async anonymousLogin() {
+    const credential = await this.afAuth.auth.signInAnonymously();
+    return await this.updateUserData(credential);
+  }
+
+  async emailSignUp(email: string, password: string): Promise<any> {
+    const credential = await this.afAuth.auth.createUserAndRetrieveDataWithEmailAndPassword(email, password);
+    return await this.updateUserData(credential);
+  }
+
+  async emailLogin(email: string, password: string): Promise<any> {
+    const credential = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    return await this.updateUserData(credential);
+  }
+
+  googleLogin() {
+    return this.socialSignIn(new auth.GoogleAuthProvider());
+  }
+
+  githubLogin() {
+    return this.socialSignIn(new auth.GithubAuthProvider());
+  }
+
+  facebookLogin() {
+    return this.socialSignIn(new auth.FacebookAuthProvider());
+  }
+
+  twitterLogin() {
+    return this.socialSignIn(new auth.TwitterAuthProvider());
+  }
+
+  private async socialSignIn(provider: any): Promise<any> {
+    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    return await this.updateUserData(credential);
   }
 
   async nativeGoogleLogin(): Promise<any> {
@@ -102,10 +116,10 @@ export class AuthService {
     const loading = await this.loadingController.create();
     await loading.present();
 
-    const result = await this.afAuth.auth.getRedirectResult();
+    const credential = await this.afAuth.auth.getRedirectResult();
 
-    if (result.user) {
-      await this.updateUserData_(result.user);
+    if (credential.user) {
+      await this.updateUserData(credential);
     }
 
     await loading.dismiss();
@@ -115,94 +129,25 @@ export class AuthService {
     const returnUrl = await this.getReturnUrl();
     await this.router.navigate([returnUrl]);
 
-    return result;
-  }
-
-  async anonymousLogin() {
-    const credential = await this.afAuth.auth.signInAnonymously();
-    return await this.updateUserData_(credential.user);
+    return credential;
   }
 
   async signOut(): Promise<any> {
-    // this.events.publish('user:signout', this._user);
     await this.afAuth.auth.signOut();
-    return this.router.navigate(['/']);
+    this.currentUser.displayName = undefined;
   }
 
-  private updateUserData_({ uid, email, displayName, photoURL, isAnonymous }) {
-      const path = `users/${uid}`;
-      const data = {
-        uid,
-        email,
-        displayName,
-        photoURL,
-        isAnonymous
-      };
-      return this.db.updateAt(path, data);
-  }
-
-
-
-
-
-  // Returns true if user is logged in
-  get authenticated(): boolean {
-    return this._user !== null;
-  }
-
-  // Returns current user
-  get currentUser(): User | null {
-    return this.authenticated ? this._user : null;
-  }
-
-  // Returns current user UID
-  get currentUserId(): string {
-    return this.authenticated ? this._user.uid : '';
-  }
-
-  // Anonymous User
-  get currentUserAnonymous(): boolean {
-    return this.authenticated ? this._user.isAnonymous : false;
-  }
-
-  async isAuthenticated(): Promise<boolean> {
-    if (this._user === null) {
-      return new Promise<boolean>((resolve, reject) =>
-        this.afAuth.authState.subscribe(user => {
-          resolve(user !== null);
-        }));
-    }
-    return true;
-  }
-
-  githubLogin(): Promise<any> {
-    return this.socialSignIn(new firebase.auth.GithubAuthProvider());
-  }
-
-  // googleLogin(): Promise<any> {
-  //   return this.socialSignIn(new firebase.auth.GoogleAuthProvider());
-  // }
-
-  facebookLogin(): Promise<any> {
-    return this.socialSignIn(new firebase.auth.FacebookAuthProvider());
-  }
-
-  twitterLogin(): Promise<any> {
-    return this.socialSignIn(new firebase.auth.TwitterAuthProvider());
-  }
-
-  private async socialSignIn(provider: any): Promise<any> {
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
-    return await this.updateUserData_(credential.user);
-  }
-
-  async emailSignUp(email: string, password: string): Promise<any> {
-    const credential = await this.afAuth.auth.createUserAndRetrieveDataWithEmailAndPassword(email, password);
-    return await this.updateUserData_(credential.user);
-  }
-
-  async emailLogin(email: string, password: string): Promise<any> {
-    const credential = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-    return await this.updateUserData_(credential.user);
+  private updateUserData(cred: auth.UserCredential) {
+    const path = `users/${cred.user.uid}`;
+    const data = {
+      uid: cred.user.uid,
+      email: cred.user.email,
+      displayName: cred.user.displayName,
+      photoURL: cred.user.photoURL,
+      isAnonymous: cred.user.isAnonymous,
+      providerId: cred.additionalUserInfo.providerId
+    };
+    this.currentUser = data as User;
+    return this.db.updateAt(path, data);
   }
 }
