@@ -4,13 +4,15 @@ import { Platform, Content } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LayoutService } from './services/layout.service';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html'
+  templateUrl: 'app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  @ViewChild(Content) content: Content;
+  @ViewChild('content') content: any;
 
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
@@ -46,10 +48,8 @@ export class AppComponent {
       this.layoutService.setScreenSize(
         this.platform.width(),
         this.platform.height(),
-        this.platform.width(),
-        this.platform.height());
-        // this.content.getNativeElement().offsetWidth,
-        // this.content.getNativeElement().offsetHeight);
+        this.content.nativeElement.offsetWidth,
+        this.content.nativeElement.offsetHeight);
     });
   }
 
@@ -58,10 +58,8 @@ export class AppComponent {
     this.layoutService.setScreenSize(
       event.target.innerWidth,
       event.target.innerHeight,
-      event.target.innerWidth,
-      event.target.innerHeight);
-      // this.nav.getNativeElement().offsetWidth,
-      // this.nav.getNativeElement().offsetHeight);
+      this.content.nativeElement.offsetWidth,
+      this.content.nativeElement.offsetHeight);
   }
 
   splitChanged(event: Event) {

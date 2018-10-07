@@ -4,13 +4,14 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
 import { tap, map, take } from 'rxjs/operators';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router, private toastController: ToastController) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -21,9 +22,21 @@ export class AuthGuard implements CanActivate {
       map(user => !!user),
       tap(loggedIn => {
         if (!loggedIn) {
-          console.log('access denied');
+          console.log(`access denied to ${state.url}`);
+          this.presentToast();
+          this.auth.setReturnUrl(state.url);
           this.router.navigate(['Profil']);
         }
       }));
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Bitte zuerst anmelden.',
+      position: 'middle',
+      cssClass: 'toast',
+      duration: 2000
+    });
+    toast.present();
   }
 }

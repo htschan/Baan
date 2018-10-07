@@ -52,7 +52,7 @@ export class AuthService {
     return await this.storage.get('authRedirect');
   }
 
-  setReturnUrl(val) {
+  async setReturnUrl(val) {
     this.storage.set('returnUrl', val);
   }
 
@@ -93,7 +93,9 @@ export class AuthService {
 
   private async socialSignIn(provider: any): Promise<any> {
     const credential = await this.afAuth.auth.signInWithPopup(provider);
-    return await this.updateUserData(credential);
+    await this.updateUserData(credential);
+    const result = await this.getReturnUrl();
+    return this.router.navigateByUrl(`${result}`);
   }
 
   async nativeGoogleLogin(): Promise<any> {
@@ -134,7 +136,6 @@ export class AuthService {
 
   async signOut(): Promise<any> {
     await this.afAuth.auth.signOut();
-    this.currentUser.displayName = undefined;
   }
 
   private updateUserData(cred: auth.UserCredential) {
