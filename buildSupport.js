@@ -74,13 +74,13 @@ function setBuildInfo() {
         throw "One or more buildInfo parameters not defined on the commandline";
     }
 
-    fs.readFile(APP_CONFIG, 'utf8', function (err, data) {
+    fs.readFile(getAppConfigDestinationPath(), 'utf8', function (err, data) {
         if (err) {
             throw err;
         }
         var result = data.replace(/<buildtimestamp>/g, `${timestamp} build ${buildNumber} built on ${buildServer}`);
 
-        fs.writeFile(APP_CONFIG, result, 'utf8', function (err) {
+        fs.writeFile(getAppConfigDestinationPath(), result, 'utf8', function (err) {
             if (err) throw err;
         });
         console.log("setBuildInfo was successful");
