@@ -14,7 +14,8 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
+    loadChildren: './list/list.module#ListPageModule',
+    runGuardsAndResolvers: 'always'
   },
   { path: 'Shopping', loadChildren: './shopping/shopping.module#ShoppingPageModule', canActivate: [AuthGuard] },
   { path: 'Todo', loadChildren: './todo/todo.module#TodoPageModule', canActivate: [AuthGuard] },
@@ -28,12 +29,11 @@ const routes: Routes = [
   { path: 'ChatRoom', loadChildren: './chat-room/chat-room.module#ChatRoomPageModule', canActivate: [AuthGuard] },
   { path: 'About', loadChildren: './about/about.module#AboutPageModule' },
   { path: 'Contact', loadChildren: './contact/contact.module#ContactPageModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'Profil', loadChildren: './profile/profile.module#ProfilePageModule' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'ignore' })],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
