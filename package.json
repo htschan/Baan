@@ -14,7 +14,8 @@
     "getAppConfig": "node buildSupport.js getAppConfig",
     "setBuildInfo": "node buildSupport.js setBuildInfo",
     "setGoogleMapsApiUrl": "node buildSupport.js setGoogleMapsApiUrl",
-    "setVersionStamp": "node buildSupport.js setVersionStamp"
+    "setVersionStamp": "node buildSupport.js setVersionStamp",
+    "copyHtAccess": "node buildSupport.js copyHtAccess"
   },
   "private": true,
   "dependencies": {

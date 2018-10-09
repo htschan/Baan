@@ -56,6 +56,11 @@ node {
 				bat 'ionic build --no-interactive --confirm'
 			}
 		}
+		stage('deployhtaccess'){
+			dir('./'){
+				bat 'npm run copyHtAccess'
+			}
+		}
 		stage('deploy'){
 			/* Baan */
 			dir('www'){

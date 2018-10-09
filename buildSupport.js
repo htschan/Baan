@@ -7,10 +7,11 @@ const { version } = require('./package.json');
 const { resolve, relative } = require('path');
 const { writeFileSync } = require('fs-extra');
 
-
 const APP_CONFIG = 'myhomeappconfig.ts';
 const GOOGLE_MAPS_API_URL_FILE = 'GoogleMapsApiUrl.txt';
 const INDEX_HTML = 'src/index.html';
+const HT_ACCESS_SRC = 'src/assets/.htaccess'
+const HT_ACCESS_DST = 'www/.htaccess'
 
 function getAppConfigDestinationPath() {
     const file = resolve(__dirname, 'src', APP_CONFIG);
@@ -75,9 +76,7 @@ function setBuildInfo() {
     }
 
     fs.readFile(getAppConfigDestinationPath(), 'utf8', function (err, data) {
-        if (err) {
-            throw err;
-        }
+        if (err) throw err;
         var result = data.replace(/<buildtimestamp>/g, `${timestamp} build ${buildNumber} built on ${buildServer}`);
 
         fs.writeFile(getAppConfigDestinationPath(), result, 'utf8', function (err) {
@@ -93,13 +92,9 @@ function setGoogleMapsApiUrl() {
         stream.pipe(fs.createWriteStream(GOOGLE_MAPS_API_URL_FILE));
         if (fs.existsSync(GOOGLE_MAPS_API_URL_FILE)) {
             fs.readFile(GOOGLE_MAPS_API_URL_FILE, 'utf8', function (err, url) {
-                if (err) {
-                    throw err;
-                }
+                if (err) throw err;
                 fs.readFile(INDEX_HTML, 'utf8', function (err, html) {
-                    if (err) {
-                        throw err;
-                    }
+                    if (err) throw err;
                     var result = html.replace(/https:\/\/maps.googleapis.com\/maps\/api\/js/g, url);
                     fs.writeFile(INDEX_HTML, result, 'utf8', function (err) {
                         if (err) throw err;
@@ -153,6 +148,17 @@ function setVersionStamp() {
     jsonCOntent.raw = hash;
     const data = JSON.stringify(contents);
     fs.writeFileSync(filePath, data);
+    console.log('Successfully written Version Stamp');
+}
+
+function copyHtAccess() {
+    fs.readFile(HT_ACCESS_SRC, 'utf8', function (err, data) {
+        if (err) throw err;
+        fs.writeFile(HT_ACCESS_DST, data, 'utf8', function (err) {
+            if (err) throw err;
+        });
+    })
+    console.log(`Copied ${HT_ACCESS_SRC} to ${HT_ACCESS_DST}`);
 }
 
 // npm run getAppConfig
@@ -171,6 +177,8 @@ function setVersionStamp() {
 // Requires git commandline to be installed
 //
 // npm run setVersionStamp <semver> <suffix> <hash>
+//
+// npm run copyHtAccess
 //
 try {
     const command = process.argv[2];
@@ -191,13 +199,17 @@ try {
         case 'setVersionStamp':
             setVersionStamp();
             break;
+        case 'copyHtAccess':
+            copyHtAccess();
+            break;
         default:
             throw `Command argument undefined or unknown: ${command}`;
     }
     process.exitCode = 0;
 } catch (ex) {
-    console.log('-------------------- Exception -----------------');
+    console.log('-------------------- Exception begin -----------------');
     console.log(ex);
+    console.log('-------------------- Exception end -------------------');
     process.exitCode = 1;
 }
 
