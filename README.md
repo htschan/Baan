@@ -1,6 +1,6 @@
 # Baan
 
-PWA to demonstrate Ionic and Firebase.
+PWA to demonstrate Ionic 4 and Firebase.
 
 
 ## Using Firebase Cloud Functions
@@ -18,6 +18,14 @@ Resources
 https://firebase.google.com/docs/functions/typescript
 https://www.javascripttuts.com/using-firebase-cloud-functions-in-an-ionic-application/
 https://firebase.google.com/docs/reference/functions/
+
+## Creating a PWA
+
+```
+ng add @angular/pwa
+```
+
+https://itnext.io/turning-an-angular-6-app-into-a-progressive-web-app-9e6fc6361ba6
 
 
 ## Migrating from sw-toolbox to workbox (Service Worker)

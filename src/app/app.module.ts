@@ -24,6 +24,8 @@ import { AppConfig } from '../myhomeappconfig';
 import { BUILD_INFO } from './services/product.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 /*
 export class AppConfig {
@@ -54,7 +56,8 @@ export class AppConfig {
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireFunctionsModule,
-    AngularFireMessagingModule
+    AngularFireMessagingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     Firebase,
