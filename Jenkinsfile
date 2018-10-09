@@ -53,7 +53,7 @@ node {
 		}
 		stage('build'){
 			dir('./'){
-				bat 'ionic build --no-interactive --confirm'
+				bat 'ionic build --prod'
 			}
 		}
 		stage('deployhtaccess'){
