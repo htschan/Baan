@@ -25,6 +25,22 @@ https://firebase.google.com/docs/reference/functions/
 Reference:
 https://golb.hplar.ch/2017/11/Ionic-with-Workbox-Service-Worker.html
 
+## Deep routing Angualar application when hosting on Apache
+
+Use an .htaccess file with this rewrite rule:
+
+```
+<IfModule mod_rewrite.c>
+  Options Indexes FollowSymLinks
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+```
+Where RewriteBase should correspond to ```<base href='/'>``` in index.html.
 
 ## Cache-control on server
 
