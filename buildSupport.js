@@ -86,23 +86,43 @@ function setBuildInfo() {
     });
 }
 
+// function setGoogleMapsApiUrl() {
+//     getFtpFile(GOOGLE_MAPS_API_URL_FILE, (stream) => {
+//         stream.pipe(fs.createWriteStream(GOOGLE_MAPS_API_URL_FILE));
+//         if (fs.existsSync(GOOGLE_MAPS_API_URL_FILE)) {
+//             fs.readFile(GOOGLE_MAPS_API_URL_FILE, 'utf8', function (err, url) {
+//                 if (err) throw err;
+//                 fs.readFile(INDEX_HTML, 'utf8', function (err, html) {
+//                     if (err) throw err;
+//                     var result = html.replace(/https:\/\/maps.googleapis.com\/maps\/api\/js/g, url);
+//                     fs.writeFile(INDEX_HTML, result, 'utf8', function (err) {
+//                         if (err) throw err;
+//                     });
+//                 })
+//                 console.log("Replace Google Maps API Url successful");
+//             });
+//         } else throw `The file ${GOOGLE_MAPS_API_URL_FILE} doesn't exist`;
+//     });
+// }
+
 // Get the GOOGLE_MAPS_API_URL_FILE via FTP and set the link in index.html
 function setGoogleMapsApiUrl() {
+    var data = '';
+
     getFtpFile(GOOGLE_MAPS_API_URL_FILE, (stream) => {
-        stream.pipe(fs.createWriteStream(GOOGLE_MAPS_API_URL_FILE));
-        if (fs.existsSync(GOOGLE_MAPS_API_URL_FILE)) {
-            fs.readFile(GOOGLE_MAPS_API_URL_FILE, 'utf8', function (err, url) {
+        stream.on('data', function (chunk) {
+            data += chunk;
+        }).on('end', function () {
+            console.log(data);
+            fs.readFile(INDEX_HTML, 'utf8', function (err, html) {
                 if (err) throw err;
-                fs.readFile(INDEX_HTML, 'utf8', function (err, html) {
+                var result = html.replace(/https:\/\/maps.googleapis.com\/maps\/api\/js/g, data);
+                fs.writeFile(INDEX_HTML, result, 'utf8', function (err) {
                     if (err) throw err;
-                    var result = html.replace(/https:\/\/maps.googleapis.com\/maps\/api\/js/g, url);
-                    fs.writeFile(INDEX_HTML, result, 'utf8', function (err) {
-                        if (err) throw err;
-                    });
-                })
-                console.log("Replace Google Maps API Url successful");
-            });
-        } else throw `The file ${GOOGLE_MAPS_API_URL_FILE} doesn't exist`;
+                });
+            })
+            console.log("Replace Google Maps API Url successful");
+        });
     });
 }
 
