@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   baan:
-    image: registry.angusido.com/baan:ci-${BAAN_BUILD_NUMBER-10}
+    image: ${projectimage}
     container_name: baan
     ports:
     - 5030:80
