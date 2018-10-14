@@ -12,7 +12,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  @ViewChild('content') content: any;
+  @ViewChild('content') routerOutlet: any;
 
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
@@ -48,8 +48,8 @@ export class AppComponent {
       this.layoutService.setScreenSize(
         this.platform.width(),
         this.platform.height(),
-        this.content.nativeElement.offsetWidth,
-        this.content.nativeElement.offsetHeight);
+        this.routerOutlet.nativeElement.parentElement.firstChild.offsetWidth,
+        this.routerOutlet.nativeElement.parentElement.firstChild.offsetHeight);
     });
   }
 
@@ -58,8 +58,8 @@ export class AppComponent {
     this.layoutService.setScreenSize(
       event.target.innerWidth,
       event.target.innerHeight,
-      this.content.nativeElement.offsetWidth,
-      this.content.nativeElement.offsetHeight);
+      this.routerOutlet.nativeElement.parentElement.firstChild.offsetWidth,
+      this.routerOutlet.nativeElement.parentElement.firstChild.offsetHeight);
   }
 
   splitChanged(event: Event) {

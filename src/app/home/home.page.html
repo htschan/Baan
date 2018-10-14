@@ -11,7 +11,7 @@
 
 <ion-content padding>
   <h1>Home page</h1>
-  <div *ngIf="layoutService.data | async as data else loading">{{data.width}} {{data.height}}</div>
+  <div *ngIf="layoutService.data | async as data else loading">W: {{data.width}} H: {{data.height}}</div>
   <ion-grid *ngIf="!showSlides">
     <ion-row *ngFor="let tilerow of tilesd">
       <ion-col *ngFor="let tile of tilerow">
