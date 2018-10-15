@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
-import { IonicModule } from '@ionic/angular';
-
+import { SharedModule } from '../shared/shared.module';
 import { YoutubedownloadPage } from './youtubedownload.page';
 
 const routes: Routes = [
@@ -16,12 +12,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonicModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
   declarations: [YoutubedownloadPage]
 })
-export class YoutubedownloadPageModule {}
+export class YoutubedownloadPageModule { }

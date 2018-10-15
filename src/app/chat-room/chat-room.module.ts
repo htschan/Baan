@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
-import { IonicModule } from '@ionic/angular';
-
+import { SharedModule } from '../shared/shared.module';
 import { ChatRoomPage } from './chat-room.page';
 import { ChatAddRoomComponent } from './chat-add-room/chat-add-room.component';
 import { ChatChatComponent } from './chat-chat/chat-chat.component';
@@ -30,9 +26,7 @@ const routes: Routes = [
     ChatChatComponent,
   ],
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

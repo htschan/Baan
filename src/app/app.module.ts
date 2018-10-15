@@ -11,21 +11,14 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireFunctionsModule } from '@angular/fire/functions';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppConfig } from '../myhomeappconfig';
 import { BUILD_INFO } from './services/product.service';
-import { AuthService } from './services/auth.service';
-import { AuthGuard } from './guards/auth.guard';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { SharedModule } from './shared/shared.module';
 
 /*
 export class AppConfig {
@@ -52,11 +45,7 @@ export class AppConfig {
     IonicStorageModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(AppConfig.firebaseConfig),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    AngularFirestoreModule,
-    AngularFireFunctionsModule,
-    AngularFireMessagingModule,
+    SharedModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
@@ -64,8 +53,6 @@ export class AppConfig {
     GooglePlus,
     StatusBar,
     SplashScreen,
-    AuthGuard,
-    AuthService,
     { provide: BUILD_INFO, useValue: AppConfig.appConfig.bts },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
