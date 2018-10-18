@@ -1,13 +1,12 @@
-import { Injectable, InjectionToken } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { AngularFireList, AngularFireAction, AngularFireDatabase } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { ProductVm } from '../../viewmodels/productvm';
 import { ShoppingItemVm } from '../../viewmodels/shoppingitem';
-
-export const BUILD_INFO = new InjectionToken<string>('BUILD_INFO');
-const FbBase = '/MyHome';
+import { IAppConfig } from '../shared/IAppConfig';
+import { APP_CONFIG_DI } from '../../myhomeappconfig';
 
 @Injectable({
     providedIn: 'root'
@@ -23,25 +22,25 @@ export class ProductService {
     catFilter$: BehaviorSubject<string | null>;
     items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
 
-    constructor(private af: AngularFireDatabase, afs: AngularFirestore) {
+    constructor(@Inject(APP_CONFIG_DI) private appConfig: IAppConfig, private af: AngularFireDatabase, afs: AngularFirestore) {
         this.catFilter$ = new BehaviorSubject(null);
-        this.categoriesRef = af.list(`${FbBase}/ProductCategories`);
+        this.categoriesRef = af.list(`${appConfig.FbBase}/ProductCategories`);
         this.categories = this.categoriesRef.snapshotChanges().pipe(map(changes => {
             return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
         }));
-        this.productsRef = af.list<ProductVm>(`${FbBase}/Products/Coop2`);
+        this.productsRef = af.list<ProductVm>(`${appConfig.FbBase}/Products/Coop2`);
         this.products = this.productsRef.snapshotChanges().pipe(map(changes => {
             return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
         }));
 
-        this.shoppingitemsRef = af.list(`${FbBase}/Shoppinglist`);
+        this.shoppingitemsRef = af.list(`${appConfig.FbBase}/Shoppinglist`);
         // Use snapshotChanges().map() to store the key
         this.shoppingitems = this.shoppingitemsRef.snapshotChanges().pipe(map(changes => {
             return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
         }));
 
         this.items$ = this.catFilter$.pipe(switchMap(cat =>
-            af.list(`${FbBase}/Products/Coop2`, ref =>
+            af.list(`${appConfig.FbBase}/Products/Coop2`, ref =>
                 cat ? ref.orderByChild('Cat').equalTo(cat) : ref
             ).snapshotChanges()
         ));
@@ -75,10 +74,10 @@ export class ProductService {
     //     this.shoppingitems.remove(item);
     // }
     importantProduct(key: string, val: boolean) {
-        this.af.object(`${FbBase}/Shoppinglist/${key}`).update({ Important: val });
+        this.af.object(`${this.appConfig.FbBase}/Shoppinglist/${key}`).update({ Important: val });
     }
     favoriteProduct(key: string, val: boolean) {
-        this.af.object(`${FbBase}/Shoppinglist/${key}`).update({ Favorite: val });
+        this.af.object(`${this.appConfig.FbBase}/Shoppinglist/${key}`).update({ Favorite: val });
     }
     deleteShoppinglistItem(key: string) {
         this.shoppingitemsRef.remove(key);
@@ -87,7 +86,7 @@ export class ProductService {
         this.shoppingitemsRef.push(item);
     }
     updateShoppinglistItem(key: string, item: any) {
-        this.af.object(`${FbBase}/Shoppinglist/${key}`).update({
+        this.af.object(`${this.appConfig.FbBase}/Shoppinglist/${key}`).update({
             Name: item.Name,
             Description: item.Description,
             Important: item.Important,

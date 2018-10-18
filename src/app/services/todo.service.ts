@@ -1,40 +1,41 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import * as firebase from 'firebase';
 import { Todo } from '../../model/todo';
-
-const FbBase = '/MyHome';
+import { APP_CONFIG_DI } from '../../myhomeappconfig';
+import { IAppConfig } from '../shared/IAppConfig';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class TodoService {
-  todosRef: AngularFireList<any>;
-  todos: Observable<any[]>;
+    todosRef: AngularFireList<any>;
+    todos: Observable<any[]>;
 
-  constructor(
-      private af: AngularFireDatabase,
-      private authService: AuthService) {
-      this.todosRef = af.list(`${FbBase}/Todos`);
-      this.todos = this.todosRef.snapshotChanges().pipe(map(changes => {
-          return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-      }));
-  }
+    constructor(
+        @Inject(APP_CONFIG_DI) private appConfig: IAppConfig,
+        private af: AngularFireDatabase,
+        private authService: AuthService) {
+        this.todosRef = af.list(`${appConfig.FbBase}/Todos`);
+        this.todos = this.todosRef.snapshotChanges().pipe(map(changes => {
+            return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+        }));
+    }
 
-  addNewTodo(item: Todo) {
-      item.modifiedAt = firebase.database.ServerValue.TIMESTAMP as string;
-      item.createdAt = firebase.database.ServerValue.TIMESTAMP as string;
-      item.modifiedBy = this.authService.currentUser.displayName;
-      item.createdBy = this.authService.currentUser.displayName;
-      this.todosRef.push(item);
-  }
-  updateShoppinglistItem(key: string, item: Todo) {
-      //        this.af.object(`${FbBase}/Todos/${key}`).update({Name: item.Name, Description: item.Description, 
-      // Important: item.Important, Favorite: item.Favorite});
-  }
+    addNewTodo(item: Todo) {
+        item.modifiedAt = firebase.database.ServerValue.TIMESTAMP as string;
+        item.createdAt = firebase.database.ServerValue.TIMESTAMP as string;
+        item.modifiedBy = this.authService.currentUser.displayName;
+        item.createdBy = this.authService.currentUser.displayName;
+        this.todosRef.push(item);
+    }
+    updateShoppinglistItem(key: string, item: Todo) {
+        //        this.af.object(`${FbBase}/Todos/${key}`).update({Name: item.Name, Description: item.Description, 
+        // Important: item.Important, Favorite: item.Favorite});
+    }
 
 }
 /*

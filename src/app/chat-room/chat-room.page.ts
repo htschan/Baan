@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-
-const FbBase = '/MyHome';
+import { APP_CONFIG_DI } from '../../myhomeappconfig';
+import { IAppConfig } from '../shared/IAppConfig';
 
 @Component({
   selector: 'app-chat-room',
@@ -17,8 +17,12 @@ export class ChatRoomPage {
   rooms: Observable<any[]>;
   ref: AngularFireList<any>;
 
-  constructor(public router: Router, public route: ActivatedRoute, public af: AngularFireDatabase, public authService: AuthService) {
-    this.ref = af.list(`${FbBase}/Chatrooms/`);
+  constructor(@Inject(APP_CONFIG_DI) private appConfig: IAppConfig,
+    public router: Router,
+    public route: ActivatedRoute,
+    public af: AngularFireDatabase,
+    public authService: AuthService) {
+    this.ref = af.list(`${appConfig.FbBase}/Chatrooms/`);
     this.rooms = this.ref.snapshotChanges().pipe(map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     }));

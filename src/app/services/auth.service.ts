@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Events } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoadingController } from '@ionic/angular';
@@ -10,7 +10,8 @@ import { of, Observable } from 'rxjs';
 import { DbService } from './db.service';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Platform } from '@ionic/angular';
-import { AppConfig } from '../../myhomeappconfig';
+import { APP_CONFIG_DI } from '../../myhomeappconfig';
+import { IAppConfig } from '../shared/IAppConfig';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class AuthService {
   user$: Observable<User>;
   currentUser: User;
 
-  constructor(private afAuth: AngularFireAuth,
+  constructor(@Inject(APP_CONFIG_DI) private appConfig: IAppConfig,
+    private afAuth: AngularFireAuth,
     private db: DbService,
     private router: Router,
     private gplus: GooglePlus,
@@ -100,7 +102,7 @@ export class AuthService {
 
   async nativeGoogleLogin(): Promise<any> {
     const gplusUser = await this.gplus.login({
-      webClientId: AppConfig.googlePlus.webClientId,
+      webClientId: this.appConfig.googlePlus.webClientId,
       offline: true,
       scopes: 'profile email'
     });

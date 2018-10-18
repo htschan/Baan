@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
-import { NavController } from '@ionic/angular';
+import { APP_CONFIG_DI } from '../../../myhomeappconfig';
+import { IAppConfig } from '../../shared/IAppConfig';
 
-const FbBase = '/MyHome';
 
 @Component({
   selector: 'app-chat-add-room',
@@ -15,8 +15,8 @@ export class ChatAddRoomComponent {
   data = { roomname: '' };
   ref: AngularFireList<any>;
 
-  constructor(private location: Location, public af: AngularFireDatabase) {
-    this.ref = af.list(`${FbBase}/Chatrooms/`);
+  constructor(@Inject(APP_CONFIG_DI) private appConfig: IAppConfig, private location: Location, public af: AngularFireDatabase) {
+    this.ref = af.list(`${appConfig.FbBase}/Chatrooms/`);
   }
 
   addRoom() {

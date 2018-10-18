@@ -6,7 +6,7 @@ import { FileUploadComponent } from '../components/file-upload/file-upload.compo
 import { FileSizePipe } from '../pipes/file-size/file-size';
 import { AgmCoreModule, KmlLayerManager, GoogleMapsAPIWrapper } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
-import { AppConfig } from '../../myhomeappconfig';
+import { APP_CONFIG_VAL } from '../../myhomeappconfig';
 
 const routes: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
     AgmCoreModule.forRoot({
-      apiKey: AppConfig.googleMaps.apiKey
+      apiKey: APP_CONFIG_VAL.googleMaps.apiKey
     }),
     AgmJsMarkerClustererModule,
   ],

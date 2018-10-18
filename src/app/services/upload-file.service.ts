@@ -1,25 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap, finalize } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FileUpload } from '../../model/fileupload';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { IAppConfig } from '../shared/IAppConfig';
+import { APP_CONFIG_DI } from '../../myhomeappconfig';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadFileService {
+  private basePath = `${this.appConfig.FbBase}/kml`;
+  downloadURL: Observable<string>;
+  uploadPercent: Observable<number>;
+  snapshot: Observable<any>;
 
-  constructor(private afStorage: AngularFireStorage, private db: AngularFirestore) {
+  constructor(@Inject(APP_CONFIG_DI) private appConfig: IAppConfig, private afStorage: AngularFireStorage, private db: AngularFirestore) {
     // this.downloadURL.subscribe(url => {
     //   console.log("url = " + url);
     // })
   }
-
-  private basePath = '/MyHome/kml';
-  downloadURL: Observable<string>;
-  uploadPercent: Observable<number>;
-  snapshot: Observable<any>;
 
   pushFileToStorage(fileUpload: FileUpload, progress: { percentage: number }) {
     const file = fileUpload.file;

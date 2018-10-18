@@ -14,8 +14,7 @@ import { AngularFireModule } from '@angular/fire';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AppConfig } from '../myhomeappconfig';
-import { BUILD_INFO } from './services/product.service';
+import { APP_CONFIG_DI, APP_CONFIG_VAL } from '../myhomeappconfig';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { SharedModule } from './shared/shared.module';
@@ -44,7 +43,7 @@ export class AppConfig {
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     AppRoutingModule,
-    AngularFireModule.initializeApp(AppConfig.firebaseConfig),
+    AngularFireModule.initializeApp(APP_CONFIG_VAL.firebaseConfig),
     SharedModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
@@ -53,7 +52,7 @@ export class AppConfig {
     GooglePlus,
     StatusBar,
     SplashScreen,
-    { provide: BUILD_INFO, useValue: AppConfig.appConfig.bts },
+    { provide: APP_CONFIG_DI, useValue: APP_CONFIG_VAL },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
