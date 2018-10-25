@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'Motion', loadChildren: './motion/motion.module#MotionPageModule' },
   { path: 'ChatRoom', loadChildren: './chat-room/chat-room.module#ChatRoomPageModule', canActivate: [AuthGuard] },
   { path: 'About', loadChildren: './about/about.module#AboutPageModule' },
-  { path: 'Contact', loadChildren: './contact/contact.module#ContactPageModule' },
+  { path: 'Contact', loadChildren: './contact/contact.module#ContactPageModule', canActivate: [AuthGuard] },
   { path: 'Profil', loadChildren: './profile/profile.module#ProfilePageModule' }
 ];
 

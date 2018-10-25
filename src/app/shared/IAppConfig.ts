@@ -5,4 +5,5 @@ export interface IAppConfig {
     googlePlus: any;
     Bts: string;
     FbBase: string;
+    SlackWebHookUrl: string;
 }

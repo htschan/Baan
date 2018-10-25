@@ -13,13 +13,19 @@ import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { AuthService } from '../services/auth.service';
 import { AuthGuard } from '../guards/auth.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SlackComponent } from './slack/slack.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    FormsModule
   ],
-  declarations: [ProfileComponent, LoginComponent],
+  declarations: [
+    ProfileComponent,
+    LoginComponent,
+    SlackComponent
+  ],
   exports: [
     CommonModule,
     FormsModule,
@@ -32,7 +38,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AngularFireFunctionsModule,
     AngularFireMessagingModule,
     ProfileComponent,
-    LoginComponent
+    LoginComponent,
+    SlackComponent
   ]
 })
 export class SharedModule {
