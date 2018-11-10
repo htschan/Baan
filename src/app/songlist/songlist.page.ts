@@ -12,6 +12,6 @@ export class SonglistPage {
   }
 
   viewVideo(url: string, title: string) {
-    this.router.navigate(['viewvideo', { url: url, title: title }]);
+    this.router.navigate(['Songlist/viewvideo', { url: url, title: title }]);
   }
 }
