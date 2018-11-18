@@ -23,8 +23,8 @@
     </ion-fab-list>
   </ion-fab>
   <ion-list>
-    <ion-item-sliding *ngFor="let item of prodService.shoppingitems | async">
-      <ion-item (click)="viewItem(item)" class="item-gradient">
+    <ion-item-sliding *ngFor="let item of items$ | async; trackBy: trackById">
+      <ion-item [href]="'Shopping/' + item.id" class="item-gradient">
         <ion-avatar item-start>
           <img [src]="item.Url">
         </ion-avatar>
@@ -33,25 +33,25 @@
         </ion-label>
       </ion-item>
       <ion-item-options side="start">
-        <ion-item-option color="primary">
+        <ion-item-option color="primary" expandable>
           <ion-icon name="checkmark"></ion-icon>
           Erledigt
         </ion-item-option>
-        <ion-item-option color="secondary" (click)="importantItem(item.key,!item.Important)">
+        <ion-item-option color="secondary" (click)="importantItem(item.key,!item.Important)" expandable>
           <ion-icon name="alert"></ion-icon>
           Wichtig
         </ion-item-option>
-        <ion-item-option color="secondary" (click)="favoriteItem(item.key,!item.Favorite)">
+        <ion-item-option color="secondary" (click)="favoriteItem(item.key,!item.Favorite)" expandable>
           <ion-icon name="heart"></ion-icon>
           Favorit
         </ion-item-option>
       </ion-item-options>
       <ion-item-options side="end">
-        <ion-item-option color="alert" (click)="deleteItem(item.key)">
+        <ion-item-option color="alert" (click)="deleteItem(item.key)" expandable>
           <ion-icon name="trash"></ion-icon>
           Löschen
         </ion-item-option>
-        <ion-item-option color="primary" (click)="editItem(item)">
+        <ion-item-option color="primary" (click)="editItem(item)" expandable>
           <ion-icon name="create"></ion-icon>
           Ändern
         </ion-item-option>

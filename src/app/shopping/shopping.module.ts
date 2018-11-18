@@ -7,11 +7,18 @@ import { ShoppingPage } from './shopping.page';
 import { ShoppingitemComponent } from './shoppingitem/shoppingitem.component';
 import { ShoppingitemviewComponent } from './shoppingitemview/shoppingitemview.component';
 import { SelectproductComponent } from './selectproduct/selectproduct.component';
+import { ViewitemComponent } from './viewitem/viewitem.component';
+import { ItemDetailComponent } from './itemdetail/itemdetail.component';
+import { EdititemComponent } from './edititem/edititem.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ShoppingPage
+  },
+  {
+    path: ':id',
+    component: ViewitemComponent
   }
 ];
 
@@ -19,12 +26,22 @@ const routes: Routes = [
   entryComponents: [
     ShoppingitemComponent,
     ShoppingitemviewComponent,
-    SelectproductComponent
+    SelectproductComponent,
+    ItemDetailComponent,
+    EdititemComponent
   ],
   imports: [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ShoppingPage, ShoppingitemComponent, ShoppingitemviewComponent, SelectproductComponent]
+  declarations: [
+    ShoppingPage,
+    ShoppingitemComponent,
+    ShoppingitemviewComponent,
+    SelectproductComponent,
+    ViewitemComponent,
+    ItemDetailComponent,
+    EdititemComponent
+  ]
 })
 export class ShoppingPageModule { }

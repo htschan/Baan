@@ -59,6 +59,7 @@ export class ProductService {
     getProducts(): Observable<ProductVm[]> {
         return this.products;
     }
+
     deleteProduct(item) {
         // this.products.remove(item);
     }
@@ -73,6 +74,9 @@ export class ProductService {
     // buyShoppinglistItem(item: any) {
     //     this.shoppingitems.remove(item);
     // }
+    getProduct(id): Observable<any> {
+        return this.af.object(`${this.appConfig.FbBase}/Shoppinglist/${id}`).valueChanges();
+    }
     importantProduct(key: string, val: boolean) {
         this.af.object(`${this.appConfig.FbBase}/Shoppinglist/${key}`).update({ Important: val });
     }

@@ -3,34 +3,48 @@ import { AuthService } from '../services/auth.service';
 import { App, ModalController, Events, Fab } from '@ionic/angular';
 import { ProductService } from '../services/product.service';
 import { ShoppingItemVm } from '../../viewmodels/shoppingitem';
-import { ShoppingitemviewComponent } from './shoppingitemview/shoppingitemview.component';
 import { ShoppingitemComponent } from './shoppingitem/shoppingitem.component';
 import { SelectproductComponent } from './selectproduct/selectproduct.component';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DbService } from '../services/db.service';
+import { switchMap, shareReplay } from 'rxjs/operators';
+import { EdititemComponent } from './edititem/edititem.component';
 
 @Component({
   selector: 'app-shopping',
   templateUrl: './shopping.page.html',
   styleUrls: ['./shopping.page.scss'],
 })
-export class ShoppingPage implements OnInit, OnDestroy {
-
-  items: ShoppingItemVm[] = [];
-
+export class ShoppingPage implements OnInit {
   constructor(
     public auth: AuthService,
     public appCtrl: App,
+    public db: DbService,
     public prodService: ProductService,
     public modalCtrl: ModalController,
-    public events: Events) {
+    public events: Events,
+    private router: Router,
+    private route: ActivatedRoute) {
   }
 
-  ngOnInit(): void {
-    console.log('Shopping on init');
+  items$;
+
+  ngOnInit() {
+    this.items$ = this.auth.user$.pipe(
+      switchMap(user =>
+        this.db.collection$('shoppinglist', ref =>
+          ref
+            .where('uid', '==', user.uid)
+            .orderBy('createdAt', 'desc')
+            .limit(25))
+
+      ),
+      shareReplay(1)
+    );
   }
 
-  ngOnDestroy(): void {
-    this.events.unsubscribe('user:signout');
-    this.events.unsubscribe('user:signin');
+  trackById(idx, item) {
+    return item.Key;
   }
 
   importantItem(key: any, val: boolean) {
@@ -43,33 +57,12 @@ export class ShoppingPage implements OnInit, OnDestroy {
 
   deleteItem(key: any) {
     this.prodService.deleteShoppinglistItem(key);
-
   }
 
-  async viewItem(item: any) {
+  async editItem(item?: any) {
     const modal = await this.modalCtrl.create({
-      component: ShoppingitemviewComponent,
-      componentProps: { data: item },
-      showBackdrop: false
-    });
-    modal.onWillDismiss().then(data => {
-      if ( data.role !== 'backdrop') {
-        return true;
-      }
-    });
-    return await modal.present();
-  }
-
-  async editItem(item: any) {
-    const modal = await this.modalCtrl.create({
-      component: ShoppingitemComponent,
-      componentProps: { data: item }
-    });
-    modal.onDidDismiss().then(data => {
-      if (data) {
-        const vm = new ShoppingItemVm(data);
-        this.prodService.updateShoppinglistItem(vm.Key, vm);
-      }
+      component: EdititemComponent,
+      componentProps: { item }
     });
     return await modal.present();
   }
@@ -77,13 +70,7 @@ export class ShoppingPage implements OnInit, OnDestroy {
   async addItem(fab: Fab) {
     fab.close();
     const modal = await this.modalCtrl.create({
-      component: ShoppingitemComponent
-    });
-    modal.onDidDismiss().then(data => {
-      if (data) {
-        const vm = new ShoppingItemVm(data);
-        this.prodService.updateShoppinglistItem(vm.Key, vm);
-      }
+      component: EdititemComponent
     });
     return await modal.present();
   }
@@ -95,12 +82,22 @@ export class ShoppingPage implements OnInit, OnDestroy {
     });
     modal.onDidDismiss().then((data: any) => {
       if (data) {
-        const vm = ShoppingItemVm.fromProductItem(data.item, data.key);
-        vm.Key = data.key;
-        this.prodService.addShoppinglistItem(vm);
+        const vm = ShoppingItemVm.fromProductItem(data.data.item, data.data.key);
+        this.createShoppingItem(vm);
       }
     });
     modal.present();
+  }
+
+  async createShoppingItem(vm) {
+    const uid = await this.auth.uid();
+    const id = vm ? vm.Key : '';
+    const data = {
+      uid,
+      createdAt: Date.now(),
+      ...vm
+    };
+    this.db.updateAt(`shoppinglist/${id}`, data);
   }
 
 }

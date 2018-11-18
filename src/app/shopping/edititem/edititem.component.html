@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="!item">Create New Todo</ion-title>
+    <ion-title *ngIf="item">Update {{ item.Key }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="itemForm" (ngSubmit)="createItem()">
+    <ion-label>Item Details</ion-label>
+    <ion-item>
+      <ion-label color="primary">Name</ion-label>
+      <ion-input placeholder="Was" formControlName="Name"></ion-input>
+    </ion-item>
+    <!-- <div *ngIf="itemForm.controls.Name.errors?.required && itemForm.controls.Name.touched" class="error">
+      *Required
+    </div> -->
+
+    <ion-item>
+      <ion-label color="primary" fixed>Beschreibung</ion-label>
+      <ion-textarea formControlName="Description" type="content" placeholder="Beschreibung" rows="2"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>Wichtig</ion-label>
+      <ion-checkbox color="dark" formControlName="Important"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Favorit</ion-label>
+      <ion-checkbox color="primary" formControlName="Favorite"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Quantität</ion-label>
+      <ion-input type="number" min="0" max="1000" color="primary" formControlName="Quantity"></ion-input>
+    </ion-item>
+    <ion-button [disabled]="itemForm.invalid" type="submit">{{ item ? 'Update!' : 'Create!' }}</ion-button>
+  </form>
+</ion-content>

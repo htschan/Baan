@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>View Shopping Item</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="prod$ | async as proditem; else loading">
+    <app-itemdetail [item]="proditem" (edit)=editItem($event)></app-itemdetail>
+  </div>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ion-content>
