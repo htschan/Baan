@@ -9,6 +9,9 @@
 
 <ion-content padding>
   <ion-card>
+    <ion-card-title>
+      Screen:
+    </ion-card-title>
     <ion-card-content>
       <div *ngIf="layoutService.data | async as data else loading">Screen Width: {{data.width}} Height: {{data.height}}</div>
     </ion-card-content>
@@ -29,9 +32,13 @@
       <ion-chip [color]="layoutService.isPortrait() ? 'secondary' : 'default'">
         <ion-label>Portrait</ion-label>
       </ion-chip>
-      <ion-card-title>
-        Platform:
-      </ion-card-title>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-title>
+      Platform:
+    </ion-card-title>
+    <ion-card-content>
       <ion-chip [color]="layoutService.isPlatform('android') ? 'secondary' : 'default'">
         <ion-label>Android</ion-label>
       </ion-chip>
@@ -93,6 +100,14 @@
       <p>
         Backend Build Info: Baan.Backend-{{backendbuildinfo}}
       </p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-title>
+      System:
+    </ion-card-title>
+    <ion-card-content>
+      <ion-button type="submit" (click)="reload()">Reload</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

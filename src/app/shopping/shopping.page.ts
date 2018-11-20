@@ -3,9 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { App, ModalController, Events, Fab } from '@ionic/angular';
 import { ProductService } from '../services/product.service';
 import { ShoppingItemVm } from '../../viewmodels/shoppingitem';
-import { ShoppingitemComponent } from './shoppingitem/shoppingitem.component';
 import { SelectproductComponent } from './selectproduct/selectproduct.component';
-import { Router, ActivatedRoute } from '@angular/router';
 import { DbService } from '../services/db.service';
 import { switchMap, shareReplay } from 'rxjs/operators';
 import { EdititemComponent } from './edititem/edititem.component';
@@ -22,9 +20,7 @@ export class ShoppingPage implements OnInit {
     public db: DbService,
     public prodService: ProductService,
     public modalCtrl: ModalController,
-    public events: Events,
-    private router: Router,
-    private route: ActivatedRoute) {
+    public events: Events) {
   }
 
   items$;
@@ -37,7 +33,6 @@ export class ShoppingPage implements OnInit {
             .where('uid', '==', user.uid)
             .orderBy('createdAt', 'desc')
             .limit(25))
-
       ),
       shareReplay(1)
     );
@@ -47,16 +42,18 @@ export class ShoppingPage implements OnInit {
     return item.Key;
   }
 
-  importantItem(key: any, val: boolean) {
-    this.prodService.importantProduct(key, val);
+  async toggleImportant(item) {
+    const Important = item.Important === true ? false : true;
+    this.db.updateAt(`/shoppinglist/${item.id}`, { Important });
   }
 
-  favoriteItem(key: any, val: boolean) {
-    this.prodService.favoriteProduct(key, val);
+  async toggleFavorite(item) {
+    const Favorite = item.Favorite === true ? false : true;
+    this.db.updateAt(`/shoppinglist/${item.id}`, { Favorite });
   }
 
-  deleteItem(key: any) {
-    this.prodService.deleteShoppinglistItem(key);
+  deleteItem(item) {
+    this.db.delete(`shoppinglist/${item.id}`);
   }
 
   async editItem(item?: any) {
@@ -99,5 +96,4 @@ export class ShoppingPage implements OnInit {
     };
     this.db.updateAt(`shoppinglist/${id}`, data);
   }
-
 }

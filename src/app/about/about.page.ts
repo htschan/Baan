@@ -28,4 +28,8 @@ export class AboutPage {
       this.backendbuildinfo = data.buildTimeStamp;
     });
   }
+
+  reload() {
+    window.location.reload(true);
+  }
 }
