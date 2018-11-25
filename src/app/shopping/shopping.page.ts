@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { App, ModalController, Events, Fab } from '@ionic/angular';
+import { App, ModalController, Events, Fab, List } from '@ionic/angular';
 import { ProductService } from '../services/product.service';
 import { ShoppingItemVm } from '../../viewmodels/shoppingitem';
 import { SelectproductComponent } from './selectproduct/selectproduct.component';
 import { DbService } from '../services/db.service';
-import { switchMap, shareReplay } from 'rxjs/operators';
+import { switchMap, shareReplay, map } from 'rxjs/operators';
 import { EdititemComponent } from './edititem/edititem.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-shopping',
@@ -14,6 +15,11 @@ import { EdititemComponent } from './edititem/edititem.component';
   styleUrls: ['./shopping.page.scss'],
 })
 export class ShoppingPage implements OnInit {
+  @ViewChild('slidingList') slidingList: List;
+  items$;
+  filtered;
+  filter = new BehaviorSubject(null);
+
   constructor(
     public auth: AuthService,
     public appCtrl: App,
@@ -22,8 +28,6 @@ export class ShoppingPage implements OnInit {
     public modalCtrl: ModalController,
     public events: Events) {
   }
-
-  items$;
 
   ngOnInit() {
     this.items$ = this.auth.user$.pipe(
@@ -36,24 +40,36 @@ export class ShoppingPage implements OnInit {
       ),
       shareReplay(1)
     );
+    this.filtered = this.filter.pipe(
+      switchMap(State => {
+        return this.items$.pipe(
+          map(arr =>
+            (arr as any[]).filter(
+              obj => (State ? obj.State === State : true)
+            )
+          )
+        );
+      })
+    );
   }
 
   trackById(idx, item) {
     return item.Key;
   }
 
-  async toggleImportant(item) {
-    const Important = item.Important === true ? false : true;
-    this.db.updateAt(`/shoppinglist/${item.id}`, { Important });
+  async toggleState(item) {
+    const State = item.State === 'done' ? 'pending' : 'done';
+    this.db.updateAt(`/shoppinglist/${item.id}`, { State });
+    await this.slidingList.closeSlidingItems();
   }
 
-  async toggleFavorite(item) {
-    const Favorite = item.Favorite === true ? false : true;
-    this.db.updateAt(`/shoppinglist/${item.id}`, { Favorite });
-  }
-
-  deleteItem(item) {
+  async deleteItem(item) {
     this.db.delete(`shoppinglist/${item.id}`);
+    await this.slidingList.closeSlidingItems();
+  }
+
+  updateFilter(val) {
+    this.filter.next(val);
   }
 
   async editItem(item?: any) {

@@ -49,6 +49,7 @@ export class EdititemComponent implements OnInit {
     const data = {
       uid,
       createdAt: Date.now(),
+      State: 'pending',
       ...this.item,
       ...this.itemForm.value
     };

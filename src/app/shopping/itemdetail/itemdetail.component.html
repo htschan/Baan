@@ -1,8 +1,29 @@
 <ion-card>
   <ion-card-header>
-    <ion-button icon-only (click)="editItem(item)">
-      <ion-icon name="create"></ion-icon>
-    </ion-button>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-label>
+            Editieren
+          </ion-label>
+          <ion-button icon-only (click)="editItem(item)">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-label>
+            Favorit
+          </ion-label>
+          <ion-checkbox (click)="toggleFavorite(item)" [checked]="item.Favorite === true" color="success"></ion-checkbox>
+        </ion-col>
+        <ion-col>
+          <ion-label>
+            Wichtig
+          </ion-label>
+          <ion-checkbox (click)="toggleImportant(item)" [checked]="item.Important === true" color="success"></ion-checkbox>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-card-header>
   <ion-card-title>
     {{item.Name}}

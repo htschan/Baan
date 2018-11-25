@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ShoppingItemVm } from '../../../viewmodels/shoppingitem';
 import { Router } from '@angular/router';
+import { DbService } from '../../services/db.service';
 
 @Component({
   selector: 'app-itemdetail',
@@ -9,7 +10,10 @@ import { Router } from '@angular/router';
 })
 export class ItemDetailComponent {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    public db: DbService
+  ) { }
 
   @Input()
   item: ShoppingItemVm;
@@ -19,4 +23,16 @@ export class ItemDetailComponent {
   editItem(item) {
     this.edit.emit(item);
   }
+
+  async toggleImportant(item) {
+    const Important = item.Important === true ? false : true;
+    this.db.updateAt(`/shoppinglist/${item.id}`, { Important });
+  }
+
+  async toggleFavorite(item) {
+    const Favorite = item.Favorite === true ? false : true;
+    this.db.updateAt(`/shoppinglist/${item.id}`, { Favorite });
+  }
+
+
 }
