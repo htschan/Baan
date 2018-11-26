@@ -16,6 +16,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class YoutubeService {
+  deleteSongUrl = 'https://baanbackend.kitsdg.ch/api/youtube/delete';
   downloadUrl = 'https://baanbackend.kitsdg.ch/api/youtube/download';
   apiInfoUrl = 'https://baanbackend.kitsdg.ch/api/youtube/apiinfo';
   downloadMetaDataUrl = 'https://baanbackend.kitsdg.ch/api/youtube/downloadmetadata';
@@ -30,6 +31,13 @@ export class YoutubeService {
     this.audiotracks = this.http.get<YtMetaDataVm>(this.downloadMetaDataUrl, httpOptions)
       .pipe(
         catchError(this.handleError('constructor', []))
+      );
+  }
+
+  deleteSong(item) {
+    return this.http.post<string>(this.deleteSongUrl, { 'metadataFile': item.metadataFile }, httpOptions)
+      .pipe(
+        catchError(this.handleError('deleteSong', []))
       );
   }
 

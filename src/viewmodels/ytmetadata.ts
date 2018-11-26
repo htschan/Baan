@@ -1,4 +1,5 @@
 export class YtMetaDataVm {
+    metaDataFile: string;
     downloadFile: string;
     url: string;
     message: string;

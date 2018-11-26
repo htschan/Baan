@@ -14,4 +14,10 @@ export class SonglistPage {
   viewVideo(url: string, title: string) {
     this.router.navigate(['Songlist/viewvideo', { url: url, title: title }]);
   }
+
+  deleteSong(item) {
+    this.ytService.deleteSong(item).subscribe(data => {
+      console.log(data);
+    });
+  }
 }
