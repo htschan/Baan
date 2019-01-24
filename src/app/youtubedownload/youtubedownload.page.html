@@ -21,9 +21,9 @@
     <div>Warteschlange</div>
   </ion-label>
   <ion-list>
-    <div *ngIf="queuedTracks?.queuedTracks; let items;">
+    <div *ngIf="messages; let items;">
       <ion-item *ngFor="let item of items">
-        <h2>{{item}}</h2>
+        {{item}}
       </ion-item>
       <div *ngIf="items.length === 0">
         <div>&lt;leer&gt;</div>

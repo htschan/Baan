@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { YtQueuedTracksVm } from '../../viewmodels/ytqueuedtrack';
 import { YtMetaDataVm } from '../../viewmodels/ytmetadata';
 import { tap, catchError } from 'rxjs/operators';
+import { APP_CONFIG_DI } from '../../myhomeappconfig';
+import { IAppConfig } from '../shared/IAppConfig';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,37 +18,35 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class YoutubeService {
-  deleteSongUrl = 'https://baanbackend.kitsdg.ch/api/youtube/delete';
-  downloadUrl = 'https://baanbackend.kitsdg.ch/api/youtube/download';
-  apiInfoUrl = 'https://baanbackend.kitsdg.ch/api/youtube/apiinfo';
-  downloadMetaDataUrl = 'https://baanbackend.kitsdg.ch/api/youtube/downloadmetadata';
-  downloadQueuedTracksUrl = 'https://baanbackend.kitsdg.ch/api/youtube/downloadqueue';
 
   private queuedTracksSubject: BehaviorSubject<YtQueuedTracksVm> = new BehaviorSubject(new YtQueuedTracksVm());
   //  audiotracks: Observable<YtMetaDataVm[]>;
   audiotracks: any;
   queuedtracks: Observable<YtQueuedTracksVm> = this.queuedTracksSubject.asObservable();
 
-  constructor(private http: HttpClient) {
-    this.audiotracks = this.http.get<YtMetaDataVm>(this.downloadMetaDataUrl, httpOptions)
+  constructor(
+    @Inject(APP_CONFIG_DI) private appConfig: IAppConfig,
+    private http: HttpClient) {
+
+    this.audiotracks = this.http.get<YtMetaDataVm>(this.appConfig.baanBackend.downloadMetaDataUrl, httpOptions)
       .pipe(
         catchError(this.handleError('constructor', []))
       );
   }
 
   deleteSong(item) {
-    return this.http.post<string>(this.deleteSongUrl, { 'metadataFile': item.metadataFile }, httpOptions)
+    return this.http.post<string>(this.appConfig.baanBackend.deleteSongUrl, { 'metadataFile': item.metadataFile }, httpOptions)
       .pipe(
         catchError(this.handleError('deleteSong', []))
       );
   }
 
   apiinfo(): Observable<any> {
-    return this.http.get<any>(this.apiInfoUrl);
+    return this.http.get<any>(this.appConfig.baanBackend.apiInfoUrl);
   }
 
   downloadAudio(url: string): Observable<any> {
-    return this.http.post<string>(this.downloadUrl, { 'url': url }, httpOptions)
+    return this.http.post<string>(this.appConfig.baanBackend.downloadUrl, { 'url': url }, httpOptions)
       .pipe(
         catchError(this.handleError('downloadAudio', []))
       );
@@ -59,7 +59,7 @@ export class YoutubeService {
   }
 
   getQueuedTracks(): Observable<YtQueuedTracksVm> {
-    return this.http.get<YtQueuedTracksVm>(this.downloadQueuedTracksUrl);
+    return this.http.get<YtQueuedTracksVm>(this.appConfig.baanBackend.downloadQueuedTracksUrl);
     // .map((response: Response) => {
     //     let data = response.json() && response.json().something;
     //     if (data) {

@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject, Subscription, timer } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { YoutubeService } from '../services/youtube.service';
-import { timeInterval, pluck, take, takeUntil } from 'rxjs/operators';
+import * as signalR from '@aspnet/signalr';
 
 @Component({
   selector: 'app-youtubedownload',
@@ -11,11 +10,9 @@ import { timeInterval, pluck, take, takeUntil } from 'rxjs/operators';
   styleUrls: ['./youtubedownload.page.scss'],
 })
 export class YoutubedownloadPage implements OnInit, OnDestroy {
-  unsubscribe: Subject<string> = new Subject();
-  timerSubscription: Subscription;
-  timer;
-  queuedTracks: any;
+  private _hubConnection: signalR.HubConnection | undefined;
   itemForm: FormGroup;
+  messages: string[] = [];
 
   constructor(
     public tubeService: YoutubeService,
@@ -25,22 +22,21 @@ export class YoutubedownloadPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.refreshQueuedTracks();
-    const source = timer(2000, 1000);
-    this.timerSubscription = source.subscribe(t => {
-      this.refreshQueuedTracks();
-    });
+    this._hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl('https://localhost:44325/ythub')
+      .configureLogging(signalR.LogLevel.Information)
+      .build();
 
-    this.tubeService.queuedtracks.pipe(takeUntil(this.unsubscribe))
-      .subscribe(data => {
-        this.queuedTracks = data;
-      });
+    this._hubConnection.start().catch(err => console.error(err.toString()));
+
+    this._hubConnection.on('DownloadNotify', (data: any) => {
+      const received = `Downloaded: ${data.message}`;
+      this.messages.push(received);
+    });
   }
 
   ngOnDestroy() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
-    this.timerSubscription.unsubscribe();
+    this._hubConnection.stop().catch(err => console.error(err.toString()));
   }
 
   createForm() {
@@ -51,10 +47,10 @@ export class YoutubedownloadPage implements OnInit, OnDestroy {
   }
 
   async downloadAudio() {
-    console.log('downloadAudio');
     const loading = await this.loadingCtrl.create({
       message: 'Sende Auftrag...'
     });
+    loading.present();
     this.tubeService.downloadAudio(this.itemForm.value.url).subscribe(
       data => {
         this.itemForm.patchValue({ url: '' });
@@ -62,11 +58,5 @@ export class YoutubedownloadPage implements OnInit, OnDestroy {
       },
       err => { loading.dismiss(); }
     );
-  }
-
-  refreshQueuedTracks() {
-    this.tubeService.updateQueuedTracks()
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe();
   }
 }

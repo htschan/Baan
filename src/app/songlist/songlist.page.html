@@ -13,16 +13,20 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list *ngIf="ytService.audiotracks | async; let items;">
+  <ion-list *ngIf="ytService.audiotracks | async; let items;" lines="inset">
     <ion-item *ngFor="let item of items" style="margin-bottom: 6px;" class="item-gradient">
-      <ion-thumbnail item-start>
+      <ion-thumbnail slot="start">
         <img [src]="item?.metaData?.thumbnailStandardRes">
       </ion-thumbnail>
-      <h2>{{item?.metaData?.title}}</h2>
-      <p>{{ item?.metaData?.uploadDate | date:'dd.MM.yyyy'}} {{ item?.metaData?.duration }}</p>
-      <ion-button ion-button clear item-end (click)="deleteSong(item)">Delete</ion-button>
+      <ion-text color="primary">
+        <h4>{{item?.metaData?.title}}</h4>
+      </ion-text>
+      <ion-text color="secondary">
+        <p>{{ item?.metaData?.uploadDate | date:'dd.MM.yyyy'}} {{ item?.metaData?.duration }}</p>
+      </ion-text>
+      <ion-button slot="end" (click)="deleteSong(item)">Delete</ion-button>
       <div *ngIf="item.url">
-        <ion-button ion-button clear item-end (click)="viewVideo(item?.url, item?.metaData?.title)">View</ion-button>
+        <ion-button (click)="viewVideo(item?.url, item?.metaData?.title)">View</ion-button>
       </div>
       <div *ngIf="!item.metaData">
         <p>{{item?.message}}</p>
