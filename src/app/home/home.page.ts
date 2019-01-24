@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Events, PopoverController, App } from '@ionic/angular';
+import { Events, PopoverController } from '@ionic/angular';
 import { LayoutService } from '../services/layout.service';
 import { Router } from '@angular/router';
 
@@ -19,7 +19,6 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(
     public auth: AuthService,
     private router: Router,
-    public appCtrl: App,
     public events: Events,
     public layoutService: LayoutService,
     public popoverCtrl: PopoverController) {

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { App, ModalController, Events, Fab, List } from '@ionic/angular';
+import { ModalController, Events} from '@ionic/angular';
 import { ProductService } from '../services/product.service';
 import { ShoppingItemVm } from '../../viewmodels/shoppingitem';
 import { SelectproductComponent } from './selectproduct/selectproduct.component';
@@ -15,14 +15,12 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./shopping.page.scss'],
 })
 export class ShoppingPage implements OnInit {
-  @ViewChild('slidingList') slidingList: List;
   items$;
   filtered;
   filter = new BehaviorSubject(null);
 
   constructor(
     public auth: AuthService,
-    public appCtrl: App,
     public db: DbService,
     public prodService: ProductService,
     public modalCtrl: ModalController,
@@ -60,12 +58,12 @@ export class ShoppingPage implements OnInit {
   async toggleState(item) {
     const State = item.State === 'done' ? 'pending' : 'done';
     this.db.updateAt(`/shoppinglist/${item.id}`, { State });
-    await this.slidingList.closeSlidingItems();
+ //   await this.slidingList.closeSlidingItems();
   }
 
   async deleteItem(item) {
     this.db.delete(`shoppinglist/${item.id}`);
-    await this.slidingList.closeSlidingItems();
+//    await this.slidingList.closeSlidingItems();
   }
 
   updateFilter(val) {
@@ -80,16 +78,14 @@ export class ShoppingPage implements OnInit {
     return await modal.present();
   }
 
-  async addItem(fab: Fab) {
-    fab.close();
+  async addItem() {
     const modal = await this.modalCtrl.create({
       component: EdititemComponent
     });
     return await modal.present();
   }
 
-  async selectProduct(fab: Fab) {
-    fab.close();
+  async selectProduct() {
     const modal = await this.modalCtrl.create({
       component: SelectproductComponent
     });

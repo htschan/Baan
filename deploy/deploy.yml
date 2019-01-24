@@ -2,6 +2,6 @@ version: '3'
 
 services:
   baan:
-    image: ${projectimage}
+    image: registry.angusido.com/baan
     ports:
       - "5030:80"

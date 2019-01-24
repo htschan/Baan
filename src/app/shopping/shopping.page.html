@@ -9,15 +9,15 @@
 
 <ion-content padding>
   <!-- Real floating action button, fixed. It will not scroll with the content -->
-  <ion-fab vertical="top" horizontal="end" edge #fab1 slot="fixed">
+  <ion-fab vertical="top" horizontal="end" edge slot="fixed">
     <ion-fab-button ion-fab mini>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
     <ion-fab-list>
-      <ion-fab-button ion-fab (click)=addItem(fab1)>
+      <ion-fab-button ion-fab (click)=addItem()>
         <ion-icon name="create"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button ion-fab (click)=selectProduct(fab1)>
+      <ion-fab-button ion-fab (click)=selectProduct()>
         <ion-icon name="basket"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>

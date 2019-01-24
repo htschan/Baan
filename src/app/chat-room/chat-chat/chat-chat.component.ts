@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { Location } from '@angular/common';
-import { Content } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +13,6 @@ import { IAppConfig } from '../../shared/IAppConfig';
   styleUrls: ['./chat-chat.component.scss']
 })
 export class ChatChatComponent {
-  @ViewChild(Content) content: Content;
 
   data = { type: '', nickname: '', message: '' };
   chats: Observable<any[]>;

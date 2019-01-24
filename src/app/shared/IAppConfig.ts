@@ -6,4 +6,5 @@ export interface IAppConfig {
     Bts: string;
     FbBase: string;
     SlackWebHookUrl: string;
+    baanBackend: any;
 }
