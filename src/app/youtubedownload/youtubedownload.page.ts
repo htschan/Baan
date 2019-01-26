@@ -1,8 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { YoutubeService } from '../services/youtube.service';
 import * as signalR from '@aspnet/signalr';
+import { APP_CONFIG_DI } from '../../myhomeappconfig';
+import { IAppConfig } from '../shared/IAppConfig';
 
 @Component({
   selector: 'app-youtubedownload',
@@ -15,6 +17,7 @@ export class YoutubedownloadPage implements OnInit, OnDestroy {
   messages: string[] = [];
 
   constructor(
+    @Inject(APP_CONFIG_DI) private appConfig: IAppConfig,
     public tubeService: YoutubeService,
     private fb: FormBuilder,
     public loadingCtrl: LoadingController) {
@@ -23,7 +26,7 @@ export class YoutubedownloadPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://localhost:44325/ythub')
+      .withUrl(this.appConfig.baanBackend.baanHub)
       .configureLogging(signalR.LogLevel.Information)
       .build();
 
