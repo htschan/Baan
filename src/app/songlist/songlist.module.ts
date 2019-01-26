@@ -4,6 +4,9 @@ import { SharedModule } from '../shared/shared.module';
 import { SonglistPage } from './songlist.page';
 import { ViewvideoComponent } from './viewvideo/viewvideo.component';
 import { YoutubesanitizerPipe } from '../pipes/youtubesanitizer/youtubesanitizer';
+import { ViewdetailPage } from './viewdetail/viewdetail.page';
+import { LineBreakerPipe } from '../pipes/line-breaker/line-breaker';
+import { KeephtmlPipe } from '../pipes/keep-html/keep-html';
 
 const routes: Routes = [
   {
@@ -18,11 +21,15 @@ const routes: Routes = [
 
 @NgModule({
   entryComponents: [
-    ViewvideoComponent
+    ViewvideoComponent,
+    ViewdetailPage
   ],
   declarations: [
     SonglistPage,
     ViewvideoComponent,
+    ViewdetailPage,
+    KeephtmlPipe,
+    LineBreakerPipe,
     YoutubesanitizerPipe
   ],
   imports: [

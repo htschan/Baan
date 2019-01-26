@@ -1,0 +1,18 @@
+ion-content,
+ion-header {
+  background: linear-gradient(
+    to bottom,
+    var(--ion-color-warning) 60%,
+    var(--ion-color-warning-contrast) 100%
+  );
+}
+ion-item {
+  background: linear-gradient(
+    to bottom,
+    var(--ion-color-success) 0%,
+    var(--ion-color-success-contrast) 100%
+  );
+}
+.tinytext {
+  font-size: .8em;
+}

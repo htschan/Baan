@@ -28,15 +28,13 @@ export class YoutubeService {
     @Inject(APP_CONFIG_DI) private appConfig: IAppConfig,
     private http: HttpClient) {
 
-    this.audiotracks = this.http.get<YtMetaDataVm>(this.appConfig.baanBackend.downloadMetaDataUrl, httpOptions)
-      .pipe(
-        catchError(this.handleError('constructor', []))
-      );
+    this.updateAudios();
   }
 
   deleteSong(item) {
-    return this.http.post<string>(this.appConfig.baanBackend.deleteSongUrl, { 'metadataFile': item.metadataFile }, httpOptions)
+    return this.http.post<string>(this.appConfig.baanBackend.deleteSongUrl, { 'id': item._id }, httpOptions)
       .pipe(
+        tap(data => this.updateAudios()),
         catchError(this.handleError('deleteSong', []))
       );
   }
@@ -49,6 +47,13 @@ export class YoutubeService {
     return this.http.post<string>(this.appConfig.baanBackend.downloadUrl, { 'url': url }, httpOptions)
       .pipe(
         catchError(this.handleError('downloadAudio', []))
+      );
+  }
+
+  updateAudios() {
+    this.audiotracks = this.http.get<YtMetaDataVm>(this.appConfig.baanBackend.downloadMetaDataUrl, httpOptions)
+      .pipe(
+        catchError(this.handleError('constructor', []))
       );
   }
 

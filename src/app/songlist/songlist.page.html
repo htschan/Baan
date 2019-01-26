@@ -20,18 +20,18 @@
       </ion-thumbnail>
       <ion-text color="primary">
         <h4>{{item?.metaData?.title}}</h4>
+        <p class="tinytext">{{ item?.metaData?.uploadDate | date:'dd.MM.yyyy'}} {{ item?.metaData?.duration }}</p>
       </ion-text>
-      <ion-text color="secondary">
-        <p>{{ item?.metaData?.uploadDate | date:'dd.MM.yyyy'}} {{ item?.metaData?.duration }}</p>
-      </ion-text>
-      <ion-button slot="end" (click)="deleteSong(item)">Delete</ion-button>
-      <div *ngIf="item.url">
+      <div *ngIf="item.url" slot="end">
         <ion-button (click)="viewVideo(item?.url, item?.metaData?.title)">View</ion-button>
       </div>
+      <ion-button slot="end" (click)="viewDetails(item)">Details</ion-button>
+      <ion-button slot="end" (click)="deleteSong(item)">Delete</ion-button>
       <div *ngIf="!item.metaData">
         <p>{{item?.message}}</p>
         <p>{{ item?.downloadFile }}</p>
       </div>
+      <!-- <pre>{{item | json}}</pre> -->
     </ion-item>
     <div *ngIf="items.length === 0">Kein Suchresultat</div>
   </ion-list>
